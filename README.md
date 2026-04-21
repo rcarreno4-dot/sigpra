@@ -48,3 +48,4 @@ Ruta: `codigo/`
 
 - [Integrador](codigo/Integrador)
 - [PROYECTO_GENERADO_BASE/src/Integrador](codigo/PROYECTO_GENERADO_BASE/src/Integrador)
+- [PROYECTO_VISTAS_NETBEANS/src/main/java/co/udi/integrador](codigo/PROYECTO_VISTAS_NETBEANS/src/main/java/co/udi/integrador)
