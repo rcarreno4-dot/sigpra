@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI
+  xmi:version="2.1"
+  xmlns:xmi="http://schema.omg.org/spec/XMI/2.1"
+  xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML">
+  <uml:Model xmi:id="model_1" name="SistemaGestionPracticas">
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_usecases" name="CasosDeUso">
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_director" name="Director del Programa"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_tutor" name="Tutor Academico"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_estudiante" name="Estudiante de Licenciatura"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_asesor" name="Asesor Pedagogico de Institucion Receptora"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc01" name="UC-01 Iniciar Sesion"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc02" name="UC-02 Gestionar Accesos de Practica"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc03" name="UC-03 Configurar Plantilla de Bitacora"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc04" name="UC-04 Registrar Practica Academica"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc05" name="UC-05 Asignar Tutor y Asesor Pedagogico"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc06" name="UC-06 Registrar Bitacora y Horas"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc07" name="UC-07 Vincular Evidencias"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc08" name="UC-08 Validar Horas y Bitacora"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc09" name="UC-09 Evaluar Practica por Rubrica"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc10" name="UC-10 Cerrar o Reabrir Practica"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc11" name="UC-11 Consultar Estado e Historial"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc12" name="UC-12 Generar Reportes Institucionales"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc13" name="UC-13 Registrar Observacion Institucional"/>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="as_est_uc01" name="as_est_uc01">
+        <ownedEnd xmi:id="as_est_uc01_end1" type="actor_estudiante" association="as_est_uc01"/>
+        <ownedEnd xmi:id="as_est_uc01_end2" type="uc01" association="as_est_uc01"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_est_uc04" name="as_est_uc04">
+        <ownedEnd xmi:id="as_est_uc04_end1" type="actor_estudiante" association="as_est_uc04"/>
+        <ownedEnd xmi:id="as_est_uc04_end2" type="uc04" association="as_est_uc04"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_est_uc06" name="as_est_uc06">
+        <ownedEnd xmi:id="as_est_uc06_end1" type="actor_estudiante" association="as_est_uc06"/>
+        <ownedEnd xmi:id="as_est_uc06_end2" type="uc06" association="as_est_uc06"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_est_uc07" name="as_est_uc07">
+        <ownedEnd xmi:id="as_est_uc07_end1" type="actor_estudiante" association="as_est_uc07"/>
+        <ownedEnd xmi:id="as_est_uc07_end2" type="uc07" association="as_est_uc07"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_est_uc11" name="as_est_uc11">
+        <ownedEnd xmi:id="as_est_uc11_end1" type="actor_estudiante" association="as_est_uc11"/>
+        <ownedEnd xmi:id="as_est_uc11_end2" type="uc11" association="as_est_uc11"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc01" name="as_tutor_uc01">
+        <ownedEnd xmi:id="as_tutor_uc01_end1" type="actor_tutor" association="as_tutor_uc01"/>
+        <ownedEnd xmi:id="as_tutor_uc01_end2" type="uc01" association="as_tutor_uc01"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc03" name="as_tutor_uc03">
+        <ownedEnd xmi:id="as_tutor_uc03_end1" type="actor_tutor" association="as_tutor_uc03"/>
+        <ownedEnd xmi:id="as_tutor_uc03_end2" type="uc03" association="as_tutor_uc03"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc08" name="as_tutor_uc08">
+        <ownedEnd xmi:id="as_tutor_uc08_end1" type="actor_tutor" association="as_tutor_uc08"/>
+        <ownedEnd xmi:id="as_tutor_uc08_end2" type="uc08" association="as_tutor_uc08"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc09" name="as_tutor_uc09">
+        <ownedEnd xmi:id="as_tutor_uc09_end1" type="actor_tutor" association="as_tutor_uc09"/>
+        <ownedEnd xmi:id="as_tutor_uc09_end2" type="uc09" association="as_tutor_uc09"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc10" name="as_tutor_uc10">
+        <ownedEnd xmi:id="as_tutor_uc10_end1" type="actor_tutor" association="as_tutor_uc10"/>
+        <ownedEnd xmi:id="as_tutor_uc10_end2" type="uc10" association="as_tutor_uc10"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc11" name="as_tutor_uc11">
+        <ownedEnd xmi:id="as_tutor_uc11_end1" type="actor_tutor" association="as_tutor_uc11"/>
+        <ownedEnd xmi:id="as_tutor_uc11_end2" type="uc11" association="as_tutor_uc11"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc12" name="as_tutor_uc12">
+        <ownedEnd xmi:id="as_tutor_uc12_end1" type="actor_tutor" association="as_tutor_uc12"/>
+        <ownedEnd xmi:id="as_tutor_uc12_end2" type="uc12" association="as_tutor_uc12"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_tutor_uc13" name="as_tutor_uc13">
+        <ownedEnd xmi:id="as_tutor_uc13_end1" type="actor_tutor" association="as_tutor_uc13"/>
+        <ownedEnd xmi:id="as_tutor_uc13_end2" type="uc13" association="as_tutor_uc13"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc01" name="as_dir_uc01">
+        <ownedEnd xmi:id="as_dir_uc01_end1" type="actor_director" association="as_dir_uc01"/>
+        <ownedEnd xmi:id="as_dir_uc01_end2" type="uc01" association="as_dir_uc01"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc02" name="as_dir_uc02">
+        <ownedEnd xmi:id="as_dir_uc02_end1" type="actor_director" association="as_dir_uc02"/>
+        <ownedEnd xmi:id="as_dir_uc02_end2" type="uc02" association="as_dir_uc02"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc03" name="as_dir_uc03">
+        <ownedEnd xmi:id="as_dir_uc03_end1" type="actor_director" association="as_dir_uc03"/>
+        <ownedEnd xmi:id="as_dir_uc03_end2" type="uc03" association="as_dir_uc03"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc04" name="as_dir_uc04">
+        <ownedEnd xmi:id="as_dir_uc04_end1" type="actor_director" association="as_dir_uc04"/>
+        <ownedEnd xmi:id="as_dir_uc04_end2" type="uc04" association="as_dir_uc04"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc05" name="as_dir_uc05">
+        <ownedEnd xmi:id="as_dir_uc05_end1" type="actor_director" association="as_dir_uc05"/>
+        <ownedEnd xmi:id="as_dir_uc05_end2" type="uc05" association="as_dir_uc05"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc10" name="as_dir_uc10">
+        <ownedEnd xmi:id="as_dir_uc10_end1" type="actor_director" association="as_dir_uc10"/>
+        <ownedEnd xmi:id="as_dir_uc10_end2" type="uc10" association="as_dir_uc10"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc11" name="as_dir_uc11">
+        <ownedEnd xmi:id="as_dir_uc11_end1" type="actor_director" association="as_dir_uc11"/>
+        <ownedEnd xmi:id="as_dir_uc11_end2" type="uc11" association="as_dir_uc11"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_dir_uc12" name="as_dir_uc12">
+        <ownedEnd xmi:id="as_dir_uc12_end1" type="actor_director" association="as_dir_uc12"/>
+        <ownedEnd xmi:id="as_dir_uc12_end2" type="uc12" association="as_dir_uc12"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="as_asesor_uc01" name="as_asesor_uc01">
+        <ownedEnd xmi:id="as_asesor_uc01_end1" type="actor_asesor" association="as_asesor_uc01"/>
+        <ownedEnd xmi:id="as_asesor_uc01_end2" type="uc01" association="as_asesor_uc01"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_asesor_uc05" name="as_asesor_uc05">
+        <ownedEnd xmi:id="as_asesor_uc05_end1" type="actor_asesor" association="as_asesor_uc05"/>
+        <ownedEnd xmi:id="as_asesor_uc05_end2" type="uc05" association="as_asesor_uc05"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_asesor_uc08" name="as_asesor_uc08">
+        <ownedEnd xmi:id="as_asesor_uc08_end1" type="actor_asesor" association="as_asesor_uc08"/>
+        <ownedEnd xmi:id="as_asesor_uc08_end2" type="uc08" association="as_asesor_uc08"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_asesor_uc09" name="as_asesor_uc09">
+        <ownedEnd xmi:id="as_asesor_uc09_end1" type="actor_asesor" association="as_asesor_uc09"/>
+        <ownedEnd xmi:id="as_asesor_uc09_end2" type="uc09" association="as_asesor_uc09"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="as_asesor_uc13" name="as_asesor_uc13">
+        <ownedEnd xmi:id="as_asesor_uc13_end1" type="actor_asesor" association="as_asesor_uc13"/>
+        <ownedEnd xmi:id="as_asesor_uc13_end2" type="uc13" association="as_asesor_uc13"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Include" xmi:id="inc_uc04_uc05" name="include_uc04_uc05" addition="uc05" includingCase="uc04"/>
+      <packagedElement xmi:type="uml:Include" xmi:id="inc_uc06_uc07" name="include_uc06_uc07" addition="uc07" includingCase="uc06"/>
+      <packagedElement xmi:type="uml:Include" xmi:id="inc_uc10_uc09" name="include_uc10_uc09" addition="uc09" includingCase="uc10"/>
+      <packagedElement xmi:type="uml:Include" xmi:id="inc_uc10_uc08" name="include_uc10_uc08" addition="uc08" includingCase="uc10"/>
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>
