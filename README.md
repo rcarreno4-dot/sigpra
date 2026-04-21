@@ -20,6 +20,7 @@ Ruta: `documentacion/casos_de_uso/`
 - [DIAGRAMA_CASOS_USO_BITACORA_OPERACION.puml](documentacion/casos_de_uso/DIAGRAMA_CASOS_USO_BITACORA_OPERACION.puml)
 - [DIAGRAMA_CASOS_USO_EVALUACION_CIERRE.puml](documentacion/casos_de_uso/DIAGRAMA_CASOS_USO_EVALUACION_CIERRE.puml)
 - [DIAGRAMA_CASOS_USO_PRACTICAS.puml](documentacion/casos_de_uso/DIAGRAMA_CASOS_USO_PRACTICAS.puml)
+- [PNG de casos de uso](documentacion/casos_de_uso/png)
 - [DOCUMENTO_FINAL_PRACTICAS_ACADEMICAS.md](documentacion/casos_de_uso/DOCUMENTO_FINAL_PRACTICAS_ACADEMICAS.md)
 - [DOCUMENTO_FINAL_PRACTICAS_ACADEMICAS_ACTUALIZADO.pdf](documentacion/casos_de_uso/DOCUMENTO_FINAL_PRACTICAS_ACADEMICAS_ACTUALIZADO.pdf)
 - [ENTREGA_2_FINAL_PROYECTO_INTEGRADOR.doc](documentacion/casos_de_uso/ENTREGA_2_FINAL_PROYECTO_INTEGRADOR.doc)

@@ -1,0 +1,14 @@
+﻿# PNG de Casos de Uso
+
+Archivos exportados desde Astah (`.asta`) el 2026-04-20.
+
+- CASOS_DE_USO_M1_ACCESO_REPORTES_CasosDeUso_Modulo_1_-_Acceso_y_Reportes.png
+- CASOS_DE_USO_M2_REGISTRO_BITACORA_CasosDeUso_Modulo_2_-_Registro_y_Bitacora.png
+- CASOS_DE_USO_M3_EVALUACION_CIERRE_CasosDeUso_Modulo_3_-_Evaluacion_y_Cierre.png
+- CASOS_DE_USO_PRACTICAS_UseCaseDiagram_000.png
+- CASOS_DE_USO_PRACTICAS_Sistema_de_Gestion_de_Practicas_Academicas_Class_Diagram0.png
+- CASOS_DE_USO_PRACTICAS_ACTUALIZADO_CasosDeUso_Diagrama_Casos_de_Uso_-_Practicas.png
+- CASOS_DE_USO_PRACTICAS_ASTAH_CasosDeUso_Diagrama_Casos_de_Uso_-_Practicas.png
+- CASOS_DE_USO_PRACTICAS_MODULAR_CasosDeUso_Modulo_1_-_Acceso_y_Reportes.png
+- CASOS_DE_USO_PRACTICAS_MODULAR_CasosDeUso_Modulo_2_-_Registro_y_Bitacora.png
+- CASOS_DE_USO_PRACTICAS_MODULAR_CasosDeUso_Modulo_3_-_Evaluacion_y_Cierre.png
