@@ -32,3 +32,10 @@ Ruta: `documentacion/vistas/`
 - [Proyecto-vistas.zip](documentacion/vistas/Proyecto-vistas.zip)
 - [VistasProyectoIntegra.zip](documentacion/vistas/VistasProyectoIntegra.zip)
 - [WIREFRAME_VISTAS.md](documentacion/vistas/WIREFRAME_VISTAS.md)
+
+## Modelo de Datos
+
+Ruta: `documentacion/modelo_datos/`
+
+- [ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.drawio](documentacion/modelo_datos/ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.drawio)
+- [ANEXO_E2_MODELO_RELACIONAL_FINAL.drawio](documentacion/modelo_datos/ANEXO_E2_MODELO_RELACIONAL_FINAL.drawio)

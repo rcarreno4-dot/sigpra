@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="app.diagrams.net" agent="codex-dia-converter" version="24.0.0" type="device">
+  <diagram id="2980b3bb-71d" name="ANEXO_E1">
+    <mxGraphModel dx="1920" dy="1080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="ANEXO E1 - DIAGRAMA ENTIDAD RELACION FINAL (MODELO REDUCIDO)" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=14;fontStyle=1;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="30.0" width="1060.0" height="24.0" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="USUARIO&lt;br&gt;id_usuario&lt;br&gt;nombre_completo&lt;br&gt;correo&lt;br&gt;contrasena_hash&lt;br&gt;rol&lt;br&gt;estado&lt;br&gt;fecha_creacion" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="70.0" width="330.0" height="82.0" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="ESTUDIANTE&lt;br&gt;id_estudiante&lt;br&gt;codigo&lt;br&gt;programa&lt;br&gt;semestre" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400.0" y="70.0" width="330.0" height="56.0" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="DOCENTE_ASESOR&lt;br&gt;id_docente&lt;br&gt;area" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="760.0" y="70.0" width="330.0" height="56.0" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="DIRECTOR_PROGRAMA&lt;br&gt;id_director&lt;br&gt;programa" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="172.0" width="330.0" height="56.0" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="ENTIDAD_RECEPTORA&lt;br&gt;id_entidad&lt;br&gt;nombre&lt;br&gt;tipo&lt;br&gt;direccion&lt;br&gt;ciudad&lt;br&gt;contacto_nombre&lt;br&gt;contacto_correo&lt;br&gt;contacto_telefono&lt;br&gt;estado" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400.0" y="172.0" width="330.0" height="100.0" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="PRACTICA&lt;br&gt;id_practica&lt;br&gt;id_estudiante&lt;br&gt;id_docente&lt;br&gt;id_entidad&lt;br&gt;periodo&lt;br&gt;fecha_inicio&lt;br&gt;fecha_fin&lt;br&gt;estado&lt;br&gt;horas_objetivo&lt;br&gt;horas_acumuladas" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="760.0" y="172.0" width="330.0" height="163.0" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="ACTIVIDAD_PRACTICA (BITACORA)&lt;br&gt;id_actividad&lt;br&gt;id_practica&lt;br&gt;fecha_actividad&lt;br&gt;descripcion&lt;br&gt;horas&lt;br&gt;estado_validacion&lt;br&gt;comentario_docente" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="355.0" width="330.0" height="109.0" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="EVIDENCIA&lt;br&gt;id_evidencia&lt;br&gt;id_actividad&lt;br&gt;tipo_archivo&lt;br&gt;nombre_archivo&lt;br&gt;url_archivo&lt;br&gt;fecha_carga" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="400.0" y="355.0" width="330.0" height="82.0" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="RELACIONES CLAVE&lt;br&gt;USUARIO 1 --- 0..1 ESTUDIANTE (via id_usuario)&lt;br&gt;USUARIO 1 --- 0..1 DOCENTE_ASESOR (via id_usuario)&lt;br&gt;USUARIO 1 --- 0..1 DIRECTOR_PROGRAMA (via id_usuario)&lt;br&gt;ESTUDIANTE 1 --- N PRACTICA&lt;br&gt;DOCENTE_ASESOR 1 --- N PRACTICA&lt;br&gt;ENTIDAD_RECEPTORA 1 --- N PRACTICA&lt;br&gt;PRACTICA 1 --- N ACTIVIDAD_PRACTICA (bitacora)&lt;br&gt;ACTIVIDAD_PRACTICA 1 --- N EVIDENCIA&lt;br&gt;DIRECTOR_PROGRAMA 1 --- N PRACTICA (seguimiento por programa, sin FK directa)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=6;spacingLeft=6;fontFamily=Courier New;fontSize=12;fontStyle=0;strokeColor=#000000;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="480.0" width="1050.0" height="111.0" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
