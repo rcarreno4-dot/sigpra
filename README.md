@@ -33,6 +33,8 @@ Ruta: `documentacion/vistas/`
 - [Proyecto-vistas.zip](documentacion/vistas/Proyecto-vistas.zip)
 - [VistasProyectoIntegra.zip](documentacion/vistas/VistasProyectoIntegra.zip)
 - [WIREFRAME_VISTAS.md](documentacion/vistas/WIREFRAME_VISTAS.md)
+- [DOCUMENTACION_VISTAS_PORTABLE.md](documentacion/vistas/DOCUMENTACION_VISTAS_PORTABLE.md)
+- [PNG Portable](documentacion/vistas/png_portable)
 
 ## Modelo de Datos
 
