@@ -38,4 +38,13 @@ Ruta: `documentacion/vistas/`
 Ruta: `documentacion/modelo_datos/`
 
 - [ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.drawio](documentacion/modelo_datos/ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.drawio)
+- [ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.png](documentacion/modelo_datos/ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.png)
 - [ANEXO_E2_MODELO_RELACIONAL_FINAL.drawio](documentacion/modelo_datos/ANEXO_E2_MODELO_RELACIONAL_FINAL.drawio)
+- [ANEXO_E2_MODELO_RELACIONAL_FINAL.png](documentacion/modelo_datos/ANEXO_E2_MODELO_RELACIONAL_FINAL.png)
+
+## Codigo Actualizado
+
+Ruta: `codigo/`
+
+- [Integrador](codigo/Integrador)
+- [PROYECTO_GENERADO_BASE/src/Integrador](codigo/PROYECTO_GENERADO_BASE/src/Integrador)
