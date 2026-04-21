@@ -31,6 +31,7 @@
 11. Anexos  
 12. Actualizacion Funcional 2026-03-10
 13. Vistas JSP Agregadas y Ajustadas
+14. Ajustes por Retroalimentacion 2026-04-20
 
 ---
 
@@ -153,7 +154,7 @@ El sistema permitira centralizar la informacion de practicas academicas, reducir
 - RF01: Iniciar y cerrar sesion.
 - RF02: Gestionar accesos de practica (tutores y asesores pedagogicos).
 - RF03: Configurar plantillas de bitacora por semestre y modalidad.
-- RF04: Registrar practicas academicas.
+- RF04: Registrar practicas academicas por direccion del programa.
 - RF05: Asignar tutor academico y asesor pedagogico a cada practica.
 - RF06: Registrar bitacora y horas con ingreso/salida.
 - RF07: Vincular evidencias por archivo o enlace institucional.
@@ -164,6 +165,10 @@ El sistema permitira centralizar la informacion de practicas academicas, reducir
 - RF12: Generar reportes institucionales (R1, R2, R3).
 - RF13: Registrar observaciones institucionales por asesor pedagogico.
 - RF14: Consolidar hallazgos (vacios, tensiones, fortalezas) para mejora del programa.
+- RF15: Gestionar convenios de practica con instituciones receptoras.
+- RF16: Gestionar banco de preguntas de bitacora investigativa.
+- RF17: Registrar retroalimentacion docente sobre respuestas del estudiante.
+- RF18: Registrar visitas pedagogicas de seguimiento.
 
 ### Requisitos no funcionales
 - RNF01: Interfaz usable y responsive.
@@ -186,18 +191,29 @@ Se propone un diagrama general con actores:
 - Asesor pedagogico de institucion receptora (externo)
 
 Casos principales:
-- Iniciar sesion.
+- Autenticar usuario (caso tecnico de seguridad).
 - Gestionar accesos de practica.
 - Configurar plantilla de bitacora.
 - Registrar practica.
+- Asignar tutor y asesor pedagogico.
 - Registrar bitacora y horas.
 - Vincular evidencia.
 - Validar bitacora y horas.
 - Evaluar practica.
 - Cerrar/reabrir practica.
 - Registrar observacion institucional.
+- Gestionar convenios con instituciones.
+- Gestionar banco de preguntas.
+- Retroalimentar respuestas de bitacora.
+- Registrar visitas pedagogicas.
 - Consultar historial.
 - Generar reportes.
+
+Relaciones UML clave:
+- Los casos funcionales de negocio incluyen `Autenticar usuario` mediante `<<include>>`.
+- `Vincular evidencia` extiende `Registrar bitacora y horas` mediante `<<extend>>`.
+- `Asignar tutor y asesor pedagogico` extiende el flujo de `Registrar practica` cuando la practica ya existe.
+- `Cerrar/reabrir practica` incluye consulta de evaluacion y trazabilidad consolidada.
 
 ### 7.2 Diagrama de Dominio
 Entidades de dominio:
@@ -301,6 +317,7 @@ Tablas principales:
 - Anexo J: Manual de usuario.
 - Anexo K: Manual tecnico.
 - Anexo L: Evidencias y repositorio del proyecto.
+- Anexo M: Retroalimentacion docente (`Carreño-Mariño.Rojas.pdf`).
 
 ---
 
@@ -394,3 +411,15 @@ Secciones agregadas:
 
 ### 13.4 Nota de implementacion
 Las vistas actuales corresponden a prototipos funcionales de interfaz (UI) en JSP. El siguiente paso tecnico es conectar estas pantallas con capa de negocio y persistencia (servlets/DAO/JDBC) para guardar y consultar datos reales desde Oracle.
+
+---
+
+## 14. Ajustes por Retroalimentacion 2026-04-20
+
+Con base en `Carreño-Mariño.Rojas.pdf`, se realizaron estos ajustes documentales:
+- Se reforzo la redaccion de casos de uso con mayor detalle operativo.
+- Se incluyo criterio UML para modelar autenticacion como caso tecnico incluido (`<<include>>`) y no como eje de negocio aislado.
+- Se explicitaron relaciones `<<include>>` y `<<extend>>` para mejorar legibilidad y consistencia del diagrama.
+- Se corrigio la responsabilidad de registro de practica: en esta version, el registro formal lo realiza Direccion del Programa.
+- Se agregaron casos de uso complementarios: convenios, banco de preguntas, retroalimentacion y visitas pedagogicas.
+- Se dejo trazado el alcance funcional actual: asignacion directa practica-docente sin modulo de grupos en esta version.
