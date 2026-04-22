@@ -1,0 +1,106 @@
+secuencia principal: @startuml
+title Gestion integral de practica y control de horas
+
+actor Estudiante
+actor "Docente Asesor" as Docente
+actor "Coordinadora de Licenciatura" as Coordinadora
+participant "SIGPRA UI" as UI
+control "PracticaController" as PC
+control "BitacoraController" as BC
+control "ValidacionController" as VC
+control "PracticaService" as PS
+control "BitacoraService" as BS
+control "ValidacionService" as VS
+database "Oracle DB" as DB
+
+== Registro de practica ==
+Estudiante -> UI : Solicitar registro de practica
+UI -> PC : registrarPractica(datos)
+PC -> PS : validarDatosPractica(datos)
+PS -> DB : insertarPractica(datos)
+DB --> PS : practicaCreada
+PS --> PC : ok
+PC --> UI : mostrarConfirmacion()
+
+== Asignacion por coordinadora ==
+Coordinadora -> UI : Consultar practicas sin asignacion
+UI -> PC : listarPracticasPendientes()
+PC -> PS : obtenerPracticasPendientes()
+PS -> DB : select practicas pendientes
+DB --> PS : lista
+PS --> PC : lista
+PC --> UI : mostrarLista()
+
+Coordinadora -> UI : Asignar docente y entidad
+UI -> PC : asignarResponsables(idPractica, docente, entidad)
+PC -> PS : asignarDocenteYEntidad(...)
+PS -> DB : update practica
+DB --> PS : ok
+PS --> PC : ok
+PC --> UI : mostrarAsignacionExitosa()
+
+== Registro de bitacora ==
+Estudiante -> UI : Registrar actividad y horas
+UI -> BC : registrarBitacora(datosBitacora)
+BC -> BS : validarBitacora(datosBitacora)
+BS -> DB : insertarBitacora(datosBitacora)
+DB --> BS : ok
+BS --> BC : ok
+BC --> UI : mostrarBitacoraRegistrada()
+
+Estudiante -> UI : Vincular evidencia
+UI -> BC : cargarEvidencia(idBitacora, archivo)
+BC -> BS : validarArchivo(archivo)
+BS -> DB : insertarEvidencia(idBitacora, archivo)
+DB --> BS : ok
+BS --> BC : ok
+BC --> UI : mostrarEvidenciaCargada()
+
+== Validacion docente ==
+Docente -> UI : Consultar bitacoras pendientes
+UI -> VC : listarPendientes(docente)
+VC -> VS : obtenerPendientes(docente)
+VS -> DB : select bitacoras pendientes
+DB --> VS : lista
+VS --> VC : lista
+VC --> UI : mostrarPendientes()
+
+Docente -> UI : Validar/Rechazar bitacora
+UI -> VC : resolverBitacora(idBitacora, decision, observacion)
+
+alt decision = VALIDAR
+    VC -> VS : validarBitacora(idBitacora)
+    VS -> DB : update bitacora estado=VALIDADA
+    VS -> DB : recalcularHorasValidadas(idPractica)
+    DB --> VS : ok
+    VS --> VC : validacionExitosa
+    VC --> UI : mostrarValidacionExitosa()
+else decision = RECHAZAR
+    VC -> VS : rechazarBitacora(idBitacora, observacion)
+    VS -> DB : update bitacora estado=RECHAZADA, observacion=...
+    DB --> VS : ok
+    VS --> VC : rechazoExitoso
+    VC --> UI : mostrarRechazoExitoso()
+end
+
+== Cierre por coordinadora ==
+Coordinadora -> UI : Consultar avance de horas
+UI -> PC : consultarEstadoPractica(idPractica)
+PC -> PS : obtenerEstadoPractica(idPractica)
+PS -> DB : select practica + horas validadas
+DB --> PS : estadoPractica
+PS --> PC : estadoPractica
+PC --> UI : mostrarEstado()
+
+alt horasValidadas >= horasObjetivo
+    Coordinadora -> UI : Cerrar practica
+    UI -> PC : cerrarPractica(idPractica)
+    PC -> PS : cerrarPractica(idPractica)
+    PS -> DB : update practica estado=FINALIZADA
+    DB --> PS : ok
+    PS --> PC : cierreExitoso
+    PC --> UI : mostrarCierreExitoso()
+else horasValidadas < horasObjetivo
+    UI --> Coordinadora : mostrarMensaje("No cumple horas para cierre")
+end
+@enduml
