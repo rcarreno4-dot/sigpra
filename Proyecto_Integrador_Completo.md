@@ -368,66 +368,102 @@ Ruta de imagenes: `documentacion/vistas/png_portable/`
 3. `03_dashboard_estudiante.png`
 - Panel principal del estudiante.
 - Resume horas, estado de practica y tareas proximas.
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/7b240397-46a0-410e-b71d-ad5f5b4759d4" />
+
 
 4. `04_bitacora_estudiante.png`
 - Bitacora en modo estudiante.
 - Permite registrar actividades, horas y descripcion diaria.
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/05d65836-4e79-43f7-ba70-8193bf4dff62" />
+
 
 5. `05_evidencias_estudiante.png`
 - Carga de evidencias del estudiante.
 - Permite asociar archivos/enlaces a actividades de bitacora.
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/204421da-747a-4d2b-ae08-2f0325925916" />
+
 
 6. `06_dashboard_docente.png`
 - Panel principal del docente asesor.
 - Resume pendientes de validacion y acceso rapido a evaluacion.
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/20009809-727a-42ba-850d-a15091ff2acd" />
+
 
 7. `07_validacion_docente.png`
 - Vista de validacion docente.
 - Permite aprobar/rechazar actividades y horas registradas por estudiantes.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/403313fc-eb7a-43fb-bf92-16cd1548f1e1" />
+
+
 8. `08_evaluacion_rubrica_docente.png`
 - Evaluacion por rubrica del docente.
 - Permite calificar practicas por criterios y dejar observaciones.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/e8944a6e-ef5e-45b6-b580-73838c053021" />
+
+
 9. `09_bitacora_docente.png`
 - Bitacora en modo docente.
 - Permite consultar historial y pasar al flujo de validacion.
+  
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/2c381d00-46d9-4058-bc20-c65db326e7d4" />
 
 10. `10_dashboard_directora.png`
 - Panel principal de direccion del programa.
 - Muestra control global de practicas y accesos a modulos de gestion.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/60b26115-579b-4f16-864e-0f852523d1f9" />
+
+
 11. `11_asignaciones_practica_directora.png`
 - Registro/asignacion de practica (directora).
 - Permite crear practica y asignar docente/entidad/periodo.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/a762c84c-cc07-4179-9ebd-5fb5c76f9ab2" />
+
 
 12. `12_aprobacion_cierre_directora.png`
 - Aprobacion final de cierre.
 - Permite revisar consolidado y decidir cierre o devolucion.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/ef0d25c6-4776-4155-9cd8-b143c7711ce1" />
+
+
 13. `13_registro_docentes_directora.png`
 - Administracion de docentes asesores.
 - Permite registrar y mantener docentes disponibles para asignacion.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/9dbbc279-468a-453e-b4de-5c8d9524eca2" />
+
 
 14. `14_plantillas_bitacora_directora.png`
 - Configuracion de plantillas de bitacora.
 - Permite definir preguntas y estructura por periodo/modalidad.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/07c7256c-e5d4-452c-b682-7b577b781d4b" />
+
+
 15. `15_reportes_directora.png`
 - Reportes institucionales.
 - Permite filtrar y consultar consolidado de practicas por estado/programa/periodo.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/65837746-cfa9-4b01-ad41-57e72e1209f4" />
+
 
 16. `16_hallazgos_directora.png`
 - Consolidacion de hallazgos.
 - Permite registrar acciones de mejora sobre vacios, tensiones y fortalezas.
 
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/5bbdfe04-1715-4804-9246-61f107852a90" />
+
+
 17. `17_bitacora_directora.png`
 - Bitacora en modo directora.
 - Permite seguimiento general de registros con resumen de estados.
 
-## Nota
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/46647a74-6fea-4fa5-81dd-c2e13410dcc1" />
 
-Las capturas fueron generadas automaticamente desde las vistas Swing del ejecutable portable en modo Demo, para documentacion funcional y trazabilidad de interfaces.
 ---
 
 ## 10. Referencias
