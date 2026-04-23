@@ -142,12 +142,15 @@ Sistema Java Swing con base de datos Oracle.
 Implementar un sistema funcional de prácticas académicas.
 
 ## Objetivos específicos
-- Definir requisitos  
-- Diseñar sistema  
-- Construir prototipo  
-- Realizar pruebas  
+1. Levantar, analizar y documentar los requerimientos funcionales, no funcionales y reglas de negocio del sistema, para definir con claridad el alcance del prototipo y las necesidades de estudiante, docente asesor y dirección del programa.
 
----
+2. Modelar el diseño técnico del sistema mediante diagramas UML, modelo de dominio y estructura de base de datos, para garantizar coherencia entre los procesos académicos, los casos de uso y la solución implementada.
+
+3. Desarrollar un prototipo funcional en Java Swing con conexión a Oracle, que implemente los módulos principales del sistema: autenticación por rol, registro de prácticas, gestión de bitácora y horas, carga de evidencias, validación docente y generación de reportes.
+
+4. Verificar el funcionamiento del prototipo mediante pruebas funcionales y validaciones de flujo, para comprobar el cumplimiento de los requerimientos definidos y evidenciar el correcto comportamiento de los módulos implementados.
+
+5. Consolidar la documentación técnica y académica del proyecto, integrando anexos, diagramas, evidencias de prueba y artefactos de base de datos, para sustentar formalmente la solución desarrollada en la segunda entrega.
 
 # 4. Justificación
 
