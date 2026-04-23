@@ -1,0 +1,34 @@
+secuencia principal: @startuml
+title Gestion integral de practica y control de horas
+
+actor Estudiante
+actor "Docente Asesor" as Docente
+actor "Coordinadora de Licenciatura" as Coordinadora
+participant "SIGPRA UI" as UI
+control "PracticaController" as PC
+control "BitacoraController" as BC
+control "ValidacionController" as VC
+control "PracticaService" as PS
+control "BitacoraService" as BS
+control "ValidacionService" as VS
+database "Oracle DB" as DB
+
+== Registro de practica ==
+Estudiante -> UI : Solicitar registro de practica
+UI -> PC : registrarPractica(datos)
+PC -> PS : validarDatosPractica(datos)
+PS -> DB : insertarPractica(datos)
+DB --> PS : practicaCreada
+PS --> PC : ok
+PC --> UI : mostrarConfirmacion()
+
+== Asignacion por coordinadora ==
+Coordinadora -> UI : Consultar practicas sin asignacion
+UI -> PC : listarPracticasPendientes()
+PC -> PS : obtenerPracticasPendientes()
+PS -> DB : select practicas pendientes
+DB --> PS : lista
+PS --> PC : lista
+PC --> UI : mostrarLista()
+
+Coordinadora -> UI : Asignar docent
