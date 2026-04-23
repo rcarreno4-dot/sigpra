@@ -355,6 +355,8 @@ Ruta de imagenes: `documentacion/vistas/png_portable/`
 1. `01_login.png`
 - Vista de autenticacion del sistema.
 - Permite ingresar por rol (estudiante, docente, directora) y elegir modo Oracle o Demo.
+<img width="860" height="520" alt="image" src="https://github.com/user-attachments/assets/81e15420-0477-44c4-8275-12d329ed3a35" />
+
 
 2. `02_autoregistro_estudiante.png`
 - Formulario de autoregistro para estudiantes.
