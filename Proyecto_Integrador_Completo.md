@@ -169,19 +169,27 @@ Centralizar mejora trazabilidad, reduce errores y facilita el control.
 # 6. Requerimientos
 
 ## Funcionales
-- RF01 Login  
-- RF02 Usuarios  
-- RF03 Prácticas  
-- RF04 Bitácora  
-- RF05 Evidencias  
-- RF06 Validación  
-- RF07 Reportes  
-
+* RF01 Autenticar usuario por correo, contraseña y rol.
+* RF02 Registrar estudiante mediante autoregistro público.
+* RF03 Registrar y mantener docentes asesores por la directora/coordinadora.
+* RF04 Gestionar entidades receptoras.
+* RF05 Registrar práctica académica.
+* RF06 Asignar docente asesor y entidad receptora a la práctica.
+* RF07 Registrar entradas de bitácora con fecha, actividad, descripción y horas.
+* RF08 Cargar evidencias asociadas a una entrada de bitácora.
+* RF09 Validar o rechazar entradas de bitácora con observación obligatoria en rechazo.
+* RF10 Consultar estado, historial y avance de horas de la práctica.
+* RF11 Cerrar o reabrir práctica según cumplimiento de horas y estado.
+* RF12 Generar reportes por período, programa y estado.
+  
 ## No funcionales
-- Seguridad  
-- Rendimiento  
-- Usabilidad  
-- Integridad  
+* RNF01 Usabilidad: el usuario debe completar las operaciones frecuentes del rol en máximo 3 clics desde el dashboard principal.
+* RNF02 Seguridad: el sistema debe impedir acceso a pantallas y operaciones no autorizadas según rol autenticado.
+* RNF03 Rendimiento: consultas frecuentes de dashboard y reportes deben responder en menos de 3 segundos en entorno de laboratorio.
+* RNF04 Integridad: Oracle debe aplicar PK, FK, CHECK y UNIQUE en tablas críticas.
+* RNF05 Trazabilidad: cada validación o rechazo debe almacenar fecha, usuario responsable, observación y estado resultante.
+* RNF06 Mantenibilidad: el prototipo debe conservar estructura modular por capas.
+* RNF07 Disponibilidad: el sistema debe poder ejecutarse sin fallos críticos durante una sesión continua de pruebas académicas.
 
 ---
 
