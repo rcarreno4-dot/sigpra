@@ -1,138 +1,299 @@
 # Segunda Entrega - Proyecto Integrador
 
-Universidad de Investigacion y Desarrollo (UDI)  
-Programa: Licenciatura (Proyecto Integrador)  
-Fecha: 31/03/2026  
-Equipo: Rafael Fabian Carreno Barrera, Yeison Nicolas Marino Roberto, Santiago Andres Rojas  
+**Universidad de Investigación y Desarrollo (UDI)**  
+**Programa:** Licenciatura (Proyecto Integrador)  
+**Fecha:** 31/03/2026  
+**Equipo:** Rafael Fabian Carreño Barrera, Yeison Nicolas Marino Roberto, Santiago Andres Rojas  
 
 ---
 
 ## Tabla de contenido
 
-1. Introduccion  
-1.1 Proposito  
+1. Introducción  
+1.1 Propósito  
 1.2 Alcance  
 1.3 Definiciones  
 1.4 Referencias  
-1.5 Apreciacion global  
-2. Descripcion del problema  
+1.5 Apreciación global  
+2. Descripción del problema  
 2.1 Perspectiva del producto  
 2.2 Funciones del producto  
-2.3 Usuarios  
+2.3 Características de los usuarios  
 2.4 Restricciones  
 2.5 Suposiciones  
 3. Objetivos  
-4. Justificacion  
+4. Justificación  
 5. Plan del proyecto  
 6. Requerimientos  
-7. UML  
+7. Diseño UML  
 8. Base de datos  
-9. Interfaz  
+9. Diseño de interfaz  
 10. Referencias  
 11. Anexos  
+12. Ajustes realizados  
+13. Ajuste de reducción  
 
 ---
 
-## 1. Introduccion
+# 1. Introducción
 
-Las practicas academicas son un eje del proceso formativo...
+Las prácticas académicas son un eje del proceso formativo porque conectan la teoría con contextos reales de trabajo. Actualmente, la gestión se realiza con archivos dispersos, lo que genera problemas de trazabilidad y eficiencia.
 
-## 1.1 Proposito
-Definir, disenar y validar un prototipo funcional...
+---
+
+## 1.1 Propósito
+
+Definir, diseñar y validar un prototipo funcional para la gestión de prácticas académicas.
+
+---
 
 ## 1.2 Alcance
-- Autenticacion  
-- Bitacora  
-- Evidencias  
-- Validacion  
-- Reportes  
+
+Incluye:
+- Autenticación
+- Registro de prácticas
+- Bitácora
+- Evidencias
+- Validación
+- Reportes
+
+No incluye:
+- Producción
+- Integraciones externas
+- App móvil
+
+---
 
 ## 1.3 Definiciones
-- Practica  
-- Bitacora  
+
+- Práctica académica  
+- Bitácora  
 - Evidencia  
+- UML  
+- ER  
+
+---
 
 ## 1.4 Referencias
+
 - SWEBOK  
 - ISO 25010  
-
-## 1.5 Apreciacion global
-Documento completo del proyecto.
+- UML 2.5.1  
 
 ---
 
-## 2. Descripcion del problema
+## 1.5 Apreciación global
 
-Fragmentacion de informacion...
-
----
-
-## 3. Objetivos
-
-Implementar prototipo funcional.
+Documento consolidado con enfoque técnico y académico.
 
 ---
 
-## 4. Justificacion
+# 2. Descripción del problema
 
-Centralizacion mejora trazabilidad.
+Problemas:
+- Fragmentación de información  
+- Falta de trazabilidad  
+- Reportes deficientes  
+- Alta carga operativa  
 
 ---
 
-## 5. Plan del proyecto
+## 2.1 Perspectiva del producto
+
+Sistema Java Swing con base de datos Oracle.
+
+---
+
+## 2.2 Funciones del producto
+
+- Login  
+- Registro  
+- Bitácora  
+- Evidencias  
+- Validación  
+- Reportes  
+
+---
+
+## 2.3 Usuarios
+
+- Estudiante  
+- Docente  
+- Director  
+
+---
+
+## 2.4 Restricciones
+
+- Uso de Oracle  
+- Control por roles  
+
+---
+
+## 2.5 Suposiciones
+
+- Infraestructura disponible  
+
+---
+
+# 3. Objetivos
+
+## Objetivo general
+Implementar un sistema funcional de prácticas académicas.
+
+## Objetivos específicos
+- Definir requisitos  
+- Diseñar sistema  
+- Construir prototipo  
+- Realizar pruebas  
+
+---
+
+# 4. Justificación
+
+Centralizar mejora trazabilidad, reduce errores y facilita el control.
+
+---
+
+# 5. Plan del proyecto
 
 | Fase | Actividades | Entregables |
 |------|------------|------------|
-| Analisis | Requisitos | Documento |
-| Diseno | UML | Diagramas |
-| Construccion | Desarrollo | Prototipo |
-| Pruebas | Validacion | Evidencias |
+| Análisis | Requisitos | Documento |
+| Diseño | UML | Diagramas |
+| Construcción | Desarrollo | Prototipo |
+| Pruebas | Validación | Evidencias |
 
 ---
 
-## 6. Requerimientos
+# 6. Requerimientos
 
-### Funcionales
-RF01 - Login  
-RF02 - Usuarios  
+## Funcionales
+- RF01 Login  
+- RF02 Usuarios  
+- RF03 Prácticas  
+- RF04 Bitácora  
+- RF05 Evidencias  
+- RF06 Validación  
+- RF07 Reportes  
 
-### No funcionales
-Seguridad, rendimiento, etc.
+## No funcionales
+- Seguridad  
+- Rendimiento  
+- Usabilidad  
+- Integridad  
 
 ---
 
-## 7. UML
+# 7. Diseño UML
 
-Diagramas de casos de uso y dominio.
+Incluye:
+- Casos de uso  
+- Diagramas de dominio  
+- Diagramas de secuencia  
 
 ---
 
-## 8. Base de datos
+# 8. Base de datos
 
-### Modelo ER
+## Modelo ER
 
-```mermaid
 erDiagram
-USUARIO ||--o{ PRACTICA : tiene
-PRACTICA ||--o{ BITACORA : registra
-BITACORA ||--o{ EVIDENCIA : soporta
-```
+USUARIO ||--o{ ESTUDIANTE : es
+USUARIO ||--o{ DOCENTE : es
+ESTUDIANTE ||--o{ PRACTICA : tiene
+PRACTICA ||--o{ ACTIVIDAD : registra
+ACTIVIDAD ||--o{ EVIDENCIA : soporta
 
 ### Diccionario de datos
 
 #### Usuario
 
-| Campo | Tipo | Restriccion |
-|------|-----|------------|
-| id_usuario | NUMBER | PK |
-| nombre | VARCHAR2 | NOT NULL |
+| Campo      | Tipo de dato | Tamaño | Descripción                     | Restricción |
+| ---------- | ------------ | ------ | ------------------------------- | ----------- |
+| id_usuario | NUMBER       | —      | Identificador único del usuario | PK          |
+| nombre     | VARCHAR2     | 50     | Nombre del usuario              | NOT NULL    |
+| apellido   | VARCHAR2     | 50     | Apellido del usuario            | NOT NULL    |
+| correo     | VARCHAR2     | 100    | Correo electrónico              | —           |
+| contraseña | VARCHAR2     | 100    | Contraseña del usuario          | NOT NULL    |
+| id_rol     | NUMBER       | —      | Rol asignado al usuario         | FK          |
 
-#### Practica
+#### Rol
 
-| Campo | Tipo | Restriccion |
-|------|-----|------------|
-| id_practica | NUMBER | PK |
-| estado | VARCHAR2 | - |
+| Campo      | Tipo de dato | Tamaño | Descripción           | Restricción |
+| ---------- | ------------ | ------ | --------------------- | ----------- |
+| id_rol     | NUMBER       | —      | Identificador del rol | PK          |
+| nombre_rol | VARCHAR2     | 50     | Nombre del rol        | NOT NULL    |
+
+### Estudiante
+
+| Campo         | Tipo de dato | Tamaño | Descripción                  | Restricción |
+| ------------- | ------------ | ------ | ---------------------------- | ----------- |
+| id_estudiante | NUMBER       | —      | Identificador del estudiante | PK          |
+| id_usuario    | NUMBER       | —      | Relación con usuario         | FK, UNIQUE  |
+| programa      | VARCHAR2     | 100    | Programa académico           | —           |
+| semestre      | NUMBER       | —      | Semestre actual              | —           |
+
+### Docente
+
+| Campo        | Tipo de dato | Tamaño | Descripción               | Restricción |
+| ------------ | ------------ | ------ | ------------------------- | ----------- |
+| id_docente   | NUMBER       | —      | Identificador del docente | PK          |
+| id_usuario   | NUMBER       | —      | Relación con usuario      | FK, UNIQUE  |
+| especialidad | VARCHAR2     | 100    | Área de especialización   | —           |
+
+
+### Entidad_Receptora
+
+| Campo             | Tipo de dato | Tamaño | Descripción                 | Restricción |
+| ----------------- | ------------ | ------ | --------------------------- | ----------- |
+| id_entidad        | NUMBER       | —      | Identificador de la entidad | PK          |
+| nombre            | VARCHAR2     | 100    | Nombre de la entidad        | NOT NULL    |
+| direccion         | VARCHAR2     | 150    | Dirección                   | —           |
+| telefono          | VARCHAR2     | 20     | Teléfono de contacto        | —           |
+| cupos_disponibles | VARCHAR2     | 20     | Número de cupos disponibles | —           |
+
+
+###  Practica
+
+| Campo         | Tipo de dato | Tamaño | Descripción                  | Restricción |
+| ------------- | ------------ | ------ | ---------------------------- | ----------- |
+| id_practica   | NUMBER       | —      | Identificador de la práctica | PK          |
+| id_estudiante | NUMBER       | —      | Estudiante asignado          | FK          |
+| id_docente    | NUMBER       | —      | Docente asesor               | FK          |
+| id_entidad    | NUMBER       | —      | Entidad receptora            | FK          |
+| fecha_inicio  | DATE         | —      | Fecha de inicio              | —           |
+| fecha_fin     | DATE         | —      | Fecha de finalización        | —           |
+| estado        | VARCHAR2     | 50     | Estado de la práctica        | —           |
+
+### Actividad
+
+| Campo        | Tipo de dato | Tamaño | Descripción                   | Restricción |
+| ------------ | ------------ | ------ | ----------------------------- | ----------- |
+| id_actividad | NUMBER       | —      | Identificador de la actividad | PK          |
+| id_practica  | NUMBER       | —      | Relación con práctica         | FK          |
+| descripcion  | VARCHAR2     | 200    | Descripción de la actividad   | —           |
+| fecha        | DATE         | —      | Fecha de la actividad         | —           |
+| horas        | NUMBER       | —      | Número de horas registradas   | —           |
+| estado       | VARCHAR2     | 50     | Estado (aprobada, pendiente)  | —           |
+
+### Evidencia 
+
+| Campo        | Tipo de dato | Tamaño | Descripción                   | Restricción |
+| ------------ | ------------ | ------ | ----------------------------- | ----------- |
+| id_evidencia | NUMBER       | —      | Identificador de la evidencia | PK          |
+| id_actividad | NUMBER       | —      | Relación con actividad        | FK          |
+| archivo      | VARCHAR2     | 200    | Ruta o nombre del archivo     | —           |
+| fecha_subida | DATE         | —      | Fecha de carga                | —           |
+
+### Evaluacion 
+
+| Campo         | Tipo de dato | Tamaño | Descripción                 | Restricción |
+| ------------- | ------------ | ------ | --------------------------- | ----------- |
+| id_evaluacion | NUMBER       | —      | Identificador de evaluación | PK          |
+| id_practica   | NUMBER       | —      | Relación con práctica       | FK, UNIQUE  |
+| calificacion  | NUMBER       | 5,2    | Nota final                  | —           |
+| observaciones | VARCHAR2     | 200    | Comentarios del docente     | —           |
 
 ---
 
