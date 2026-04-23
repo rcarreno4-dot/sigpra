@@ -330,7 +330,7 @@ Para representar el comportamiento dinámico del sistema se elaboran tres diagra
 
 1. Gestión integral de práctica y control de horas por el director.
 
-Este diagrama presenta las funcionalidades del director, orientadas a la gestión de prácticas, administración de docentes asesores, control de cierres y consulta de reportes para el seguimiento global del proceso de prácticas académicas.
+Este diagrama representa el flujo integral del proceso de práctica académica, desde el registro inicial de la práctica por parte del estudiante, el diligenciamiento de la bitácora, la validación por el docente asesor y la verificación final del cumplimiento de horas para el cierre del proceso.
 
    <img width="1341" height="1600" alt="WhatsApp Image 2026-04-22 at 20 36 46" src="https://github.com/user-attachments/assets/2bcda2f9-51ec-4517-9d88-bef71d09effd" />
 
@@ -344,7 +344,7 @@ Este diagrama muestra las funcionalidades del docente asesor, enfocadas en la re
 
 3. Carga de evidencias por parte del estudiante.
 
-Este diagrama representa las funcionalidades disponibles para el estudiante dentro del sistema, incluyendo el registro de práctica, el diligenciamiento de la bitácora, la carga de evidencias y la consulta del estado e historial de su proceso académico.
+Este diagrama representa el flujo mediante el cual el estudiante selecciona una práctica, consulta sus entradas de bitácora y adjunta evidencias a una entrada específica, validando previamente que la bitácora permita la carga de soportes.
 
 <img width="1342" height="952" alt="WhatsApp Image 2026-04-22 at 20 37 56" src="https://github.com/user-attachments/assets/66f5cc2f-8803-4342-9c8e-3f19508c078a" />
 
@@ -595,12 +595,12 @@ Las tablas principales del sistema son:
 
 # 11. Anexos
 
-Anexo A. Diagrama de casos de uso
-Anexo B. Diagrama de dominio
-Anexo C. Diagramas de secuencia
-Anexo D. Script SQL Oracle
-Anexo E. Capturas del prototipo
-Anexo F. Evidencias de pruebas funcionales 
+-Anexo A. Diagrama de casos de uso
+-Anexo B. Diagrama de dominio
+-Anexo C. Diagramas de secuencia
+-Anexo D. Script SQL Oracle
+-Anexo E. Capturas del prototipo
+-Anexo F. Evidencias de pruebas funcionales 
 
 ---
 
