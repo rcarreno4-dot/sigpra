@@ -188,8 +188,15 @@ Centralizar mejora trazabilidad, reduce errores y facilita el control.
 # 7. Diseño UML
 
 Incluye:
-- Casos de uso  
-- Diagramas de dominio  
+- Casos de uso
+
+  <img width="826" height="962" alt="image" src="https://github.com/user-attachments/assets/a9832b6f-9a31-4bef-a249-69474ddc9e8c" />
+
+- Diagramas de dominio
+
+<img width="770" height="1095" alt="image" src="https://github.com/user-attachments/assets/1a9bade6-31ab-40e0-abd2-bab6d345aad9" />
+
+  
 - Diagramas de secuencia  
 
 ---
