@@ -207,25 +207,41 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 
 ### Diccionario de datos
 
-#### Usuario
+### 📌 Tabla: USUARIO
 
-| Campo      | Tipo de dato | Tamaño | Descripción                     | Restricción |
-| ---------- | ------------ | ------ | ------------------------------- | ----------- |
-| id_usuario | NUMBER       | —      | Identificador único del usuario | PK          |
-| nombre     | VARCHAR2     | 50     | Nombre del usuario              | NOT NULL    |
-| apellido   | VARCHAR2     | 50     | Apellido del usuario            | NOT NULL    |
-| correo     | VARCHAR2     | 100    | Correo electrónico              | —           |
-| contraseña | VARCHAR2     | 100    | Contraseña del usuario          | NOT NULL    |
-| id_rol     | NUMBER       | —      | Rol asignado al usuario         | FK          |
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-001                                                                |
+| Nombre Tabla       | USUARIO                                                               |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
+
+| Campo        | Tipo de dato | Tamaño | Descripción                             | Restricción |
+|--------------|-------------|--------|-----------------------------------------|------------|
+| id_usuario   | NUMBER      | —      | Identificador único del usuario         | PK         |
+| nombre       | VARCHAR2    | 50     | Nombre del usuario                      | NOT NULL   |
+| apellido     | VARCHAR2    | 50     | Apellido del usuario                    | NOT NULL   |
+| correo       | VARCHAR2    | 100    | Correo electrónico                      | —          |
+| contraseña   | VARCHAR2    | 100    | Contraseña del usuario                  | NOT NULL   |
+| id_rol       | NUMBER      | —      | Rol asignado al usuario                 | FK         |
 
 #### Rol
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-002                                                                |
+| Nombre Tabla       | ROL                                                                   |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
-| Campo      | Tipo de dato | Tamaño | Descripción           | Restricción |
-| ---------- | ------------ | ------ | --------------------- | ----------- |
-| id_rol     | NUMBER       | —      | Identificador del rol | PK          |
-| nombre_rol | VARCHAR2     | 50     | Nombre del rol        | NOT NULL    |
+| Campo      | Tipo de dato | Tamaño | Descripción                            | Restricción |
+| ---------- | ------------ | ------ | -------------------------------------- | ----------- |
+| id_rol     | NUMBER       | —      | Identificador del rol                  | PK          |
+| nombre_rol | VARCHAR2     | 50     | Nombre del rol                         | NOT NULL    |
 
 ### Estudiante
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-003                                                                |
+| Nombre Tabla       | ESTUDIANTE                                                            |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo         | Tipo de dato | Tamaño | Descripción                  | Restricción |
 | ------------- | ------------ | ------ | ---------------------------- | ----------- |
@@ -235,15 +251,25 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 | semestre      | NUMBER       | —      | Semestre actual              | —           |
 
 ### Docente
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-004                                                                |
+| Nombre Tabla       | DOCENTE                                                               |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
-| Campo        | Tipo de dato | Tamaño | Descripción               | Restricción |
-| ------------ | ------------ | ------ | ------------------------- | ----------- |
-| id_docente   | NUMBER       | —      | Identificador del docente | PK          |
-| id_usuario   | NUMBER       | —      | Relación con usuario      | FK, UNIQUE  |
-| especialidad | VARCHAR2     | 100    | Área de especialización   | —           |
+| Campo        | Tipo de dato | Tamaño | Descripción                           | Restricción |
+| ------------ | ------------ | ------ | ------------------------------------- | ----------- |
+| id_docente   | NUMBER       | —      | Identificador del docente             | PK          |
+| id_usuario   | NUMBER       | —      | Relación con usuario                  | FK, UNIQUE  |
+| especialidad | VARCHAR2     | 100    | Área de especialización               | —           |
 
 
 ### Entidad_Receptora
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-005                                                                |
+| Nombre Tabla       | ENTIDAD_RECEPTORA                                                     |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo             | Tipo de dato | Tamaño | Descripción                 | Restricción |
 | ----------------- | ------------ | ------ | --------------------------- | ----------- |
@@ -255,6 +281,11 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 
 
 ###  Practica
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-006                                                                |
+| Nombre Tabla       | PRACTICA                                                              |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo         | Tipo de dato | Tamaño | Descripción                  | Restricción |
 | ------------- | ------------ | ------ | ---------------------------- | ----------- |
@@ -267,6 +298,11 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 | estado        | VARCHAR2     | 50     | Estado de la práctica        | —           |
 
 ### Actividad
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-007                                                                |
+| Nombre Tabla       | ACTIVIDAD                                                             |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo        | Tipo de dato | Tamaño | Descripción                   | Restricción |
 | ------------ | ------------ | ------ | ----------------------------- | ----------- |
@@ -278,6 +314,11 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 | estado       | VARCHAR2     | 50     | Estado (aprobada, pendiente)  | —           |
 
 ### Evidencia 
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-008                                                                |
+| Nombre Tabla       | EVIDENCIA                                                             |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo        | Tipo de dato | Tamaño | Descripción                   | Restricción |
 | ------------ | ------------ | ------ | ----------------------------- | ----------- |
@@ -287,6 +328,11 @@ ACTIVIDAD ||--o{ EVIDENCIA : soporta
 | fecha_subida | DATE         | —      | Fecha de carga                | —           |
 
 ### Evaluacion 
+|                    |                                                                       |
+|--------------------|-----------------------------------------------------------------------|
+| Código Tabla       | TB-009                                                                |
+| Nombre Tabla       | EVALUACION                                                            |
+| Descripción Tabla  | Se registra información de los usuarios independientemente del rol   |
 
 | Campo         | Tipo de dato | Tamaño | Descripción                 | Restricción |
 | ------------- | ------------ | ------ | --------------------------- | ----------- |
