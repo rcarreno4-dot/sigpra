@@ -560,181 +560,278 @@ DIRECTOR_PROGRAMA ||--o{ PRACTICA : "supervisa"
 ENTIDAD_RECEPTORA ||--o{ PRACTICA : "recibe"
 PRACTICA ||--o{ BITACORA : "registra"
 BITACORA ||--o{ EVIDENCIA : "soporta"
-8.2 Modelo relacional
+```
+
+## 8.2 Modelo relacional
 
 Las tablas principales del sistema son:
 
-USUARIO
-ESTUDIANTE
-DOCENTE_ASESOR
-DIRECTOR_PROGRAMA
-ENTIDAD_RECEPTORA
-PRACTICA
-BITACORA
-EVIDENCIA
-8.3 Diccionario de datos
-📌 Tabla: USUARIO
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_usuario	NUMBER	—	Identificador único del usuario	PK
-nombre	VARCHAR2	50	Nombre del usuario	NOT NULL
-apellido	VARCHAR2	50	Apellido del usuario	NOT NULL
-correo	VARCHAR2	100	Correo institucional	NOT NULL, UNIQUE
-contrasena	VARCHAR2	100	Contraseña del usuario	NOT NULL
-rol	VARCHAR2	20	Rol del usuario: ESTUDIANTE, DOCENTE, DIRECTOR	NOT NULL, CHECK
-estado	VARCHAR2	20	Estado del usuario: ACTIVO, INACTIVO	NOT NULL, CHECK
-📌 Tabla: ESTUDIANTE
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_estudiante	NUMBER	—	Identificador del estudiante	PK
-id_usuario	NUMBER	—	Relación con usuario	FK, UNIQUE
-programa	VARCHAR2	100	Programa académico	NOT NULL
-semestre	NUMBER	—	Semestre actual	NOT NULL
-📌 Tabla: DOCENTE_ASESOR
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_docente	NUMBER	—	Identificador del docente asesor	PK
-id_usuario	NUMBER	—	Relación con usuario	FK, UNIQUE
-especialidad	VARCHAR2	100	Área de especialización	—
-📌 Tabla: DIRECTOR_PROGRAMA
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_director	NUMBER	—	Identificador del director	PK
-id_usuario	NUMBER	—	Relación con usuario	FK, UNIQUE
-programa	VARCHAR2	100	Programa que coordina	NOT NULL
-📌 Tabla: ENTIDAD_RECEPTORA
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_entidad	NUMBER	—	Identificador de la entidad	PK
-nombre	VARCHAR2	100	Nombre de la entidad	NOT NULL
-direccion	VARCHAR2	150	Dirección	—
-telefono	VARCHAR2	20	Teléfono de contacto	—
-cupos_disponibles	NUMBER	—	Número de cupos disponibles	—
-📌 Tabla: PRACTICA
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_practica	NUMBER	—	Identificador de la práctica	PK
-id_estudiante	NUMBER	—	Estudiante asignado	FK
-id_docente	NUMBER	—	Docente asesor asignado	FK
-id_director	NUMBER	—	Director responsable	FK
-id_entidad	NUMBER	—	Entidad receptora	FK
-fecha_inicio	DATE	—	Fecha de inicio	NOT NULL
-fecha_fin	DATE	—	Fecha de finalización	NOT NULL
-horas_objetivo	NUMBER	—	Horas requeridas	NOT NULL
-horas_validadas	NUMBER	—	Horas validadas acumuladas	DEFAULT 0
-estado	VARCHAR2	30	Estado de la práctica	NOT NULL, CHECK
-📌 Tabla: BITACORA
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_bitacora	NUMBER	—	Identificador de la bitácora	PK
-id_practica	NUMBER	—	Relación con práctica	FK
-fecha_actividad	DATE	—	Fecha de la actividad	NOT NULL
-actividad	VARCHAR2	150	Nombre de la actividad	NOT NULL
-descripcion	VARCHAR2	300	Descripción detallada	NOT NULL
-horas_reportadas	NUMBER	—	Horas reportadas	NOT NULL, CHECK
-estado_validacion	VARCHAR2	20	Estado: PENDIENTE, VALIDADA, RECHAZADA	NOT NULL, CHECK
-observacion_docente	VARCHAR2	300	Observación del docente asesor	—
-📌 Tabla: EVIDENCIA
-Campo	Tipo de dato	Tamaño	Descripción	Restricción
-id_evidencia	NUMBER	—	Identificador de la evidencia	PK
-id_bitacora	NUMBER	—	Relación con bitácora	FK
-nombre_archivo	VARCHAR2	150	Nombre del archivo	NOT NULL
-tipo_archivo	VARCHAR2	50	Tipo de archivo	—
-ruta_archivo	VARCHAR2	200	Ruta o ubicación del archivo	NOT NULL
-fecha_carga	DATE	—	Fecha de carga	NOT NULL
-Reglas de consistencia de la base de datos
-Una práctica pertenece a un estudiante, un docente asesor, un director y una entidad receptora.
-Una práctica puede tener múltiples entradas de bitácora.
-Una entrada de bitácora puede tener múltiples evidencias.
-Una bitácora rechazada debe almacenar observación del docente asesor.
-Las horas validadas de la práctica se calculan a partir de las bitácoras con estado VALIDADA.
-Esta versión del sistema no incluye rúbrica ni evaluación académica detallada.
-9. Diseño de interfaz
-9.1 Pantallas principales y comportamiento
-1. 01_login.png
-Vista de autenticación del sistema.
-Permite ingresar por rol: estudiante, docente asesor o director.
-2. 02_autoregistro_estudiante.png
-Formulario de autoregistro para estudiantes.
-Permite crear una cuenta para ingresar posteriormente al sistema.
-3. 03_dashboard_estudiante.png
-Panel principal del estudiante.
-Resume estado de la práctica, avance de horas y acceso a módulos de bitácora y evidencias.
-4. 04_bitacora_estudiante.png
-Vista de bitácora del estudiante.
-Permite registrar actividades, descripción y horas reportadas.
-5. 05_evidencias_estudiante.png
-Vista de evidencias del estudiante.
-Permite adjuntar soportes a las entradas de bitácora.
-6. 06_dashboard_docente.png
-Panel principal del docente asesor.
-Resume pendientes de validación y acceso rápido a revisión de bitácora y horas.
-7. 07_validacion_docente.png
-Vista de validación.
-Permite aprobar o rechazar bitácoras, con observación obligatoria en caso de rechazo.
-8. 09_bitacora_docente.png
-Vista de consulta de bitácora por parte del docente asesor.
-Permite revisar historial y acceder al flujo de validación.
-9. 10_dashboard_director.png
-Panel principal del director.
-Muestra control global de prácticas, horas y accesos a módulos administrativos.
-10. 11_asignaciones_practica_director.png
-Vista de registro y asignación de práctica.
-Permite crear prácticas y asignar docente asesor, entidad receptora y período.
-11. 12_aprobacion_cierre_director.png
-Vista de cierre de práctica.
-Permite revisar horas validadas y decidir si se cierra o reabre la práctica.
-12. 13_registro_docentes_director.png
-Vista de administración de docentes asesores.
-Permite registrar y mantener docentes disponibles para asignación.
-13. 15_reportes_director.png
-Vista de reportes institucionales.
-Permite filtrar y consultar consolidado de prácticas por estado, programa y período.
-14. 17_bitacora_director.png
-Vista de seguimiento general.
-Permite al director consultar el estado global de la bitácora y del avance de horas.
-9.2 Criterios de diseño
-Navegación por menú lateral según el rol autenticado.
-Mensajes claros de éxito, error y validación.
-Acceso restringido según perfil.
-Actualización de tablas después de cada operación.
-Coherencia visual entre dashboards, formularios y reportes.
+- USUARIO  
+- ESTUDIANTE  
+- DOCENTE_ASESOR  
+- DIRECTOR_PROGRAMA  
+- ENTIDAD_RECEPTORA  
+- PRACTICA  
+- BITACORA  
+- EVIDENCIA  
 
-Nota: en esta versión del prototipo no se incluyen módulos de evaluación por rúbrica, plantillas avanzadas de bitácora ni registro de hallazgos institucionales, debido a que el alcance de la entrega se reduce a gestión de prácticas, control de horas, validación docente, cierre operativo y reportes.
+## 8.3 Diccionario de datos
 
-10. Referencias bibliográficas
-Sommerville, Ian. Software Engineering.
-Pressman, Roger S. Software Engineering: A Practitioner’s Approach.
-SWEBOK V3.0
-UML 2.5.1
-ISO/IEC 25010
-Reglamento institucional de prácticas académicas
-11. Anexos
-Diagramas UML.
-Scripts SQL del modelo de base de datos.
-Capturas de interfaz del prototipo.
-Evidencias de pruebas funcionales.
-Casos de uso detallados.
-Diagramas de secuencia.
-12. Ajustes realizados frente a observaciones docentes
-Se amplió la descripción del problema y su impacto sobre los actores del sistema.
-Se reformularon los objetivos con mayor precisión y verificabilidad.
-Se fortaleció la justificación del proyecto.
-Se describieron de forma más clara los requerimientos funcionales y no funcionales.
-Se mejoró la coherencia entre casos de uso, modelo de dominio y base de datos.
-Se reorganizó el documento para hacer más visibles los productos técnicos de la segunda entrega.
-Se eliminaron elementos que no pertenecen al alcance reducido del prototipo.
-13. Ajuste de reducción del alcance
+### 📌 Tabla: USUARIO
+
+| Campo       | Tipo de dato | Tamaño | Descripción | Restricción |
+|------------|--------------|--------|-------------|-------------|
+| id_usuario | NUMBER       | —      | Identificador único del usuario | PK |
+| nombre     | VARCHAR2     | 50     | Nombre del usuario | NOT NULL |
+| apellido   | VARCHAR2     | 50     | Apellido del usuario | NOT NULL |
+| correo     | VARCHAR2     | 100    | Correo institucional | NOT NULL, UNIQUE |
+| contrasena | VARCHAR2     | 100    | Contraseña del usuario | NOT NULL |
+| rol        | VARCHAR2     | 20     | Rol del usuario: ESTUDIANTE, DOCENTE, DIRECTOR | NOT NULL, CHECK |
+| estado     | VARCHAR2     | 20     | Estado del usuario: ACTIVO, INACTIVO | NOT NULL, CHECK |
+
+### 📌 Tabla: ESTUDIANTE
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_estudiante | NUMBER | — | Identificador del estudiante | PK |
+| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
+| programa | VARCHAR2 | 100 | Programa académico | NOT NULL |
+| semestre | NUMBER | — | Semestre actual | NOT NULL |
+
+### 📌 Tabla: DOCENTE_ASESOR
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_docente | NUMBER | — | Identificador del docente asesor | PK |
+| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
+| especialidad | VARCHAR2 | 100 | Área de especialización | — |
+
+### 📌 Tabla: DIRECTOR_PROGRAMA
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_director | NUMBER | — | Identificador del director | PK |
+| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
+| programa | VARCHAR2 | 100 | Programa que coordina | NOT NULL |
+
+### 📌 Tabla: ENTIDAD_RECEPTORA
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_entidad | NUMBER | — | Identificador de la entidad | PK |
+| nombre | VARCHAR2 | 100 | Nombre de la entidad | NOT NULL |
+| direccion | VARCHAR2 | 150 | Dirección | — |
+| telefono | VARCHAR2 | 20 | Teléfono de contacto | — |
+| cupos_disponibles | NUMBER | — | Número de cupos disponibles | — |
+
+### 📌 Tabla: PRACTICA
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_practica | NUMBER | — | Identificador de la práctica | PK |
+| id_estudiante | NUMBER | — | Estudiante asignado | FK |
+| id_docente | NUMBER | — | Docente asesor asignado | FK |
+| id_director | NUMBER | — | Director responsable | FK |
+| id_entidad | NUMBER | — | Entidad receptora | FK |
+| fecha_inicio | DATE | — | Fecha de inicio | NOT NULL |
+| fecha_fin | DATE | — | Fecha de finalización | NOT NULL |
+| horas_objetivo | NUMBER | — | Horas requeridas | NOT NULL |
+| horas_validadas | NUMBER | — | Horas validadas acumuladas | DEFAULT 0 |
+| estado | VARCHAR2 | 30 | Estado de la práctica: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA | NOT NULL, CHECK |
+
+### 📌 Tabla: BITACORA
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_bitacora | NUMBER | — | Identificador de la bitácora | PK |
+| id_practica | NUMBER | — | Relación con práctica | FK |
+| fecha_actividad | DATE | — | Fecha de la actividad | NOT NULL |
+| actividad | VARCHAR2 | 150 | Nombre de la actividad | NOT NULL |
+| descripcion | VARCHAR2 | 300 | Descripción detallada | NOT NULL |
+| horas_reportadas | NUMBER | — | Horas reportadas | NOT NULL, CHECK |
+| estado_validacion | VARCHAR2 | 20 | Estado: PENDIENTE, VALIDADA, RECHAZADA | NOT NULL, CHECK |
+| observacion_docente | VARCHAR2 | 300 | Observación del docente asesor | — |
+
+### 📌 Tabla: EVIDENCIA
+
+| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
+|------|--------------|--------|-------------|-------------|
+| id_evidencia | NUMBER | — | Identificador de la evidencia | PK |
+| id_bitacora | NUMBER | — | Relación con bitácora | FK |
+| nombre_archivo | VARCHAR2 | 150 | Nombre del archivo | NOT NULL |
+| tipo_archivo | VARCHAR2 | 50 | Tipo de archivo | — |
+| ruta_archivo | VARCHAR2 | 200 | Ruta o ubicación del archivo | NOT NULL |
+| fecha_carga | DATE | — | Fecha de carga | NOT NULL |
+
+### Reglas de consistencia de la base de datos
+
+- Una práctica pertenece a un estudiante, un docente asesor, un director y una entidad receptora.
+- Una práctica puede tener múltiples entradas de bitácora.
+- Una entrada de bitácora puede tener múltiples evidencias.
+- Una bitácora rechazada debe almacenar observación del docente asesor.
+- Las horas validadas de la práctica se calculan a partir de las bitácoras con estado `VALIDADA`.
+- Esta versión del sistema no incluye rúbrica ni evaluación académica detallada.
+
+---
+
+# 9. Diseño de interfaz
+
+## 9.1 Pantallas principales y comportamiento
+
+### 1. `01_login.png`
+- Vista de autenticación del sistema.
+- Permite ingresar por rol: estudiante, docente asesor o director.
+
+<img width="860" height="520" alt="image" src="https://github.com/user-attachments/assets/81e15420-0477-44c4-8275-12d329ed3a35" />
+
+### 2. `02_autoregistro_estudiante.png`
+- Formulario de autoregistro para estudiantes.
+- Permite crear una cuenta para ingresar posteriormente al sistema.
+
+<img width="760" height="560" alt="image" src="https://github.com/user-attachments/assets/709a393d-8ae5-4c1b-aa2e-415374f1c1df" />
+
+### 3. `03_dashboard_estudiante.png`
+- Panel principal del estudiante.
+- Resume estado de la práctica, avance de horas y acceso a módulos de bitácora y evidencias.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/7b240397-46a0-410e-b71d-ad5f5b4759d4" />
+
+### 4. `04_bitacora_estudiante.png`
+- Vista de bitácora del estudiante.
+- Permite registrar actividades, descripción y horas reportadas.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/05d65836-4e79-43f7-ba70-8193bf4dff62" />
+
+
+### 5. `05_evidencias_estudiante.png`
+- Vista de evidencias del estudiante.
+- Permite adjuntar soportes a las entradas de bitácora.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/204421da-747a-4d2b-ae08-2f0325925916" />
+
+### 6. `06_dashboard_docente.png`
+- Panel principal del docente asesor.
+- Resume pendientes de validación y acceso rápido a revisión de bitácora y horas.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/20009809-727a-42ba-850d-a15091ff2acd" />
+
+### 7. `07_validacion_docente.png`
+- Vista de validación.
+- Permite aprobar o rechazar bitácoras, con observación obligatoria en caso de rechazo.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/403313fc-eb7a-43fb-bf92-16cd1548f1e1" />
+
+### 8. `09_bitacora_docente.png`
+- Vista de consulta de bitácora por parte del docente asesor.
+- Permite revisar historial y acceder al flujo de validación.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/2c381d00-46d9-4058-bc20-c65db326e7d4" />
+
+
+### 9. `10_dashboard_director.png`
+- Panel principal del director.
+- Muestra control global de prácticas, horas y accesos a módulos administrativos.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/60b26115-579b-4f16-864e-0f852523d1f9" />
+
+### 10. `11_asignaciones_practica_director.png`
+- Vista de registro y asignación de práctica.
+- Permite crear prácticas y asignar docente asesor, entidad receptora y período.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/a762c84c-cc07-4179-9ebd-5fb5c76f9ab2" />
+
+### 11. `12_aprobacion_cierre_director.png`
+- Vista de cierre de práctica.
+- Permite revisar horas validadas y decidir si se cierra o reabre la práctica.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/ef0d25c6-4776-4155-9cd8-b143c7711ce1" />
+
+### 12. `13_registro_docentes_director.png`
+- Vista de administración de docentes asesores.
+- Permite registrar y mantener docentes disponibles para asignación.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/9dbbc279-468a-453e-b4de-5c8d9524eca2" />
+
+### 13. `15_reportes_director.png`
+- Vista de reportes institucionales.
+- Permite filtrar y consultar consolidado de prácticas por estado, programa y período.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/65837746-cfa9-4b01-ad41-57e72e1209f4" />
+
+### 14. `17_bitacora_director.png`
+- Vista de seguimiento general.
+- Permite al director consultar el estado global de la bitácora y del avance de horas.
+
+<img width="1080" height="700" alt="image" src="https://github.com/user-attachments/assets/46647a74-6fea-4fa5-81dd-c2e13410dcc1" />
+
+## 9.2 Criterios de diseño
+
+- Navegación por menú lateral según el rol autenticado.
+- Mensajes claros de éxito, error y validación.
+- Acceso restringido según perfil.
+- Actualización de tablas después de cada operación.
+- Coherencia visual entre dashboards, formularios y reportes.
+
+**Nota:** en esta versión del prototipo no se incluyen módulos de evaluación por rúbrica, plantillas avanzadas de bitácora ni registro de hallazgos institucionales, debido a que el alcance de la entrega se reduce a gestión de prácticas, control de horas, validación docente, cierre operativo y reportes.
+
+---
+
+# 10. Referencias bibliográficas
+
+- Sommerville, Ian. *Software Engineering*.  
+- Pressman, Roger S. *Software Engineering: A Practitioner’s Approach*.  
+- SWEBOK V3.0  
+- UML 2.5.1  
+- ISO/IEC 25010  
+- Reglamento institucional de prácticas académicas  
+
+---
+
+# 11. Anexos
+
+- **Anexo A.** Diagramas UML del sistema.  
+- **Anexo B.** Scripts SQL del modelo de base de datos.  
+- **Anexo C.** Capturas de interfaz del prototipo.  
+- **Anexo D.** Evidencias de pruebas funcionales.  
+- **Anexo E.** Casos de uso detallados.  
+- **Anexo F.** Diagramas de secuencia.  
+
+---
+
+# 12. Ajustes realizados frente a observaciones docentes
+
+- Se amplió la descripción del problema y su impacto sobre los actores del sistema.
+- Se reformularon los objetivos con mayor precisión y verificabilidad.
+- Se fortaleció la justificación del proyecto.
+- Se describieron de forma más clara los requerimientos funcionales y no funcionales.
+- Se mejoró la coherencia entre casos de uso, modelo de dominio y base de datos.
+- Se reorganizó el documento para hacer más visibles los productos técnicos de la segunda entrega.
+- Se eliminaron elementos que no pertenecen al alcance reducido del prototipo.
+
+---
+
+# 13. Ajuste de reducción del alcance
 
 Con el fin de hacer viable la implementación y mantener la coherencia entre análisis, diseño y construcción, el alcance del sistema se reduce a los módulos fundamentales de gestión de prácticas académicas basados en control de horas.
 
-Se mantiene:
+## Se mantiene:
 
-Autenticación por rol.
-Registro de práctica.
-Bitácora.
-Evidencias.
-Validación docente.
-Cierre o reapertura de práctica.
-Reportes.
+- Autenticación por rol.
+- Registro de práctica.
+- Bitácora.
+- Evidencias.
+- Validación docente.
+- Cierre o reapertura de práctica.
+- Reportes.
 
-Se elimina:
+## Se elimina:
 
-Evaluación por rúbrica.
-Calificación detallada por criterios.
+- Evaluación por rúbrica.
+- Calificación detallada por criterios.
+- Plantillas avanzadas de bitácora.
+- Registro de hallazgos institucionales.
+
+Este ajuste permite concentrar la solución en el seguimiento operativo de las prácticas y asegurar que el prototipo implementado sea coherente, funcional y verificable dentro del alcance académico de la entrega.
 Plantillas avanzadas de bitácora.
 Registro de hallazgos institucionales.
 
