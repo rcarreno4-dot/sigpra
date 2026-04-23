@@ -297,6 +297,7 @@ Los casos de uso centrales del sistema son:
 
 <img width="826" height="962" alt="WhatsApp Image 2026-04-22 at 09 49 26" src="https://github.com/user-attachments/assets/7dbe2b00-3aa6-471a-9eac-d492daa6fa92" />
 
+El diagrama representa la interacción de estudiante, docente asesor y director con los módulos principales del sistema.
 
 ## 7.2 Diagrama de dominio
 
@@ -321,6 +322,7 @@ Relaciones principales del dominio:
 
 <img width="770" height="1095" alt="image" src="https://github.com/user-attachments/assets/26cd19de-945d-4798-8a22-cc897a552873" />
 
+El diagrama muestra las entidades principales del sistema y sus relaciones.
 
 ## 7.3 Diagramas de secuencia
 
@@ -328,220 +330,24 @@ Para representar el comportamiento dinámico del sistema se elaboran tres diagra
 
 1. Gestión integral de práctica y control de horas por el director.
 
+Este diagrama presenta las funcionalidades del director, orientadas a la gestión de prácticas, administración de docentes asesores, control de cierres y consulta de reportes para el seguimiento global del proceso de prácticas académicas.
+
    <img width="1341" height="1600" alt="WhatsApp Image 2026-04-22 at 20 36 46" src="https://github.com/user-attachments/assets/2bcda2f9-51ec-4517-9d88-bef71d09effd" />
-
-@startuml
-title Gestion integral de practica y control de horas
-
-actor Estudiante
-actor "Docente Asesor" as Docente
-actor "Coordinadora de Licenciatura" as Coordinadora
-participant "SIGPRA UI" as UI
-control "PracticaController" as PC
-control "BitacoraController" as BC
-control "ValidacionController" as VC
-control "PracticaService" as PS
-control "BitacoraService" as BS
-control "ValidacionService" as VS
-database "Oracle DB" as DB
-
-== Registro de practica ==
-Estudiante -> UI : Solicitar registro de practica
-UI -> PC : registrarPractica(datos)
-PC -> PS : validarDatosPractica(datos)
-PS -> DB : insertarPractica(datos)
-DB --> PS : practicaCreada
-PS --> PC : ok
-PC --> UI : mostrarConfirmacion()
-
-== Asignacion por coordinadora ==
-Coordinadora -> UI : Consultar practicas sin asignacion
-UI -> PC : listarPracticasPendientes()
-PC -> PS : obtenerPracticasPendientes()
-PS -> DB : select practicas pendientes
-DB --> PS : lista
-PS --> PC : lista
-PC --> UI : mostrarLista()
-
-Coordinadora -> UI : Asignar docente y entidad
-UI -> PC : asignarResponsables(idPractica, docente, entidad)
-PC -> PS : asignarDocenteYEntidad(...)
-PS -> DB : update practica
-DB --> PS : ok
-PS --> PC : ok
-PC --> UI : mostrarAsignacionExitosa()
-
-== Registro de bitacora ==
-Estudiante -> UI : Registrar actividad y horas
-UI -> BC : registrarBitacora(datosBitacora)
-BC -> BS : validarBitacora(datosBitacora)
-BS -> DB : insertarBitacora(datosBitacora)
-DB --> BS : ok
-BS --> BC : ok
-BC --> UI : mostrarBitacoraRegistrada()
-
-Estudiante -> UI : Vincular evidencia
-UI -> BC : cargarEvidencia(idBitacora, archivo)
-BC -> BS : validarArchivo(archivo)
-BS -> DB : insertarEvidencia(idBitacora, archivo)
-DB --> BS : ok
-BS --> BC : ok
-BC --> UI : mostrarEvidenciaCargada()
-
-== Validacion docente ==
-Docente -> UI : Consultar bitacoras pendientes
-UI -> VC : listarPendientes(docente)
-VC -> VS : obtenerPendientes(docente)
-VS -> DB : select bitacoras pendientes
-DB --> VS : lista
-VS --> VC : lista
-VC --> UI : mostrarPendientes()
-
-Docente -> UI : Validar/Rechazar bitacora
-UI -> VC : resolverBitacora(idBitacora, decision, observacion)
-
-alt decision = VALIDAR
-    VC -> VS : validarBitacora(idBitacora)
-    VS -> DB : update bitacora estado=VALIDADA
-    VS -> DB : recalcularHorasValidadas(idPractica)
-    DB --> VS : ok
-    VS --> VC : validacionExitosa
-    VC --> UI : mostrarValidacionExitosa()
-else decision = RECHAZAR
-    VC -> VS : rechazarBitacora(idBitacora, observacion)
-    VS -> DB : update bitacora estado=RECHAZADA, observacion=...
-    DB --> VS : ok
-    VS --> VC : rechazoExitoso
-    VC --> UI : mostrarRechazoExitoso()
-end
-
-== Cierre por coordinadora ==
-Coordinadora -> UI : Consultar avance de horas
-UI -> PC : consultarEstadoPractica(idPractica)
-PC -> PS : obtenerEstadoPractica(idPractica)
-PS -> DB : select practica + horas validadas
-DB --> PS : estadoPractica
-PS --> PC : estadoPractica
-PC --> UI : mostrarEstado()
-
-alt horasValidadas >= horasObjetivo
-    Coordinadora -> UI : Cerrar practica
-    UI -> PC : cerrarPractica(idPractica)
-    PC -> PS : cerrarPractica(idPractica)
-    PS -> DB : update practica estado=FINALIZADA
-    DB --> PS : ok
-    PS --> PC : cierreExitoso
-    PC --> UI : mostrarCierreExitoso()
-else horasValidadas < horasObjetivo
-    UI --> Coordinadora : mostrarMensaje("No cumple horas para cierre")
-end
-@enduml
 
 
 2. Validación de bitácora y horas por el docente asesor.
 
+Este diagrama muestra las funcionalidades del docente asesor, enfocadas en la revisión de prácticas asignadas, la validación o rechazo de bitácoras, el registro de observaciones y el seguimiento del avance de horas del estudiante.
+
 <img width="1319" height="1314" alt="WhatsApp Image 2026-04-22 at 20 37 32" src="https://github.com/user-attachments/assets/55b339e4-3e20-486c-93b8-e80a06e304e7" />
-
-@startuml
-title Validacion de bitacora y horas por docente asesor
-
-actor "Docente Asesor" as Docente
-participant "SIGPRA UI" as UI
-control "ValidacionController" as VC
-control "ValidacionService" as VS
-database "Oracle DB" as DB
-
-Docente -> UI : Consultar practicas asignadas
-UI -> VC : listarPracticasAsignadas(docenteId)
-VC -> VS : obtenerPracticasAsignadas(docenteId)
-VS -> DB : select practicas asignadas
-DB --> VS : listaPracticas
-VS --> VC : listaPracticas
-VC --> UI : mostrarPracticas()
-
-Docente -> UI : Seleccionar practica
-UI -> VC : listarBitacorasPendientes(practicaId)
-VC -> VS : obtenerBitacorasPendientes(practicaId)
-VS -> DB : select bitacoras pendientes
-DB --> VS : listaBitacoras
-VS --> VC : listaBitacoras
-VC --> UI : mostrarBitacoras()
-
-Docente -> UI : Abrir detalle de bitacora
-UI -> VC : verDetalleBitacora(bitacoraId)
-VC -> VS : obtenerDetalleBitacora(bitacoraId)
-VS -> DB : select bitacora + evidencias
-DB --> VS : detalle
-VS --> VC : detalle
-VC --> UI : mostrarDetalle()
-
-alt Aprobar bitacora
-    Docente -> UI : Aprobar
-    UI -> VC : aprobarBitacora(bitacoraId)
-    VC -> VS : aprobarBitacora(bitacoraId)
-    VS -> DB : update bitacora estado=VALIDADA
-    VS -> DB : recalcularHorasValidadas(practicaId)
-    DB --> VS : ok
-    VS --> VC : aprobacionExitosa
-    VC --> UI : mostrarMensaje("Bitacora validada")
-else Rechazar bitacora
-    Docente -> UI : Rechazar con observacion
-    UI -> VC : rechazarBitacora(bitacoraId, observacion)
-    VC -> VS : validarObservacion(observacion)
-    VS -> DB : update bitacora estado=RECHAZADA, observacion=...
-    DB --> VS : ok
-    VS --> VC : rechazoExitoso
-    VC --> UI : mostrarMensaje("Bitacora rechazada")
-end
-@enduml
-
 
 
 3. Carga de evidencias por parte del estudiante.
 
+Este diagrama representa las funcionalidades disponibles para el estudiante dentro del sistema, incluyendo el registro de práctica, el diligenciamiento de la bitácora, la carga de evidencias y la consulta del estado e historial de su proceso académico.
+
 <img width="1342" height="952" alt="WhatsApp Image 2026-04-22 at 20 37 56" src="https://github.com/user-attachments/assets/66f5cc2f-8803-4342-9c8e-3f19508c078a" />
 
-@startuml
-title Carga de evidencia por estudiante
-
-actor Estudiante
-participant "SIGPRA UI" as UI
-control "BitacoraController" as BC
-control "BitacoraService" as BS
-database "Oracle DB" as DB
-
-Estudiante -> UI : Seleccionar practica
-UI -> BC : listarBitacoras(practicaId)
-BC -> BS : obtenerBitacoras(practicaId)
-BS -> DB : select bitacoras por practica
-DB --> BS : listaBitacoras
-BS --> BC : listaBitacoras
-BC --> UI : mostrarBitacoras()
-
-Estudiante -> UI : Seleccionar entrada de bitacora
-Estudiante -> UI : Adjuntar archivo de evidencia
-UI -> BC : cargarEvidencia(bitacoraId, archivo)
-
-BC -> BS : validarBitacoraEditable(bitacoraId)
-BS -> DB : consultarEstadoBitacora(bitacoraId)
-DB --> BS : estado
-
-alt estado = PENDIENTE
-    BC -> BS : validarArchivo(archivo)
-    alt archivo valido
-        BS -> DB : insertarEvidencia(bitacoraId, archivo, tipo, ruta)
-        DB --> BS : ok
-        BS --> BC : cargaExitosa
-        BC --> UI : mostrarMensaje("Evidencia cargada correctamente")
-    else archivo invalido
-        BS --> BC : errorFormato
-        BC --> UI : mostrarMensaje("Archivo no permitido")
-    end
-else estado <> PENDIENTE
-    BS --> BC : noEditable
-    BC --> UI : mostrarMensaje("La bitacora no permite mas evidencias")
-end
-@enduml
 
 ---
 
@@ -789,12 +595,12 @@ Las tablas principales del sistema son:
 
 # 11. Anexos
 
-- **Anexo A.** Diagramas UML del sistema.  
-- **Anexo B.** Scripts SQL del modelo de base de datos.  
-- **Anexo C.** Capturas de interfaz del prototipo.  
-- **Anexo D.** Evidencias de pruebas funcionales.  
-- **Anexo E.** Casos de uso detallados.  
-- **Anexo F.** Diagramas de secuencia.  
+Anexo A. Diagrama de casos de uso
+Anexo B. Diagrama de dominio
+Anexo C. Diagramas de secuencia
+Anexo D. Script SQL Oracle
+Anexo E. Capturas del prototipo
+Anexo F. Evidencias de pruebas funcionales 
 
 ---
 
@@ -830,9 +636,5 @@ Con el fin de hacer viable la implementación y mantener la coherencia entre an�
 - Calificación detallada por criterios.
 - Plantillas avanzadas de bitácora.
 - Registro de hallazgos institucionales.
-
-Este ajuste permite concentrar la solución en el seguimiento operativo de las prácticas y asegurar que el prototipo implementado sea coherente, funcional y verificable dentro del alcance académico de la entrega.
-Plantillas avanzadas de bitácora.
-Registro de hallazgos institucionales.
 
 Este ajuste permite concentrar la solución en el seguimiento operativo de las prácticas y asegurar que el prototipo implementado sea coherente, funcional y verificable dentro del alcance académico de la entrega.
