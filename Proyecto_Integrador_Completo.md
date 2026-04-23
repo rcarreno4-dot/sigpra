@@ -358,9 +358,12 @@ Ruta de imagenes: `documentacion/vistas/png_portable/`
 <img width="860" height="520" alt="image" src="https://github.com/user-attachments/assets/81e15420-0477-44c4-8275-12d329ed3a35" />
 
 
+
 2. `02_autoregistro_estudiante.png`
 - Formulario de autoregistro para estudiantes.
 - Permite crear cuenta institucional de estudiante para luego iniciar sesion.
+<img width="760" height="560" alt="image" src="https://github.com/user-attachments/assets/709a393d-8ae5-4c1b-aa2e-415374f1c1df" />
+
 
 3. `03_dashboard_estudiante.png`
 - Panel principal del estudiante.
