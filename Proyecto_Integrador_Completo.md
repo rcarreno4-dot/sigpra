@@ -383,19 +383,39 @@ Las tablas principales del sistema son:
 
 ## 8.3 Diccionario de datos
 
-### 📌 Tabla: USUARIO
+## 6.9 Diccionario de tablas numerado (001-008)
 
-| Campo       | Tipo de dato | Tamaño | Descripción | Restricción |
-|------------|--------------|--------|-------------|-------------|
-| id_usuario | NUMBER       | —      | Identificador único del usuario | PK |
-| nombre     | VARCHAR2     | 50     | Nombre del usuario | NOT NULL |
-| apellido   | VARCHAR2     | 50     | Apellido del usuario | NOT NULL |
-| correo     | VARCHAR2     | 100    | Correo institucional | NOT NULL, UNIQUE |
-| contrasena | VARCHAR2     | 100    | Contraseña del usuario | NOT NULL |
-| rol        | VARCHAR2     | 20     | Rol del usuario: ESTUDIANTE, DOCENTE, DIRECTOR | NOT NULL, CHECK |
-| estado     | VARCHAR2     | 20     | Estado del usuario: ACTIVO, INACTIVO | NOT NULL, CHECK |
+| Numero | Nombre tabla | Descripcion |
+|---|---|---|
+| 001 | `usuario` | Almacena credenciales y datos base de identidad de todos los roles del sistema (estudiante, docente y director), incluyendo estado y fecha de creacion. |
+| 002 | `estudiante` | Extension del usuario para rol estudiante; guarda codigo, programa y semestre, enlazado 1 a 1 con `usuario`. |
+| 003 | `docente_asesor` | Extension del usuario para rol docente; registra especialidad del docente asesor y su enlace 1 a 1 con `usuario`. |
+| 004 | `director_programa` | Extension del usuario para rol director; registra el programa academico bajo su direccion y su enlace 1 a 1 con `usuario`. |
+| 005 | `entidad_receptora` | Catalogo de entidades donde se realizan practicas; incluye datos de contacto, ubicacion, cupos y estado operativo. |
+| 006 | `practica` | Registro principal de cada proceso de practica academica; relaciona estudiante, docente y entidad, con fechas, estado y control de horas. |
+| 007 | `bitacora` | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
+| 008 | `evidencia` | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
 
-### 📌 Tabla: ESTUDIANTE
+## 📋 Tabla: USUARIO
+
+
+| Atributo    | Valor                                                                 |
+|------------|----------------------------------------------------------------------|
+| Código     | TB-001                                                               |
+| Nombre     | USUARIO                                                              |
+| Descripción| Almacena credenciales y datos base de identidad de todos los roles   |
+
+| Campo       | Tipo de dato | Tamaño | Descripción                                      | Restricción                  |
+|------------|--------------|--------|--------------------------------------------------|------------------------------|
+| id_usuario | NUMBER       | —      | Identificador único del usuario                  | PK                           |
+| nombre     | VARCHAR2     | 50     | Nombre del usuario                               | NOT NULL                     |
+| apellido   | VARCHAR2     | 50     | Apellido del usuario                             | NOT NULL                     |
+| correo     | VARCHAR2     | 100    | Correo institucional                             | NOT NULL, UNIQUE             |
+| contrasena | VARCHAR2     | 100    | Contraseña del usuario                           | NOT NULL                     |
+| rol        | VARCHAR2     | 20     | ESTUDIANTE, DOCENTE, DIRECTOR                    | NOT NULL, CHECK              |
+| estado     | VARCHAR2     | 20     | ACTIVO, INACTIVO                                 | NOT NULL, CHECK              |
+
+###  Tabla: ESTUDIANTE
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -404,7 +424,7 @@ Las tablas principales del sistema son:
 | programa | VARCHAR2 | 100 | Programa académico | NOT NULL |
 | semestre | NUMBER | — | Semestre actual | NOT NULL |
 
-### 📌 Tabla: DOCENTE_ASESOR
+###  Tabla: DOCENTE_ASESOR
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -412,7 +432,7 @@ Las tablas principales del sistema son:
 | id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
 | especialidad | VARCHAR2 | 100 | Área de especialización | — |
 
-### 📌 Tabla: DIRECTOR_PROGRAMA
+###  Tabla: DIRECTOR_PROGRAMA
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -420,7 +440,7 @@ Las tablas principales del sistema son:
 | id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
 | programa | VARCHAR2 | 100 | Programa que coordina | NOT NULL |
 
-### 📌 Tabla: ENTIDAD_RECEPTORA
+###  Tabla: ENTIDAD_RECEPTORA
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -430,7 +450,7 @@ Las tablas principales del sistema son:
 | telefono | VARCHAR2 | 20 | Teléfono de contacto | — |
 | cupos_disponibles | NUMBER | — | Número de cupos disponibles | — |
 
-### 📌 Tabla: PRACTICA
+###  Tabla: PRACTICA
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -445,7 +465,7 @@ Las tablas principales del sistema son:
 | horas_validadas | NUMBER | — | Horas validadas acumuladas | DEFAULT 0 |
 | estado | VARCHAR2 | 30 | Estado de la práctica: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA | NOT NULL, CHECK |
 
-### 📌 Tabla: BITACORA
+###  Tabla: BITACORA
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -458,7 +478,7 @@ Las tablas principales del sistema son:
 | estado_validacion | VARCHAR2 | 20 | Estado: PENDIENTE, VALIDADA, RECHAZADA | NOT NULL, CHECK |
 | observacion_docente | VARCHAR2 | 300 | Observación del docente asesor | — |
 
-### 📌 Tabla: EVIDENCIA
+### Tabla: EVIDENCIA
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
