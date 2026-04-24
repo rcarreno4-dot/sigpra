@@ -1,425 +1,288 @@
-# Documento Final - Sistema de Gestion de Practicas Academicas
-
-## Tabla de Contenido
-1. Introduccion  
-1.1 Proposito  
-1.2 Alcance  
-1.3 Definiciones, Acronimos y Abreviaturas  
-1.4 Referencias  
-1.5 Apreciacion Global  
-2. Descripcion del Problema  
-2.1 Perspectiva del Producto  
-2.2 Funciones del Producto  
-2.3 Caracteristicas de los Usuarios  
-2.4 Restricciones  
-2.5 Suposiciones y Dependencias  
-3. Objetivos  
-3.1 Objetivo General  
-3.2 Objetivos Especificos  
-4. Justificacion  
-5. Propuesta del Plan del Proyecto  
-6. Analisis de Requerimientos del Software  
-7. Diseno UML  
-7.1 Diagrama de Casos de Uso  
-7.2 Diagrama de Dominio  
-8. Modelamiento de la Base de Datos  
-8.1 Modelo Entidad-Relacion  
-8.2 Modelo Relacional  
-8.3 Diccionario de Datos  
-9. Diseno de Interfaz  
-10. Referencias Bibliograficas  
-11. Anexos  
-12. Actualizacion Funcional 2026-03-10
-13. Vistas JSP Agregadas y Ajustadas
-14. Ajustes por Retroalimentacion 2026-04-20
-
+Segunda Entrega - Proyecto Integrador
+Universidad de Investigacion y Desarrollo (UDI)
+Programa: Licenciatura (Proyecto Integrador)
+Fecha: 31/03/2026
+Equipo: Rafael Fabian Carreno Barrera, Yeison Nicolas Marino Roberto, Santiago Andres Rojas
+Tabla de contenido
+Introduccion
+1.1 Proposito
+1.2 Alcance
+1.3 Definiciones, acronimos y abreviaturas
+1.4 Referencias
+1.5 Apreciacion global
+Descripcion del problema
+2.1 Perspectiva del producto
+2.2 Funciones del producto
+2.3 Caracteristicas de los usuarios
+2.4 Restricciones
+2.5 Suposiciones y dependencias
+Objetivos
+3.1 Objetivo general
+3.2 Objetivos especificos
+Justificacion
+Propuesta del plan del proyecto
+Analisis de requerimientos del software
+Diseno UML
+Modelamiento de la base de datos
+Diseno de interfaz
+10. Referencias bibliograficas
+11. Anexos
+1. Introduccion
+Las practicas academicas son un eje del proceso formativo porque conectan la teoria con contextos reales de trabajo. En el estado actual, la gestion se realiza con archivos sueltos, correos y hojas de calculo, lo que provoca duplicidad de datos, demoras en validacion de actividades y poca trazabilidad del avance del estudiante.
+El proyecto integrador propone una solucion de software para centralizar el ciclo de practica (registro, bitacora, evidencias, validacion y reportes). La construccion del prototipo aplica competencias desarrolladas en cursos del plan de estudios, especialmente analisis de sistemas de informacion, bases de datos, programacion y pruebas.
+Este documento presenta la segunda entrega mejorada: define el problema con mayor profundidad, formula objetivos verificables, detalla actividades del plan de trabajo, describe requisitos funcionales y no funcionales, y documenta los artefactos de UML, base de datos, interfaces y anexos de evidencia.
+1.1 Proposito
+Definir, disenar y validar un prototipo funcional de escritorio para la gestion de practicas academicas que soporte tres roles (estudiante, docente asesor y director de programa), con persistencia en Oracle y evidencia de pruebas funcionales.
+1.2 Alcance
+El alcance de esta entrega incluye:
+Autenticacion por rol.
+Registro de practicas academicas.
+Registro y seguimiento de bitacora.
+Carga de evidencias por actividad.
+Validacion o rechazo de actividades por docente.
+Cierre operativo de practica por cumplimiento de horas validadas.
+Consulta de reportes por filtros de periodo/programa/estado.
+Evidencia de pruebas funcionales sobre el prototipo.
+Fuera de alcance para esta etapa:
+Despliegue en produccion institucional.
+Integraciones con sistemas externos institucionales (SSO, ERP, LMS).
+Aplicacion movil nativa.
+1.3 Definiciones, acronimos y abreviaturas
+Practica academica: actividad formativa del estudiante en una entidad receptora.
+Entidad receptora: institucion donde el estudiante ejecuta su practica.
+Bitacora: registro periodico de actividades y horas reportadas.
+Evidencia: archivo de soporte de una actividad de bitacora.
+UML: Unified Modeling Language.
+ER: Entidad-Relacion.
+SRS: Software Requirements Specification.
+RF: Requisito funcional.
+RNF: Requisito no funcional.
+1.4 Referencias
+Reglamento institucional de practicas UDI.
+Guia SWEBOK (IEEE Computer Society).
+UML 2.5.1 (OMG).
+ISO/IEC 25010 (calidad de software).
+Documentos tecnicos del repositorio del proyecto.
+1.5 Apreciacion global
+El documento consolida los productos de la segunda entrega y articula lo solicitado por los docentes evaluadores: mayor profundidad del problema, claridad entre objetivos y requisitos, descripcion completa de actividades, y anexos verificables (diagramas, SQL, casos de uso, pruebas e interfaces).
+2. Descripcion del problema
+En la gestion actual de practicas academicas se observan cuatro causas principales:
+Fragmentacion de la informacion entre correo, hojas de calculo y documentos no centralizados.
+Ausencia de trazabilidad uniforme para validar actividades y horas.
+Dificultad para consolidar reportes oportunos por programa y periodo.
+Alta carga operativa para docentes y directivos en tareas de seguimiento manual.
+Estas causas impactan a todos los actores:
+Estudiante: no tiene una vista unica del estado de su practica.
+Docente asesor: invierte tiempo en validaciones manuales repetitivas.
+Director de programa: no cuenta con tableros consolidados para decisiones academicas.
+Como resultado, se reduce la eficiencia del acompanamiento y aumenta el riesgo de errores administrativos o inconsistencias en el cierre del proceso.
+2.1 Perspectiva del producto
+El producto es un sistema de escritorio (Java Swing) con base de datos Oracle, orientado a apoyar la operacion academica del proceso de practicas. El acceso se controla por rol y cada actor visualiza funciones acordes con su responsabilidad.
+2.2 Funciones del producto
+Autenticacion y control de acceso por rol.
+Registro de practicas (datos del estudiante, entidad, docente, periodo y objetivo).
+Registro de actividades en bitacora y horas reportadas.
+Carga de evidencias por actividad.
+Validacion o rechazo de bitacora con observaciones.
+Cierre operativo de practica segun horas validadas.
+Consulta de estado e historial.
+Reportes institucionales filtrables.
+2.3 Caracteristicas de los usuarios
+Estudiante: registra su practica, bitacora y evidencias; consulta avance.
+Docente asesor: valida actividades y registra observaciones.
+Director de programa: supervisa indicadores, gestiona entidades y consulta reportes.
+2.4 Restricciones
+Cumplimiento de lineamientos institucionales de datos y practicas.
+Dependencia de conectividad y disponibilidad de Oracle local/institucional.
+Restriccion de funciones segun rol autenticado.
+Disponibilidad de los usuarios para validacion y seguimiento oportuno.
+2.5 Suposiciones y dependencias
+Existen lineamientos academicos definidos para practicas.
+La institucion dispone de infraestructura minima para ejecutar el prototipo.
+Los actores participan con datos reales o datos de prueba controlados.
+3. Objetivos
+3.1 Objetivo general
+Implementar y validar un prototipo funcional de gestion de practicas academicas que permita autenticar usuarios por rol, registrar y validar actividades de bitacora y generar reportes por filtros, verificando su operacion con pruebas funcionales documentadas.
+3.2 Objetivos especificos
+Entregar la especificacion de requisitos y casos de uso detallados del sistema, diferenciando requisitos funcionales y no funcionales.
+Entregar el diseno tecnico del sistema (UML, modelo de dominio, modelo ER y modelo relacional) coherente con el alcance de la entrega.
+Construir un prototipo navegable en Java Swing con conexion Oracle que implemente los modulos principales por rol.
+Ejecutar y documentar pruebas funcionales del prototipo con criterios de aceptacion y evidencias de resultado.
+4. Justificacion
+Centralizar la gestion de practicas en una sola plataforma mejora la trazabilidad del proceso, reduce errores por registro manual y permite seguimiento oportuno por parte de docentes y direccion de programa. La propuesta responde al problema identificado porque integra, en un mismo flujo, registro, validacion y reporte.
+Adicionalmente, la solucion aporta valor academico al convertir los productos de los cursos del proyecto integrador en artefactos concretos y verificables: requisitos, diseno UML, esquema de base de datos, implementacion funcional y resultados de pruebas.
+5. Propuesta del plan del proyecto
+Se mantiene un enfoque en cascada, pero con actividades y entregables explicitos por fase.
+| Fase | Actividades principales | Entregables de fase |
+|---|---|---|
+| 1. Levantamiento y analisis | Recoleccion de necesidades, identificacion de actores, definicion de alcance, elaboracion de casos de uso y RF/RNF. | Documento de requisitos, casos de uso detallados. |
+| 2. Diseno | Arquitectura de la solucion, diagramas UML, modelo ER, modelo relacional, reglas de negocio y prototipos de interfaz. | Diagramas UML, esquema SQL, diseno de pantallas. |
+| 3. Construccion | Implementacion de modulos por rol (login, practica, bitacora, evidencia, validacion, reportes), integracion con Oracle. | Prototipo funcional en Java Swing + scripts SQL. |
+| 4. Pruebas y ajuste | Ejecucion de pruebas funcionales y negativas, correccion de errores, ajuste de validaciones y mensajes. | Checklist de pruebas con resultados y evidencia. |
+| 5. Cierre academico | Consolidacion de documentacion tecnica y anexos, revision final de cumplimiento de objetivos de entrega. | Documento de segunda entrega y anexos completos. |
+Nota de alcance: en esta etapa no se realiza despliegue productivo institucional; el cierre corresponde a validacion academica del prototipo en entorno de laboratorio.
+Recursos tecnicos definidos:
+Lenguaje: Java.
+Framework UI: Java Swing.
+IDE: NetBeans.
+Base de datos: Oracle XE/Oracle compatible.
+Control de versiones: GitHub.
+Modelado UML: Astah + PlantUML.
+6. Analisis de requerimientos del software
+6.1 Requisitos funcionales (con descripcion)
+| ID | Requisito | Descripcion funcional |
+|---|---|---|
+| RF01 | Iniciar y cerrar sesion | Permite autenticar al usuario con correo, clave y rol para habilitar el dashboard correspondiente. |
+| RF02 | Gestionar usuarios y roles | Permite mantener usuarios activos con rol valido para operacion del sistema. |
+| RF03 | Gestionar entidades receptoras | Permite registrar y actualizar entidades donde se desarrollan practicas. |
+| RF04 | Registrar practicas academicas | Permite crear la practica con estudiante, periodo, entidad, docente, fechas y objetivo. |
+| RF05 | Asignar docente y entidad | Permite vincular responsables academicos y entidad receptora a cada practica. |
+| RF06 | Registrar actividades y horas | Permite al estudiante registrar entradas de bitacora con fecha, actividad, descripcion y horas. |
+| RF07 | Cargar evidencias | Permite asociar archivos de soporte a cada actividad de bitacora. |
+| RF08 | Validar o rechazar actividades | Permite al docente aprobar/rechazar entradas y registrar observaciones. |
+| RF09 | Consultar estado e historial | Permite visualizar trazabilidad del proceso para cada rol. |
+| RF10 | Generar reportes por filtros | Permite consultar consolidado por periodo, programa y estado operativo. |
+6.2 Requisitos no funcionales (separados por calidad)
+RNF01 Usabilidad: interfaz clara y consistente para los tres roles.
+RNF02 Seguridad: control de acceso por rol, validacion de credenciales y restricciones por perfil.
+RNF03 Rendimiento: respuestas menores a 3 segundos en consultas frecuentes de dashboard y reportes.
+RNF04 Integridad de datos: uso de claves, foraneas y restricciones CHECK/UNIQUE en Oracle.
+RNF05 Trazabilidad: cada validacion o rechazo debe conservar estado, observacion y responsable.
+RNF06 Mantenibilidad: estructura modular por capas (UI, datos, modelo, configuracion).
+RNF07 Disponibilidad academica: operacion estable en periodos de alta actividad.
+6.3 Reglas de negocio relevantes
+RN01: una actividad rechazada debe incluir observacion del docente.
+RN02: horas reportadas por actividad en rango (0, 12].
+RN03: fecha fin de practica no puede ser menor que fecha inicio.
+RN04: cierre operativo de practica cuando horas_validadas >= horas_objetivo.
+RN05: horas validadas de practica se recalculan con base en actividades VALIDADA.
+7. Diseno UML
+7.1 Diagrama de casos de uso
+El diseno se distribuye en 4 diagramas para evitar saturacion:
+D1 Autenticacion (comun a los 3 actores).
+D2 Modulo Estudiante.
+D3 Modulo Docente.
+D4 Modulo Director.
+Estos diagramas estan en formato editable y visual (PlantUML/Astah/PNG) y se referencian en anexos.
+7.2 Diagrama de dominio (resumen)
+Entidades de dominio consideradas:
+Usuario
+Estudiante
+DocenteAsesor
+DirectorPrograma
+EntidadReceptora
+Practica
+Bitacora
+Evidencia
+Relaciones clave del dominio:
+Estudiante 1..N Practica.
+Practica 1..N Bitacora.
+Bitacora 1..N Evidencia.
+8. Modelamiento de la base de datos
+8.1 Modelo entidad-relacion
+El modelo ER implementa la trazabilidad completa del proceso de practica. A continuacion se presenta un resumen textual del ER:
+```mermaid
+erDiagram
+USUARIO ||--o| ESTUDIANTE : "es"
+USUARIO ||--o| DOCENTE_ASESOR : "es"
+USUARIO ||--o| DIRECTOR_PROGRAMA : "es"
+ESTUDIANTE ||--o{ PRACTICA : "tiene"
+DOCENTE_ASESOR ||--o{ PRACTICA : "asesora"
+DIRECTOR_PROGRAMA ||--o{ PRACTICA : "supervisa"
+ENTIDAD_RECEPTORA ||--o{ PRACTICA : "recibe"
+PRACTICA ||--o{ BITACORA : "registra"
+BITACORA ||--o{ EVIDENCIA : "soporta"
+```
+8.2 Modelo relacional
+Tablas principales implementadas:
+usuario
+estudiante
+docente_asesor
+director_programa
+entidad_receptora
+practica
+bitacora
+evidencia
+Estructuras de soporte:
+Indices para consultas frecuentes en practica y bitacora.
+Vistas `vw_horas_practica` y `vw_reporte_programa` para indicadores y reportes.
+8.3 Diccionario de datos (resumen)
+`usuario.rol`: ESTUDIANTE, DOCENTE, DIRECTOR.
+`usuario.estado`: ACTIVO, INACTIVO.
+`practica.estado`: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA.
+`bitacora.estado_validacion`: PENDIENTE, VALIDADA, RECHAZADA.
+9. Diseno de interfaz
+9.1 Pantallas principales y comportamiento
+| Pantalla | Actor | Comportamiento principal | Validaciones clave |
+|---|---|---|---|
+| Login | Todos | Autentica correo, clave y rol; redirige al dashboard correcto. | Credenciales validas y rol correcto. |
+| Dashboard estudiante | Estudiante | Muestra estado de practica, horas reportadas/validadas y accesos a modulos. | Solo datos del estudiante autenticado. |
+| Registro de practica | Estudiante/Director | Crea registro de practica con datos academicos y fechas. | Campos obligatorios y rango de fechas valido. |
+| Bitacora | Estudiante | Registra entradas de actividad y actualiza historial. | Horas > 0 y <= 12; fecha valida. |
+| Evidencias | Estudiante | Asocia archivos soporte a actividad de bitacora. | Ruta de archivo y tipo definidos. |
+| Dashboard docente | Docente | Visualiza pendientes, practicas en curso y cola de validacion. | Solo practicas asignadas al docente. |
+| Validacion de actividades | Docente | Aprueba/rechaza entradas y registra observacion. | Rechazo exige observacion. |
+| Dashboard director | Director | Visualiza KPIs globales y consolidado institucional. | Acceso exclusivo por rol director. |
+| Reportes | Director | Filtra por periodo/programa/estado y consulta consolidado. | Filtros coherentes con datos existentes. |
+9.2 Criterios de presentacion
+Navegacion por menu lateral con accesos por rol.
+Mensajes de exito y error claros.
+Tablas con recarga despues de cada operacion.
+Coherencia visual entre formularios y reportes.
+10. Referencias bibliograficas
+SWEBOK V3.0 y portal IEEE Computer Society.
+ISO/IEC/IEEE 12207.
+ISO/IEC 25010.
+UML 2.5.1 (OMG).
+Sommerville, Software Engineering (10th ed.).
+Pressman y Maxim, Software Engineering: A Practitioner's Approach (9th ed.).
+Reglamento de practicas UDI.
+11. Anexos
+Anexos tecnicos incluidos en el repositorio del proyecto:
+Anexo A. Casos de uso detallados: `gestion-practicas-desktop/CASOS_DE_USO_DETALLADOS.txt`
+Anexo B. Checklist de pruebas funcionales: `gestion-practicas-desktop/CHECKLIST_PRUEBAS_FUNCIONALES.txt`
+Anexo C. Diagramas de casos de uso (PNG):
+`gestion-practicas-desktop/docs/astah_casos_uso/png/D1_Autenticacion.png`
+`gestion-practicas-desktop/docs/astah_casos_uso/png/D2_Estudiante.png`
+`gestion-practicas-desktop/docs/astah_casos_uso/png/D3_Docente.png`
+`gestion-practicas-desktop/docs/astah_casos_uso/png/D4_Director.png`
+Anexo D. Diagramas editables PlantUML:
+`gestion-practicas-desktop/docs/astah_casos_uso/puml/D1_Autenticacion.puml`
+`gestion-practicas-desktop/docs/astah_casos_uso/puml/D2_Estudiante.puml`
+`gestion-practicas-desktop/docs/astah_casos_uso/puml/D3_Docente.puml`
+`gestion-practicas-desktop/docs/astah_casos_uso/puml/D4_Director.puml`
+Anexo E. Modelo de base de datos: `gestion-practicas-desktop/sql/01_schema_oracle.sql`
+Anexo E2. Modelo reducido gestion de horas: `gestion-practicas-desktop/sql/01_schema_oracle_reducido_horas.sql`
+Anexo F. Documentacion tecnica BD: `gestion-practicas-desktop/sql/DOCUMENTACION_BD.txt`
+Anexo G. Capturas de interfaz: `gestion-practicas-desktop/docs/screenshots/*` (login, dashboards, registro, bitacora, evidencias, validacion, reportes)
 ---
-
-## 1. Introduccion
-Las practicas academicas son un componente esencial en la formacion de los estudiantes de educacion superior, ya que permiten aplicar conocimientos en contextos reales. Sin embargo, su gestion suele realizarse con herramientas dispersas (correos, hojas de calculo y documentos fisicos), lo que dificulta el control, el seguimiento y la trazabilidad.
-
-Este proyecto propone el desarrollo de un sistema de software que centralice la gestion de practicas academicas para programas de licenciatura, mejorando la eficiencia administrativa y academica, y fortaleciendo la toma de decisiones con informacion confiable y oportuna.
-
-### 1.1 Proposito
-Desarrollar un sistema que permita gestionar de manera eficiente las practicas academicas de los estudiantes, facilitando el registro, seguimiento, control y evaluacion de las actividades realizadas durante su proceso formativo.
-
-### 1.2 Alcance
-El sistema permitira:
-- Registrar y administrar usuarios por rol.
-- Gestionar entidades receptoras y cupos disponibles.
-- Asignar estudiantes a tutor academico y asesor pedagogico de institucion.
-- Registrar actividades, horas y evidencias.
-- Evaluar y validar practicas.
-- Consultar estados y generar reportes.
-
-La solucion se implementara con arquitectura cliente-servidor y acceso por rol (director del programa, tutor academico y estudiante), con participacion externa restringida del asesor pedagogico de institucion receptora.
-
-### 1.3 Definiciones, Acronimos y Abreviaturas
-- Practica academica: actividad formativa en contexto real supervisada por la universidad.
-- Entidad receptora: institucion donde el estudiante realiza su practica.
-- Tutor academico: profesor universitario que acompania, valida y evalua el proceso de practica.
-- Asesor pedagogico: profesional de la institucion receptora con acceso externo restringido para observacion y concepto.
-- Director del programa: responsable academico-administrativo del programa.
-- Evidencia: archivo o registro que soporta actividades realizadas.
-- UML: Unified Modeling Language.
-- ER: Modelo Entidad-Relacion.
-- SRS: Especificacion de Requisitos de Software.
-
-### 1.4 Referencias
-- Reglamento institucional de practicas academicas.
-- Normativa interna de evaluacion y seguimiento estudiantil.
-- Estandares de ingenieria de software y modelado UML.
-
-### 1.5 Apreciacion Global
-El documento presenta el problema, los objetivos, el analisis de requisitos, el diseno UML, el modelo de base de datos y el diseno de interfaz, con el fin de definir una solucion integral para la gestion de practicas academicas.
-
----
-
-## 2. Descripcion del Problema
-En muchas instituciones, la gestion de practicas academicas se realiza con procesos manuales y dispersos. Esto genera duplicidad de informacion, errores de seguimiento, retrasos en validaciones y dificultad para generar reportes consolidados. Como resultado, los actores institucionales invierten mas tiempo en tareas operativas que en acompanamiento academico.
-
-Se requiere una plataforma centralizada que mejore el control del proceso completo: asignacion, ejecucion, validacion, evaluacion y reporte.
-
-### 2.1 Perspectiva del Producto
-Sistema web institucional, integrado a la operacion academica, con acceso por roles y base de datos centralizada.
-
-### 2.2 Funciones del Producto
-- Autenticacion y control de acceso por rol.
-- Gestion de accesos, asignaciones y trazabilidad de practica.
-- Registro de practicas, actividades y evidencias.
-- Validacion de horas y evaluaciones por rubrica.
-- Consulta de estado e historial.
-- Generacion de reportes academicos y administrativos.
-
-### 2.3 Caracteristicas de los Usuarios
-- Director del programa: supervisa en tiempo real avances, horas, evaluaciones y aprueba el cierre de practicas.
-- Tutor academico: valida actividades, registra observaciones y evalua practicas con rubrica.
-- Estudiantes de licenciatura: registran bitacora, horas y evidencias; consultan estado de su practica.
-- Asesor pedagogico (externo): registra observaciones y concepto institucional con acceso restringido.
-
-### 2.4 Restricciones
-- Cumplimiento de politicas institucionales y proteccion de datos.
-- Uso de credenciales institucionales.
-- Dependencia de conectividad y disponibilidad del servidor.
-- Acceso restringido segun rol.
-
-### 2.5 Suposiciones y Dependencias
-- Existencia de lineamientos institucionales claros de practica.
-- Disponibilidad de infraestructura tecnologica minima.
-- Participacion activa de tutores academicos y asesores pedagogicos.
-
----
-
-## 3. Objetivos
-
-### 3.1 Objetivo General
-Desarrollar un software de gestion de practicas academicas que optimice el registro, seguimiento y evaluacion de las actividades realizadas por los estudiantes.
-
-### 3.2 Objetivos Especificos
-- Disenar una interfaz intuitiva para todos los roles.
-- Implementar modulos de usuarios, entidades, practicas y actividades.
-- Implementar evaluacion con rubricas parametrizables.
-- Integrar carga y gestion de evidencias.
-- Generar reportes para seguimiento y acreditacion.
-
----
-
-## 4. Justificacion
-El sistema permitira centralizar la informacion de practicas academicas, reducir errores administrativos, mejorar la trazabilidad del proceso y apoyar la toma de decisiones con reportes confiables. Ademas, fortalecera la calidad del acompanamiento formativo y la eficiencia institucional.
-
----
-
-## 5. Propuesta del Plan del Proyecto
-
-### Metodologia
-1. Recoleccion y analisis de requisitos.  
-2. Diseno del sistema (arquitectura, UML, BD, prototipos).  
-3. Implementacion por modulos.  
-4. Pruebas funcionales y ajustes.  
-5. Despliegue y validacion institucional.
-
-### Recursos tecnicos
-- Lenguaje: Java.
-- IDE: NetBeans.
-- Base de datos: Oracle SQL.
-- Control de versiones: GitHub.
-- Diseno UML: Astah.
-- Colaboracion: Google Docs, Canva.
-
----
-
-## 6. Analisis de Requerimientos del Software
-
-### Requisitos funcionales
-- RF01: Iniciar y cerrar sesion.
-- RF02: Gestionar accesos de practica (tutores y asesores pedagogicos).
-- RF03: Configurar plantillas de bitacora por semestre y modalidad.
-- RF04: Registrar practicas academicas por direccion del programa.
-- RF05: Asignar tutor academico y asesor pedagogico a cada practica.
-- RF06: Registrar bitacora y horas con ingreso/salida.
-- RF07: Vincular evidencias por archivo o enlace institucional.
-- RF08: Validar/rechazar bitacoras y horas.
-- RF09: Evaluar practicas por rubrica.
-- RF10: Cerrar/reabrir practica por decision de direccion.
-- RF11: Consultar estado e historial.
-- RF12: Generar reportes institucionales (R1, R2, R3).
-- RF13: Registrar observaciones institucionales por asesor pedagogico.
-- RF14: Consolidar hallazgos (vacios, tensiones, fortalezas) para mejora del programa.
-- RF15: Gestionar convenios de practica con instituciones receptoras.
-- RF16: Gestionar banco de preguntas de bitacora investigativa.
-- RF17: Registrar retroalimentacion docente sobre respuestas del estudiante.
-- RF18: Registrar visitas pedagogicas de seguimiento.
-
-### Requisitos no funcionales
-- RNF01: Interfaz usable y responsive.
-- RNF02: Seguridad con control de acceso por rol.
-- RNF03: Tiempos de respuesta adecuados (<3 s en consultas comunes).
-- RNF04: Integridad y consistencia de datos.
-- RNF05: Trazabilidad de acciones (auditoria).
-- RNF06: Mantenibilidad modular.
-- RNF07: Disponibilidad durante periodos academicos.
-
----
-
-## 7. Diseno UML
-
-### 7.1 Diagrama de Casos de Uso
-Se propone un diagrama general con actores:
-- Director del programa
-- Tutor academico
-- Estudiantes de licenciatura
-- Asesor pedagogico de institucion receptora (externo)
-
-Casos principales:
-- Autenticar usuario (caso tecnico de seguridad).
-- Gestionar accesos de practica.
-- Configurar plantilla de bitacora.
-- Registrar practica.
-- Asignar tutor y asesor pedagogico.
-- Registrar bitacora y horas.
-- Vincular evidencia.
-- Validar bitacora y horas.
-- Evaluar practica.
-- Cerrar/reabrir practica.
-- Registrar observacion institucional.
-- Gestionar convenios con instituciones.
-- Gestionar banco de preguntas.
-- Retroalimentar respuestas de bitacora.
-- Registrar visitas pedagogicas.
-- Consultar historial.
-- Generar reportes.
-
-Relaciones UML clave:
-- Los casos funcionales de negocio incluyen `Autenticar usuario` mediante `<<include>>`.
-- `Vincular evidencia` extiende `Registrar bitacora y horas` mediante `<<extend>>`.
-- `Asignar tutor y asesor pedagogico` extiende el flujo de `Registrar practica` cuando la practica ya existe.
-- `Cerrar/reabrir practica` incluye consulta de evaluacion y trazabilidad consolidada.
-
-### 7.2 Diagrama de Dominio
-Entidades de dominio:
-- Usuario
-- Estudiante
-- TutorAcademico
-- AsesorPedagogico
-- DirectorPrograma
-- EntidadReceptora
-- Practica
-- ActividadPractica
-- Evidencia
-- Evaluacion
-- Rubrica
-- CriterioRubrica
-- DetalleEvaluacion
-
-Relaciones clave:
-- Estudiante 1..N Practica.
-- Practica 1..N Actividad.
-- Actividad 1..N Evidencia.
-- Practica 1..N Evaluacion.
-- Evaluacion 1..N Detalle por criterio.
-
----
-
-## 8. Modelamiento de la Base de Datos
-
-### 8.1 Modelo Entidad-Relacion
-El modelo ER incluye las entidades descritas en el dominio y sus claves primarias/foraneas para garantizar trazabilidad completa del proceso de practica.
-
-### 8.2 Modelo Relacional
-Tablas principales:
-- usuario
-- estudiante
-- docente_asesor
-- director_programa
-- entidad_receptora
-- usuario_entidad
-- practica
-- actividad_practica
-- evidencia
-- rubrica
-- criterio_rubrica
-- evaluacion
-- detalle_evaluacion
-- validacion_institucional
-
-### 8.3 Diccionario de Datos (resumen)
-- `usuario.rol`: ESTUDIANTE, TUTOR_ACADEMICO, DIRECTOR, ASESOR_PEDAGOGICO.
-- `practica.estado`: PENDIENTE, EN_CURSO, FINALIZADA, APROBADA, RECHAZADA.
-- `actividad_practica.estado_validacion`: PENDIENTE, VALIDADA, RECHAZADA.
-- `evaluacion.puntaje_total`: rango 0-100.
-- Fechas almacenadas en tipo `DATE` y presentadas en interfaz como `DD/MM/AA`.
-
----
-
-## 9. Diseno de Interfaz
-
-### Pantallas principales
-- Inicio de sesion.
-- Dashboard por rol.
-- Gestion de accesos de practica.
-- Configuracion de plantilla de bitacora.
-- Registro de practica.
-- Registro de bitacora y horas.
-- Vinculacion de evidencias.
-- Evaluacion por rubrica.
-- Reportes y exportacion.
-
-### Criterios de diseno
-- Navegacion simple por menu lateral.
-- Validaciones en formularios.
-- Filtros de busqueda por periodo, programa y estado.
-- Visualizacion diferenciada segun rol.
-- Diseno responsive para escritorio y movil.
-
----
-
-## 10. Referencias Bibliograficas
-- IEEE Computer Society. (2014). *SWEBOK V3.0*.
-- ISO/IEC/IEEE. (2017). *ISO/IEC/IEEE 12207:2017*.
-- ISO/IEC. (2011). *ISO/IEC 25010:2011*.
-- Sommerville, I. (2016). *Ingenieria de software* (10.a ed.).
-- Pressman, R. S., & Maxim, B. R. (2020). *Ingenieria de software* (9.a ed.).
-- OMG. (2017). *UML 2.5.1*.
-- Universitaria de Investigacion y Desarrollo (UDI). (2018). *Reglamento de practicas profesionales*. https://www.udi.edu.co/images/manuales/reglamentos_2018/practicas.pdf
-
----
-
-## 11. Anexos
-- Anexo A: Actas de levantamiento de requisitos.
-- Anexo B: Historias de usuario.
-- Anexo C: Diagrama de casos de uso.
-- Anexo D: Diagrama de dominio.
-- Anexo E: Modelo ER final.
-- Anexo F: Modelo relacional y diccionario completo.
-- Anexo G: Prototipos de interfaz.
-- Anexo H: Matriz de trazabilidad.
-- Anexo I: Plan y resultados de pruebas.
-- Anexo J: Manual de usuario.
-- Anexo K: Manual tecnico.
-- Anexo L: Evidencias y repositorio del proyecto.
-- Anexo M: Retroalimentacion docente (`Carreño-Mariño.Rojas.pdf`).
-
----
-
-## 12. Actualizacion Funcional 2026-03-10
-
-Con base en la sesion de levantamiento del 10 de marzo de 2026, se incorporaron ajustes funcionales para reforzar trazabilidad, control de horas, evaluacion y reportes de practicas.
-
-### 12.1 Hallazgos clave incorporados
-- La bitacora debe ser investigativa, no solo descriptiva.
-- El sistema debe manejar control de ingreso/salida con soporte institucional.
-- Se requiere separar seguimiento por modalidad (presencial y virtual).
-- Las evidencias pueden gestionarse por enlace institucional (ej. Drive), con opcion de destacar evidencias para pares academicos.
-- Se requieren reportes institucionales minimos por periodo (R1, R2, R3) para seguimiento y renovacion del programa.
-
-### 12.2 Ajustes aplicados en base de datos
-Archivos actualizados:
-- `bd/04_ajustes_reunion_20260310.sql`
-- `bd/03_consultas_utiles.sql`
-- `bd/00_instalar_bd.sql`
-- `bd/README.md`
-
-Cambios principales:
-- Extension de `practica` con:
-  - `semestre_practica`
-  - `modalidad` (`PRESENCIAL` o `VIRTUAL`)
-  - `arl_vigencia_hasta`
-- Extension de `evidencia` con:
-  - `es_destacada`
-  - `categoria`
-- Nuevas tablas:
-  - `plantilla_bitacora`
-  - `pregunta_plantilla_bitacora`
-  - `jornada_practica`
-  - `reporte_periodo_practica`
-- Nuevas consultas para:
-  - Cumplimiento por semestre/modalidad
-  - Jornadas con firma faltante
-  - Evidencias destacadas
-  - Estado de reportes institucionales
-
-### 12.3 Ajustes aplicados en interfaz web (JSP)
-Archivos actualizados:
-- `apache_tomcat_vistas/webapp/registro-actividad.jsp`
-- `apache_tomcat_vistas/webapp/evaluacion-rubrica.jsp`
-- `apache_tomcat_vistas/webapp/reportes.jsp`
-- `apache_tomcat_vistas/webapp/assets/css/styles.css`
-
-Mejoras funcionales:
-- Formularios con campos de contexto de practica (semestre, modalidad, ARL, tutor y asesor).
-- Registro diario de bitacora por preguntas orientadas a vacios, tensiones y mejora.
-- Captura de horas con entrada/salida y estado de validacion.
-- Flujo de evaluacion por rol y estado (borrador, enviada, validada, cerrada).
-- Panel de reportes con indicadores y reportes obligatorios por periodo.
-
----
-
-## 13. Vistas JSP Agregadas y Ajustadas
-
-### 13.1 Vista 06 - Registro de Actividad
-Ruta:
-- `apache_tomcat_vistas/webapp/registro-actividad.jsp`
-
-Secciones agregadas:
-- Datos de practica (periodo, semestre, modalidad, institucion, tutor, asesor, ARL).
-- Registro de bitacora investigativa (preguntas guiadas).
-- Enlace de evidencia institucional y marca de evidencia destacada.
-- Tabla de cumplimiento con horas y validaciones.
-
-### 13.2 Vista 07 - Evaluacion por Rubrica
-Ruta:
-- `apache_tomcat_vistas/webapp/evaluacion-rubrica.jsp`
-
-Secciones agregadas:
-- Contexto de evaluacion por periodo, semestre, modalidad y rol evaluador.
-- Rubrica integrada con ponderaciones y observaciones por criterio.
-- Estados de evaluacion y decision de cierre por direccion.
-- Resumen de puntaje total y avance de horas.
-
-### 13.3 Vista 08 - Reportes
-Ruta:
-- `apache_tomcat_vistas/webapp/reportes.jsp`
-
-Secciones agregadas:
-- Filtros por periodo, semestre, modalidad, institucion, tutor y estado.
-- KPIs de cumplimiento academico y operativo.
-- Reportes obligatorios del periodo:
-  - R1: Seguimiento de horas y asistencia
-  - R2: Calidad de bitacora investigativa
-  - R3: Consolidado de evaluacion por rubrica
-- Tabla de analisis cualitativo (vacios, tensiones, fortalezas).
-
-### 13.4 Nota de implementacion
-Las vistas actuales corresponden a prototipos funcionales de interfaz (UI) en JSP. El siguiente paso tecnico es conectar estas pantallas con capa de negocio y persistencia (servlets/DAO/JDBC) para guardar y consultar datos reales desde Oracle.
-
----
-
-## 14. Ajustes por Retroalimentacion 2026-04-20
-
-Con base en `Carreño-Mariño.Rojas.pdf`, se realizaron estos ajustes documentales:
-- Se reforzo la redaccion de casos de uso con mayor detalle operativo.
-- Se incluyo criterio UML para modelar autenticacion como caso tecnico incluido (`<<include>>`) y no como eje de negocio aislado.
-- Se explicitaron relaciones `<<include>>` y `<<extend>>` para mejorar legibilidad y consistencia del diagrama.
-- Se corrigio la responsabilidad de registro de practica: en esta version, el registro formal lo realiza Direccion del Programa.
-- Se agregaron casos de uso complementarios: convenios, banco de preguntas, retroalimentacion y visitas pedagogicas.
-- Se dejo trazado el alcance funcional actual: asignacion directa practica-docente sin modulo de grupos en esta version.
+Ajustes realizados frente a observaciones docentes
+Introduccion ampliada y cerrada con presentacion del documento.
+Problema profundizado con causas, impacto por actor y necesidad institucional.
+Objetivo general reformulado con verbo verificable.
+Objetivos especificos alineados a productos de cursos (requisitos, diseno, construccion, pruebas) y no redactados como RF.
+Plan de trabajo detallado por fases, actividades y entregables; se ajusta "despliegue" a cierre academico.
+Requisitos descritos uno a uno (no solo listado).
+Requisitos de seguridad reforzados en RNF.
+Se incluyen anexos concretos y rutas de evidencias para diagramas, SQL, pruebas e interfaces.
+Diseno de interfaz ahora describe comportamiento de cada pantalla.
+12. Ajuste propuesto de reduccion (enfoque gestion de horas)
+Este ajuste simplifica el modelo de la Entrega 2 para operacion de registro, validacion y control de horas.
+Cambios resaltados:
+[SE_MANTIENE] login, registro de practica, bitacora, evidencias, validacion y reportes.
+[MODIFICADO] registro publico: solo estudiante desde pantalla principal.
+[MODIFICADO] registro de docentes: solo directora.
+[MODIFICADO] cierre final de practica: aprobado por directora.
+[ELIMINADO] modulo de rubrica.
+[ELIMINADO] evaluacion detallada por criterio.
+[MODIFICADO] reportes orientados a avance de horas y estado operativo de practica.
+Cambios en base de datos:
+[ELIMINADO] `rubrica`
+[ELIMINADO] `criterio_rubrica`
+[ELIMINADO] `evaluacion`
+[ELIMINADO] `detalle_evaluacion`
+[SE_MANTIENE] `usuario`, `estudiante`, `docente_asesor`, `director_programa`, `entidad_receptora`, `practica`, `bitacora`, `evidencia`
+[MODIFICADO] estado de `practica` incorpora `PENDIENTE_APROBACION` para cierre por directora.
+Documentos de soporte del ajuste:
+`gestion-practicas-desktop/ENTREGA_2_AJUSTE_REDUCCION_HORAS.md`
+`gestion-practicas-desktop/sql/01_schema_oracle_reducido_horas.sql`

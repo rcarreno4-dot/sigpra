@@ -1,0 +1,24 @@
+﻿@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Estudiante" as Estudiante
+actor "Docente Asesor" as Docente
+actor "Directora de Programa" as Directora
+
+rectangle "Modulo Registro, Bitacora y Evidencias" {
+  usecase "UC-04 Registrar Practica Academica" as UC04
+  usecase "UC-05 Registrar Bitacora y Horas" as UC05
+  usecase "UC-06 Cargar Evidencias" as UC06
+  usecase "UC-07 Validar o Rechazar Actividades" as UC07
+}
+
+Directora -- UC04
+Estudiante -- UC05
+Estudiante -- UC06
+Docente -- UC07
+
+UC05 .> UC06 : <<include>>
+
+@enduml

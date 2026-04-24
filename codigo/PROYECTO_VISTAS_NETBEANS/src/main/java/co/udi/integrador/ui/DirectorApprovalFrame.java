@@ -33,12 +33,10 @@ public class DirectorApprovalFrame extends BaseFrame {
 
     private void buildNav() {
         navButton("Dashboard", false, this::goDashboard);
-        navButton("Plantillas", false, () -> goTo(new TemplateConfigFrame()));
         navButton("Aprobaciones", true, () -> { });
         navButton("Docentes", false, () -> goTo(new TeacherRegistrationFrame()));
         navButton("Asignaciones", false, () -> goTo(new PracticeRegistrationFrame(role)));
         navButton("Reportes", false, () -> goTo(new ReportsFrame()));
-        navButton("Hallazgos", false, () -> goTo(new FindingsConsolidationFrame()));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }
 

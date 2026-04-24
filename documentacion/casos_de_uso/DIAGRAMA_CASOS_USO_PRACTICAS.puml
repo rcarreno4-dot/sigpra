@@ -1,59 +1,44 @@
-@startuml
+﻿@startuml
 left to right direction
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-actor "Estudiantes de Licenciatura" as Estudiante
-actor "Tutor Academico" as Tutor
-actor "Director del Programa" as Director
-actor "Asesor Pedagogico (Externo)" as Asesor
+actor "Estudiante" as Estudiante
+actor "Docente Asesor" as Docente
+actor "Directora de Programa" as Directora
 
-rectangle "Sistema de Gestion de Practicas Academicas" {
+rectangle "Sistema de Gestion de Practicas Academicas (Reducido)" {
   usecase "UC-01 Iniciar Sesion" as UC01
-  usecase "UC-02 Gestionar Accesos de Practica" as UC02
-  usecase "UC-03 Configurar Plantilla de Bitacora" as UC03
+  usecase "UC-02 Registrar Estudiante" as UC02
+  usecase "UC-03 Registrar Docente Asesor" as UC03
   usecase "UC-04 Registrar Practica Academica" as UC04
-  usecase "UC-05 Asignar Tutor y Asesor Pedagogico" as UC05
-  usecase "UC-06 Registrar Bitacora y Horas" as UC06
-  usecase "UC-07 Vincular Evidencias" as UC07
-  usecase "UC-08 Validar Horas y Bitacora" as UC08
-  usecase "UC-09 Evaluar Practica por Rubrica" as UC09
-  usecase "UC-10 Cerrar o Reabrir Practica" as UC10
-  usecase "UC-11 Consultar Estado e Historial" as UC11
-  usecase "UC-12 Generar Reportes Institucionales" as UC12
-  usecase "UC-13 Registrar Observacion Institucional" as UC13
+  usecase "UC-05 Registrar Bitacora y Horas" as UC05
+  usecase "UC-06 Cargar Evidencias" as UC06
+  usecase "UC-07 Validar o Rechazar Actividades" as UC07
+  usecase "UC-08 Aprobar Cierre de Practica" as UC08
+  usecase "UC-09 Consultar Estado e Historial" as UC09
+  usecase "UC-10 Generar Reportes por Filtros" as UC10
 }
 
 Estudiante -- UC01
-Estudiante -- UC04
+Estudiante -- UC02
+Estudiante -- UC05
 Estudiante -- UC06
-Estudiante -- UC07
-Estudiante -- UC11
+Estudiante -- UC09
 
-Tutor -- UC01
-Tutor -- UC03
-Tutor -- UC08
-Tutor -- UC09
-Tutor -- UC11
-Tutor -- UC12
+Docente -- UC01
+Docente -- UC07
+Docente -- UC09
 
-Director -- UC01
-Director -- UC02
-Director -- UC03
-Director -- UC05
-Director -- UC10
-Director -- UC11
-Director -- UC12
+Directora -- UC01
+Directora -- UC03
+Directora -- UC04
+Directora -- UC08
+Directora -- UC09
+Directora -- UC10
 
-Asesor -- UC01
-Asesor -- UC08
-Asesor -- UC09
-Asesor -- UC13
-
-UC04 .> UC05 : <<include>>
-UC06 .> UC07 : <<include>>
+UC05 .> UC06 : <<include>>
+UC08 .> UC07 : <<include>>
 UC10 .> UC09 : <<include>>
-UC10 .> UC08 : <<include>>
-UC09 .> UC13 : <<include>>
 
 @enduml

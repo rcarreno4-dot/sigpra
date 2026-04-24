@@ -1,0 +1,32 @@
+﻿@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Estudiante" as Estudiante
+actor "Docente Asesor" as Docente
+actor "Directora de Programa" as Directora
+
+rectangle "Modulo Acceso y Reportes" {
+  usecase "UC-01 Iniciar Sesion" as UC01
+  usecase "UC-02 Registrar Estudiante" as UC02
+  usecase "UC-03 Registrar Docente Asesor" as UC03
+  usecase "UC-09 Consultar Estado e Historial" as UC09
+  usecase "UC-10 Generar Reportes por Filtros" as UC10
+}
+
+Estudiante -- UC01
+Estudiante -- UC02
+Estudiante -- UC09
+
+Docente -- UC01
+Docente -- UC09
+
+Directora -- UC01
+Directora -- UC03
+Directora -- UC09
+Directora -- UC10
+
+UC10 .> UC09 : <<include>>
+
+@enduml

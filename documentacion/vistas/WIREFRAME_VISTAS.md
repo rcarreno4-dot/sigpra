@@ -1,8 +1,8 @@
-﻿# Wireframes de Vistas - SIGPRA
+﻿# Wireframes de Vistas - SIGPRA (Version Reducida)
 
 ## Regla de logos
 - Vista de inicio (`LoginFrame`): usar `logo2`.
-- Resto de vistas (`BaseFrame`, `StudentSelfRegistrationFrame` y demás): usar `logo`.
+- Resto de vistas (`BaseFrame`, `StudentSelfRegistrationFrame` y demas): usar `logo`.
 
 ## 1) Inicio de sesion (`LoginFrame`) - Logo: `logo2`
 ```text
@@ -13,7 +13,7 @@
 | - Registro publico                                     [____________________]    |
 | - Estudiante registra practica                         Contrasena                |
 | - Docente valida                                       [____________________]    |
-| - Directora aprueba                                    Rol [Estudiante v]        |
+| - Directora aprueba cierre                             Rol [Estudiante v]        |
 |                                                        Modo [Oracle/Demo v]      |
 |                                                        [ Ingresar ]              |
 |                                                        [ Registrarse estudiante ] |
@@ -49,9 +49,8 @@
 ## 4) Registro de practica (`PracticeRegistrationFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav por rol                                                     |
-| (Director incluye selector de estudiante)                                      |
-| Estudiante* / Nombre / Codigo / Programa / Periodo                             |
+| Header comun + Nav directora                                                   |
+| Estudiante [v] | Nombre | Codigo | Programa | Periodo                         |
 | Entidad receptora [v] | Docente asesor [v] | Director programa [v]             |
 | Fecha inicio | Fecha fin | Objetivo de practica (textarea)                     |
 |                              [ Guardar registro ] [ Limpiar ]                  |
@@ -67,7 +66,7 @@
 | -----------------------------------------------------------------------------  |
 | Estudiante: formulario nueva entrada (fecha, actividad, horas, descripcion)    |
 | Docente: accion "Ir a validacion"                                              |
-| Director: KPIs (Pendientes, Validadas, Rechazadas)                             |
+| Directora: KPIs (Pendientes, Validadas, Rechazadas)                            |
 +--------------------------------------------------------------------------------+
 ```
 
@@ -86,7 +85,7 @@
 ## 7) Dashboard docente (`TeacherDashboardFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav: Dashboard | Validar | Rubrica | Bitacora | Cerrar sesion   |
+| Header comun + Nav: Dashboard | Validar | Bitacora | Cerrar sesion             |
 | [ KPI Estudiantes asignados ] [ KPI Entradas por validar ] [ KPI En curso ]    |
 | -----------------------------------------------------------------------------  |
 | Cola de validacion                                                             |
@@ -104,90 +103,51 @@
 +--------------------------------------------------------------------------------+
 ```
 
-## 9) Evaluacion por rubrica (`RubricEvaluationFrame`) - Logo: `logo`
+## 9) Dashboard directora (`DirectorDashboardFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav docente                                                     |
-| Registro de evaluacion                                                         |
-| Practica [v]                                                                   |
-| Planeacion [1..5] | Ejecucion [1..5] | Reflexion [1..5] | Evidencias [1..5]    |
-| Promedio [valor]                                                               |
-| Observacion [ textarea ]                                                       |
-| [ Guardar evaluacion ] [ Limpiar ]                                             |
-| -----------------------------------------------------------------------------  |
-| Evaluaciones recientes [ Tabla ]                                               |
-+--------------------------------------------------------------------------------+
-```
-
-## 10) Dashboard director (`DirectorDashboardFrame`) - Logo: `logo`
-```text
-+--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
+| Header comun + Nav directora                                                   |
 | [ KPI Pend. aprobacion ] [ KPI En curso ] [ KPI Finalizadas ]                  |
 | -----------------------------------------------------------------------------  |
-| Estado general por programa                                                     |
-| [ Tabla ]                                                                       |
+| Estado general por programa                                                    |
+| [ Tabla ]                                                                      |
 +--------------------------------------------------------------------------------+
 ```
 
-## 11) Aprobacion de cierre (`DirectorApprovalFrame`) - Logo: `logo`
+## 10) Aprobacion de cierre (`DirectorApprovalFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
-| Practicas pendientes por aprobacion de directora                                |
-| [ Tabla ]                                                                       |
-|                  [ Aprobar cierre ] [ Devolver a seguimiento ]                  |
+| Header comun + Nav directora                                                   |
+| Practicas pendientes por aprobacion de directora                               |
+| [ Tabla ]                                                                      |
+| [ Ver revision docente ] [ Aprobar cierre ] [ Devolver a seguimiento ]         |
 +--------------------------------------------------------------------------------+
 ```
 
-## 12) Registro de docentes (`TeacherRegistrationFrame`) - Logo: `logo`
+## 11) Registro de docentes (`TeacherRegistrationFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
-| Crear docente asesor                                                            |
-| Nombre completo      [________________________]                                 |
-| Correo institucional [________________________]                                 |
-| Contrasena           [________________________]                                 |
-| Area de asesoria     [________________________]                                 |
-|                         [ Registrar docente ] [ Limpiar ]                       |
+| Header comun + Nav directora                                                   |
+| Crear docente asesor                                                           |
+| Nombre completo      [________________________]                                |
+| Correo institucional [________________________]                                |
+| Contrasena           [________________________]                                |
+| Area de asesoria     [________________________]                                |
+|                        [ Registrar docente ] [ Limpiar ]                       |
 +--------------------------------------------------------------------------------+
 ```
 
-## 13) Plantillas de bitacora (`TemplateConfigFrame`) - Logo: `logo`
+## 12) Reportes (`ReportsFrame`) - Logo: `logo`
 ```text
 +--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
-| Nueva plantilla                                                                 |
-| Periodo | Modalidad | Nombre plantilla | Descripcion                            |
-| [ Guardar plantilla ] [ Limpiar ]                                               |
-| -----------------------------------------------------------------------------  |
-| Plantillas configuradas [ Tabla ]                                               |
-+--------------------------------------------------------------------------------+
-```
-
-## 14) Reportes (`ReportsFrame`) - Logo: `logo`
-```text
-+--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
-| Filtros: Periodo [v] | Programa [v] | Estado [v]                                |
+| Header comun + Nav directora                                                   |
+| Filtros: Periodo [v] | Programa [v] | Estado [v]                               |
 | Consolidado [ Tabla ]                                                           |
-| [ Consultar ] [ Exportar PDF ] [ Exportar Excel ]                               |
+| [ Consultar ] [ Exportar PDF ] [ Exportar Excel ]                              |
 +--------------------------------------------------------------------------------+
 ```
 
-## 15) Consolidacion de hallazgos (`FindingsConsolidationFrame`) - Logo: `logo`
-```text
-+--------------------------------------------------------------------------------+
-| Header comun + Nav directora                                                    |
-| Consolidado institucional [ Tabla ]                                             |
-| -----------------------------------------------------------------------------  |
-| Plan de mejora                                                                  |
-| [ textarea accion ]                                                             |
-| [ Registrar accion ] [ Recargar ]                                               |
-+--------------------------------------------------------------------------------+
-```
-
-## 16) Menu de vistas (`AbrirMenuVistas`) - Logo: icono de ventana
+## 13) Menu de vistas (`AbrirMenuVistas`) - Logo: icono de ventana
 ```text
 +----------------------------------------------------------------------------+
 | SIGPRA - Abrir vistas una a una                                            |
@@ -195,3 +155,8 @@
 | (Grid de botones para abrir cada vista de prueba)                          |
 +----------------------------------------------------------------------------+
 ```
+
+## Modulos fuera de alcance en esta entrega
+- [ELIMINADO] Evaluacion por rubrica.
+- [ELIMINADO] Plantillas de bitacora.
+- [ELIMINADO] Consolidacion de hallazgos.

@@ -1,0 +1,20 @@
+﻿DOCUMENTACION TECNICA BD - VERSION REDUCIDA
+
+Esquemas incluidos:
+- 01_schema_oracle.sql (modelo completo historico)
+- 01_schema_oracle_reducido_horas.sql (modelo oficial para esta entrega)
+
+Modelo oficial reducido (01_schema_oracle_reducido_horas.sql):
+- usuarios por rol (estudiante, docente, directora)
+- practica con estado: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA
+- bitacora con horas reportadas y estado de validacion
+- evidencia asociada a bitacora
+- reportes por programa, periodo y estado
+
+Tablas fuera de alcance en esta entrega:
+- rubrica
+- criterio_rubrica
+- evaluacion
+- detalle_evaluacion
+- plantilla_bitacora
+- hallazgo_mejora

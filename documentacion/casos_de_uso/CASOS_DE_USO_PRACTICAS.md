@@ -1,236 +1,120 @@
-# Casos de Uso - Sistema de Gestion de Practicas Academicas
+﻿# Casos de Uso - Sistema de Gestion de Practicas Academicas (Version Reducida)
 
-## Actores (actualizados segun reunion 2026-03-10)
-- Director del Programa (interno)
-- Tutor Academico (interno)
-- Estudiante de Licenciatura (interno)
-- Asesor Pedagogico de Institucion Receptora (externo, acceso restringido)
+## Alcance de esta version
+- Se mantiene: login, registro de practica, bitacora, evidencias, validacion docente, aprobacion final por directora y reportes.
+- Registro publico: solo estudiante desde pantalla principal.
+- Registro de docentes: solo directora.
+- Se elimina: modulo de rubrica y evaluacion detallada por criterio.
 
-## UC-01 Autenticar Usuario (tecnico)
-- Actor principal: Director, Tutor Academico, Estudiante.
-- Actor secundario: Asesor Pedagogico (si fue habilitado por el Director).
-- Proposito: Validar credenciales y habilitar sesion por perfil.
-- Precondiciones: Usuario registrado y activo.
+## Actores
+- Estudiante
+- Docente asesor
+- Directora de programa
+
+## UC-01 Iniciar Sesion
+- Actor principal: Estudiante, Docente asesor, Directora.
+- Proposito: Autenticar usuario y habilitar dashboard por rol.
+- Precondiciones: Usuario activo con credenciales validas.
 - Flujo principal:
-1. El actor ingresa correo y contrasena.
+1. El usuario ingresa correo, contrasena y rol.
 2. El sistema valida credenciales.
-3. El sistema identifica el perfil.
-4. El sistema muestra la vista correspondiente.
-- Flujos alternos:
-1. Credenciales invalidas: mostrar mensaje y permitir reintento.
-2. Usuario inactivo: bloquear acceso y mostrar aviso.
-- Postcondiciones: Sesion iniciada.
-- Nota UML: este caso de uso se modela como `<<include>>` de los casos funcionales de negocio.
+3. El sistema redirige al panel correspondiente.
+- Postcondicion: Sesion iniciada.
 
-## UC-02 Gestionar Accesos de Practica
-- Actor principal: Director del Programa.
-- Proposito: Habilitar o revocar acceso de tutores y asesores pedagogicos.
-- Precondiciones: Director autenticado.
+## UC-02 Registrar Estudiante (Autoregistro)
+- Actor principal: Estudiante.
+- Proposito: Permitir registro publico de cuenta estudiantil.
+- Precondiciones: No tener cuenta previa registrada.
 - Flujo principal:
-1. El Director consulta usuarios de practica.
-2. Selecciona usuario y define perfil de acceso.
-3. El sistema guarda permisos.
-- Flujos alternos:
-1. Usuario duplicado o datos invalidos: sistema rechaza guardado.
-- Postcondiciones: Accesos actualizados.
+1. El estudiante diligencia nombre, correo, codigo, programa y semestre.
+2. El sistema valida datos obligatorios.
+3. El sistema crea la cuenta de estudiante.
+- Postcondicion: Cuenta estudiantil creada.
 
-## UC-03 Configurar Plantilla de Bitacora
-- Actor principal: Director del Programa.
-- Actor secundario: Tutor Academico.
-- Proposito: Definir preguntas de bitacora por semestre y modalidad.
-- Precondiciones: Usuario con permisos de configuracion.
+## UC-03 Registrar Docente Asesor
+- Actor principal: Directora.
+- Proposito: Registrar docentes disponibles para asignacion de practicas.
+- Precondiciones: Directora autenticada.
 - Flujo principal:
-1. El actor selecciona semestre/modalidad.
-2. Crea o edita preguntas orientadoras.
-3. Publica plantilla activa.
-- Flujos alternos:
-1. Plantilla incompleta: sistema bloquea publicacion.
-- Postcondiciones: Plantilla disponible para estudiantes.
+1. La directora registra datos del docente.
+2. El sistema valida datos obligatorios.
+3. El sistema guarda el docente asesor.
+- Postcondicion: Docente disponible para asignaciones.
 
 ## UC-04 Registrar Practica Academica
-- Actor principal: Director del Programa.
-- Actor secundario: Estudiante de Licenciatura.
-- Proposito: Crear el registro formal de practica y dejarla lista para asignacion.
-- Precondiciones: Director autenticado y estudiante existente.
+- Actor principal: Directora.
+- Proposito: Crear practica academica y asociar datos base del proceso.
+- Precondiciones: Estudiante existente y directora autenticada.
 - Flujo principal:
-1. El Director selecciona estudiante y periodo academico.
-2. Registra institucion, fechas y datos base de practica.
-3. El sistema crea practica en estado PENDIENTE.
-- Flujos alternos:
-1. Datos incompletos: sistema solicita completar.
-- Postcondiciones: Practica registrada.
-- Relacion UML: `<<include>>` UC-01.
+1. La directora selecciona estudiante y periodo.
+2. Registra entidad, docente, fechas y objetivo.
+3. El sistema guarda la practica en estado `PENDIENTE` o `EN_CURSO` segun configuracion.
+- Postcondicion: Practica registrada.
 
-## UC-05 Asignar Tutor y Asesor Pedagogico
-- Actor principal: Director del Programa.
-- Proposito: Definir responsables de seguimiento de cada practica.
-- Precondiciones: Practica registrada.
+## UC-05 Registrar Bitacora y Horas
+- Actor principal: Estudiante.
+- Proposito: Registrar actividades y horas de avance.
+- Precondiciones: Practica activa del estudiante.
 - Flujo principal:
-1. El Director consulta practicas pendientes.
-2. Asigna Tutor Academico.
-3. Habilita Asesor Pedagogico externo (solo observacion/calificacion).
-4. El sistema cambia estado a EN_CURSO.
-- Flujos alternos:
-1. Sin disponibilidad de tutor: mantener en PENDIENTE.
-- Postcondiciones: Asignacion completada.
-- Relacion UML: `<<include>>` UC-01 y `<<extend>>` de UC-04 cuando la practica ya existe.
+1. El estudiante registra fecha, actividad, descripcion y horas.
+2. El sistema valida formato y rango de horas.
+3. El sistema guarda entrada en estado `PENDIENTE`.
+- Postcondicion: Bitacora registrada para revision docente.
 
-## UC-06 Registrar Bitacora y Horas
-- Actor principal: Estudiante de Licenciatura.
-- Proposito: Registrar bitacora investigativa y horas de jornada.
-- Precondiciones: Practica en estado EN_CURSO.
+## UC-06 Cargar Evidencias
+- Actor principal: Estudiante.
+- Proposito: Asociar archivo/ruta de evidencia a una entrada de bitacora.
+- Precondiciones: Bitacora existente.
 - Flujo principal:
-1. El estudiante registra fecha, hora de ingreso y salida.
-2. Responde preguntas de bitacora.
-3. Envia registro para validacion.
-- Flujos alternos:
-1. Horas invalidas o datos faltantes: sistema rechaza registro.
-- Postcondiciones: Bitacora registrada en estado PENDIENTE.
-- Relacion UML: `<<include>>` UC-01.
+1. El estudiante selecciona actividad.
+2. Registra tipo y ruta de evidencia.
+3. El sistema valida y guarda la evidencia.
+- Postcondicion: Evidencia asociada a la actividad.
 
-## UC-07 Vincular Evidencias
-- Actor principal: Estudiante de Licenciatura.
-- Proposito: Asociar evidencias (enlace o archivo) a la bitacora.
-- Precondiciones: Registro de bitacora creado.
+## UC-07 Validar o Rechazar Actividades
+- Actor principal: Docente asesor.
+- Proposito: Revisar entradas de bitacora y decidir validacion.
+- Precondiciones: Entradas pendientes asignadas al docente.
 - Flujo principal:
-1. El estudiante agrega enlace de evidencia institucional.
-2. Marca evidencia destacada si aplica.
-3. El sistema valida y guarda.
-- Flujos alternos:
-1. Enlace no valido: sistema rechaza.
-- Postcondiciones: Evidencia asociada a la actividad.
-- Relacion UML: `<<extend>>` de UC-06.
+1. El docente consulta cola de validacion.
+2. Revisa actividad, horas y evidencia.
+3. Marca `VALIDADA` o `RECHAZADA` con observacion.
+4. El sistema actualiza estado y trazabilidad.
+- Postcondicion: Entrada validada o rechazada.
 
-## UC-08 Validar Horas y Bitacora
-- Actor principal: Tutor Academico.
-- Actor secundario: Asesor Pedagogico.
-- Proposito: Aprobar o rechazar registro de actividad y horas.
-- Precondiciones: Registros pendientes.
+## UC-08 Aprobar Cierre de Practica
+- Actor principal: Directora.
+- Proposito: Decidir cierre final cuando se cumplan horas y validaciones.
+- Precondiciones: Practica en `PENDIENTE_APROBACION`.
 - Flujo principal:
-1. El Tutor consulta registros pendientes.
-2. Revisa horas, respuestas y evidencias.
-3. Marca VALIDADA o RECHAZADA con observacion.
-4. El sistema actualiza horas acumuladas.
-- Flujos alternos:
-1. Evidencia insuficiente: rechazar con ajuste.
-- Postcondiciones: Registro validado o devuelto.
-- Relacion UML: `<<include>>` UC-01.
+1. La directora revisa consolidado de horas y observaciones docentes.
+2. Aprueba cierre (`FINALIZADA`) o devuelve a seguimiento (`EN_CURSO`).
+3. El sistema registra la decision.
+- Postcondicion: Practica cerrada o devuelta.
 
-## UC-09 Evaluar Practica por Rubrica
-- Actor principal: Tutor Academico.
-- Actor secundario: Asesor Pedagogico.
-- Proposito: Evaluar el desempeno del estudiante.
-- Precondiciones: Practica con avance minimo definido.
+## UC-09 Consultar Estado e Historial
+- Actor principal: Estudiante, Docente asesor, Directora.
+- Proposito: Consultar trazabilidad por estado/periodo.
+- Precondiciones: Sesion iniciada.
 - Flujo principal:
-1. El Tutor selecciona practica y rubrica vigente.
-2. Registra puntajes por criterio.
-3. Consolida observaciones del asesor (si existen).
-4. El sistema calcula puntaje total.
-- Flujos alternos:
-1. Rubrica no configurada: sistema bloquea evaluacion.
-- Postcondiciones: Evaluacion almacenada.
-- Relacion UML: `<<include>>` UC-01.
+1. El usuario aplica filtros de consulta.
+2. El sistema muestra historial y estado actual.
+- Postcondicion: Estado consultado.
 
-## UC-10 Cerrar o Reabrir Practica
-- Actor principal: Director del Programa.
-- Actor secundario: Tutor Academico.
-- Proposito: Emitir decision final de practica.
-- Precondiciones: Evaluacion y horas consolidadas.
+## UC-10 Generar Reportes por Filtros
+- Actor principal: Directora.
+- Proposito: Consultar consolidado por periodo, programa y estado operativo con avance de horas.
+- Precondiciones: Directora autenticada.
 - Flujo principal:
-1. El Director revisa resumen de la practica.
-2. Define CERRADA/APROBADA o DEVUELTA CON AJUSTES.
-3. El sistema notifica al estudiante.
-- Flujos alternos:
-1. Informacion incompleta: mantener en EN_CURSO.
-- Postcondiciones: Estado final actualizado.
-- Relacion UML: `<<include>>` UC-01 y `<<include>>` UC-09.
+1. Selecciona filtros (periodo, programa, estado).
+2. El sistema consolida total practicas, horas y distribucion por estado.
+3. La directora consulta resultados.
+- Postcondicion: Reporte visualizado.
 
-## UC-11 Consultar Estado e Historial
-- Actor principal: Director, Tutor Academico, Estudiante.
-- Proposito: Consultar trazabilidad de practicas y bitacoras.
-- Precondiciones: Usuario autenticado.
-- Flujo principal:
-1. El actor aplica filtros (periodo, semestre, estado, modalidad).
-2. El sistema muestra historial y detalle.
-- Postcondiciones: Informacion consultada.
-- Relacion UML: `<<include>>` UC-01.
-
-## UC-12 Generar Reportes Institucionales
-- Actor principal: Director del Programa.
-- Actor secundario: Tutor Academico.
-- Proposito: Generar reportes para seguimiento y renovacion de programa.
-- Precondiciones: Datos consolidados en el sistema.
-- Flujo principal:
-1. El actor selecciona tipo de reporte (R1, R2, R3).
-2. Define filtros.
-3. El sistema consolida resultados.
-4. El actor exporta PDF/Excel.
-- Flujos alternos:
-1. Sin datos para filtros: mostrar reporte vacio.
-- Postcondiciones: Reporte generado.
-- Relacion UML: `<<include>>` UC-01.
-
-## UC-13 Registrar Observacion Institucional
-- Actor principal: Asesor Pedagogico de Institucion Receptora.
-- Actor secundario: Tutor Academico.
-- Proposito: Registrar observacion y concepto del desempeno en campo.
-- Precondiciones: Asesor habilitado por Director para una practica activa.
-- Flujo principal:
-1. El asesor consulta practicantes asignados.
-2. Registra observacion y concepto.
-3. El sistema notifica al Tutor Academico.
-- Flujos alternos:
-1. Practica no asignada al asesor: sistema bloquea registro.
-- Postcondiciones: Observacion institucional registrada.
-- Relacion UML: `<<include>>` UC-01 y `<<extend>>` UC-09.
-
-## UC-14 Gestionar Convenios con Instituciones
-- Actor principal: Director del Programa.
-- Proposito: Registrar y mantener convenios de practica con instituciones receptoras.
-- Precondiciones: Director autenticado.
-- Flujo principal:
-1. El Director registra o actualiza datos del convenio.
-2. El sistema valida vigencia y estado.
-3. El sistema habilita la institucion para nuevas practicas.
-- Postcondiciones: Convenio disponible para asignacion.
-- Relacion UML: `<<include>>` UC-01.
-
-## UC-15 Gestionar Banco de Preguntas de Bitacora
-- Actor principal: Director del Programa.
-- Actor secundario: Tutor Academico.
-- Proposito: Administrar preguntas orientadoras para bitacora investigativa.
-- Precondiciones: Usuario con permiso de configuracion.
-- Flujo principal:
-1. El actor crea o ajusta preguntas por semestre y modalidad.
-2. Publica la version activa de la plantilla.
-- Postcondiciones: Plantilla vigente disponible para estudiantes.
-- Relacion UML: `<<include>>` UC-01.
-
-## UC-16 Retroalimentar Respuestas de Bitacora
-- Actor principal: Tutor Academico.
-- Actor secundario: Asesor Pedagogico.
-- Proposito: Registrar comentarios de mejora sobre respuestas del estudiante.
-- Precondiciones: Bitacora registrada por el estudiante.
-- Flujo principal:
-1. El Tutor revisa respuestas y evidencias.
-2. Registra retroalimentacion puntual por actividad.
-3. El sistema notifica al estudiante.
-- Postcondiciones: Retroalimentacion almacenada en la trazabilidad de la practica.
-- Relacion UML: `<<include>>` UC-01 y `<<extend>>` UC-08.
-
-## UC-17 Registrar Visitas Pedagogicas
-- Actor principal: Tutor Academico.
-- Actor secundario: Director del Programa.
-- Proposito: Registrar visitas de seguimiento pedagogico a la institucion receptora.
-- Precondiciones: Practica activa y tutor asignado.
-- Flujo principal:
-1. El Tutor agenda y registra la visita.
-2. Documenta hallazgos y compromisos.
-3. El sistema actualiza el historial de seguimiento.
-- Postcondiciones: Visita registrada para consulta y auditoria.
-- Relacion UML: `<<include>>` UC-01.
-
-## Nota de Alcance (2026-04-20)
-- Se revisaron observaciones de retroalimentacion en `Carreño-Mariño.Rojas.pdf`.
-- Para esta version de SIGPRA se mantiene asignacion directa estudiante-practica-docente, sin modulo de grupos.
-- Los casos de uso de convenios, banco de preguntas y visitas pedagogicas quedan definidos para cierre documental y evolucion funcional.
+## Trazabilidad con reduccion (proyecto_integrador_completo)
+- [SE_MANTIENE] login, registro de practica, bitacora, evidencias, validacion y reportes.
+- [MODIFICADO] registro publico solo para estudiante.
+- [MODIFICADO] registro de docentes solo por directora.
+- [MODIFICADO] cierre final aprobado por directora.
+- [ELIMINADO] modulo de rubrica.
+- [ELIMINADO] evaluacion detallada por criterio.
