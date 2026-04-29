@@ -1,0 +1,20 @@
+SIGPRA PORTABLE - GUIA RAPIDA
+
+Contenido esperado:
+- PROYECTO_VISTAS_NETBEANS.exe
+- PROYECTO_VISTAS_NETBEANS.jar
+- ojdbc11-21.9.0.0.jar
+- app\ojdbc11-21.9.0.0.jar
+- INICIAR_SIGPRA_PORTABLE.bat
+
+Ejecucion recomendada en otro computador:
+1) Extraer TODO el ZIP en una carpeta local (no ejecutar dentro del .zip)
+2) Ejecutar INICIAR_SIGPRA_PORTABLE.bat
+3) Si falla, revisar portable_start.log
+
+Requisitos:
+- Java 17 o superior instalado
+
+Notas:
+- Si SmartScreen bloquea el .exe, usa el .bat.
+- Si no hay conexion Oracle en ese PC, ajusta db.properties o usa la BD local.
