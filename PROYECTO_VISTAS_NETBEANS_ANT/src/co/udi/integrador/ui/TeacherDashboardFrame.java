@@ -22,6 +22,7 @@ public class TeacherDashboardFrame extends BaseFrame {
     private void buildNav() {
         navButton("Dashboard", true, () -> { });
         navButton("Validar", false, () -> goTo(new ValidationFrame()));
+        navButton("Rubrica", false, () -> goTo(new RubricEvaluationFrame()));
         navButton("Bitacora", false, () -> goTo(new BitacoraFrame(role)));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }

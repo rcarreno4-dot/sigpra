@@ -38,6 +38,7 @@ public class BitacoraFrame extends BaseFrame {
         navButton("Bitacora", true, () -> { });
 
         if (role == Role.ESTUDIANTE) {
+            navButton("Registro", false, () -> goTo(new PracticeRegistrationFrame(role)));
             navButton("Evidencias", false, () -> goTo(new EvidenceFrame(role)));
         }
         if (role == Role.DOCENTE) {

@@ -1,13 +1,12 @@
 # PROYECTO_VISTAS_NETBEANS_ANT
 
-Proyecto Java con estructura **NetBeans + Apache Ant** listo para abrir.
+Proyecto Java con estructura NetBeans + Apache Ant listo para abrir.
 
 ## Abrir en NetBeans
 
-1. Abre NetBeans.
-2. Ve a **File > Open Project**.
-3. Selecciona la carpeta `PROYECTO_VISTAS_NETBEANS_ANT`.
-4. Ejecuta el proyecto.
+1. File > Open Project.
+2. Seleccionar carpeta `PROYECTO_VISTAS_NETBEANS_ANT`.
+3. Ejecutar proyecto.
 
 ## Clase principal
 
@@ -15,6 +14,6 @@ Proyecto Java con estructura **NetBeans + Apache Ant** listo para abrir.
 
 ## Contenido
 
-- Código fuente completo en `src/co/udi/integrador/...`
+- Codigo fuente completo en `src/co/udi/integrador/...`
 - Recursos en `src/branding` y `src/db.properties`
-- Configuración Ant en `build.xml` y `nbproject/`
+- Configuracion Ant en `build.xml` y `nbproject/`

@@ -1,9 +1,7 @@
 package co.udi.integrador.ui;
 
 import co.udi.integrador.data.ReportsDao;
-import co.udi.integrador.model.AuthenticatedUser;
 import co.udi.integrador.model.Role;
-import co.udi.integrador.session.AppSession;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.sql.SQLException;
@@ -21,16 +19,7 @@ public class ReportsFrame extends BaseFrame {
     private JTable table;
 
     public ReportsFrame() {
-        super("Reportes", "Consolidado de avance de horas y estado operativo", Role.DIRECTOR);
-        AuthenticatedUser user = AppSession.getCurrentUser();
-        if (user == null || user.role() != Role.DIRECTOR) {
-            JOptionPane.showMessageDialog(this,
-                    "Solo la directora puede consultar reportes institucionales.",
-                    "Acceso restringido",
-                    JOptionPane.WARNING_MESSAGE);
-            closeAllAndReturnToLogin();
-            return;
-        }
+        super("Reportes", "Consolidado institucional de horas por periodo, programa y estado", Role.DIRECTOR);
         buildNav();
         buildBody();
         loadFilters();
@@ -39,10 +28,12 @@ public class ReportsFrame extends BaseFrame {
 
     private void buildNav() {
         navButton("Dashboard", false, this::goDashboard);
+        navButton("Plantillas", false, () -> goTo(new TemplateConfigFrame()));
         navButton("Aprobaciones", false, () -> goTo(new DirectorApprovalFrame()));
         navButton("Docentes", false, () -> goTo(new TeacherRegistrationFrame()));
         navButton("Asignaciones", false, () -> goTo(new PracticeRegistrationFrame(role)));
         navButton("Reportes", true, () -> { });
+        navButton("Hallazgos", false, () -> goTo(new FindingsConsolidationFrame()));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }
 
@@ -108,7 +99,7 @@ public class ReportsFrame extends BaseFrame {
             table.setModel(reportsDao.queryReport(periodo, programa, estado));
         } catch (SQLException ex) {
             table.setModel(new DefaultTableModel(
-                    new String[]{"Programa", "Total", "Horas acumuladas", "Horas objetivo", "Pendientes", "En curso", "Pend. aprobacion", "Finalizadas"}, 0));
+                    new String[]{"Programa", "Total", "Pendientes", "En curso", "Pend. aprobacion", "Finalizadas"}, 0));
             JOptionPane.showMessageDialog(this,
                     "No se pudo consultar el reporte.\nDetalle: " + ex.getMessage(),
                     "Error SQL",

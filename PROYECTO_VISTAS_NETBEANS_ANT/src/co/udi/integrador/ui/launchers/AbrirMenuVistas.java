@@ -8,12 +8,15 @@ import co.udi.integrador.ui.BitacoraFrame;
 import co.udi.integrador.ui.DirectorApprovalFrame;
 import co.udi.integrador.ui.DirectorDashboardFrame;
 import co.udi.integrador.ui.EvidenceFrame;
+import co.udi.integrador.ui.FindingsConsolidationFrame;
 import co.udi.integrador.ui.AppIconFactory;
 import co.udi.integrador.ui.LoginFrame;
 import co.udi.integrador.ui.PracticeRegistrationFrame;
 import co.udi.integrador.ui.ReportsFrame;
+import co.udi.integrador.ui.RubricEvaluationFrame;
 import co.udi.integrador.ui.StudentDashboardFrame;
 import co.udi.integrador.ui.StudentSelfRegistrationFrame;
+import co.udi.integrador.ui.TemplateConfigFrame;
 import co.udi.integrador.ui.TeacherDashboardFrame;
 import co.udi.integrador.ui.TeacherRegistrationFrame;
 import co.udi.integrador.ui.ValidationFrame;
@@ -50,7 +53,7 @@ public class AbrirMenuVistas extends JFrame {
         grid.add(button("Login", () -> openNoSession(LoginFrame::new)));
         grid.add(button("Autoregistro estudiante", () -> openNoSession(StudentSelfRegistrationFrame::new)));
         grid.add(button("Dashboard estudiante", () -> openAs(Role.ESTUDIANTE, StudentDashboardFrame::new)));
-        grid.add(button("Asignaciones directora", () -> openAs(Role.DIRECTOR, () -> new PracticeRegistrationFrame(Role.DIRECTOR))));
+        grid.add(button("Registro practica", () -> openAs(Role.ESTUDIANTE, () -> new PracticeRegistrationFrame(Role.ESTUDIANTE))));
         grid.add(button("Bitacora", () -> openAs(Role.ESTUDIANTE, () -> new BitacoraFrame(Role.ESTUDIANTE))));
         grid.add(button("Evidencias", () -> openAs(Role.ESTUDIANTE, () -> new EvidenceFrame(Role.ESTUDIANTE))));
         grid.add(button("Dashboard docente", () -> openAs(Role.DOCENTE, TeacherDashboardFrame::new)));
@@ -59,6 +62,9 @@ public class AbrirMenuVistas extends JFrame {
         grid.add(button("Aprobaciones directora", () -> openAs(Role.DIRECTOR, DirectorApprovalFrame::new)));
         grid.add(button("Registro docente", () -> openAs(Role.DIRECTOR, TeacherRegistrationFrame::new)));
         grid.add(button("Reportes", () -> openAs(Role.DIRECTOR, ReportsFrame::new)));
+        grid.add(button("Plantillas bitacora", () -> openAs(Role.DIRECTOR, TemplateConfigFrame::new)));
+        grid.add(button("Evaluacion rubrica", () -> openAs(Role.DOCENTE, RubricEvaluationFrame::new)));
+        grid.add(button("Consolidacion hallazgos", () -> openAs(Role.DIRECTOR, FindingsConsolidationFrame::new)));
     }
 
     private JButton button(String text, Runnable action) {

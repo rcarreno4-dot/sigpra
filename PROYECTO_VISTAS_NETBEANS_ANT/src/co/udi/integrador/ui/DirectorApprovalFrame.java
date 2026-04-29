@@ -33,10 +33,12 @@ public class DirectorApprovalFrame extends BaseFrame {
 
     private void buildNav() {
         navButton("Dashboard", false, this::goDashboard);
+        navButton("Plantillas", false, () -> goTo(new TemplateConfigFrame()));
         navButton("Aprobaciones", true, () -> { });
         navButton("Docentes", false, () -> goTo(new TeacherRegistrationFrame()));
         navButton("Asignaciones", false, () -> goTo(new PracticeRegistrationFrame(role)));
         navButton("Reportes", false, () -> goTo(new ReportsFrame()));
+        navButton("Hallazgos", false, () -> goTo(new FindingsConsolidationFrame()));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }
 
@@ -52,13 +54,10 @@ public class DirectorApprovalFrame extends BaseFrame {
 
         JPanel actions = new JPanel();
         actions.setOpaque(false);
-        var btnDetail = UITheme.secondaryButton("Ver revision docente");
-        btnDetail.addActionListener(e -> showTeacherReview());
         var btnApprove = UITheme.primaryButton("Aprobar cierre");
         btnApprove.addActionListener(e -> processApproval(true));
         var btnReturn = UITheme.secondaryButton("Devolver a seguimiento");
         btnReturn.addActionListener(e -> processApproval(false));
-        actions.add(btnDetail);
         actions.add(btnApprove);
         actions.add(btnReturn);
 
@@ -137,47 +136,6 @@ public class DirectorApprovalFrame extends BaseFrame {
     }
 
     private DefaultTableModel emptyModel() {
-        return new DefaultTableModel(new String[]{
-                "ID Practica",
-                "Estudiante",
-                "Docente",
-                "Periodo",
-                "Horas",
-                "Validadas",
-                "Rechazadas",
-                "Pendientes",
-                "Observacion docente",
-                "Fecha registro"
-        }, 0);
-    }
-
-    private void showTeacherReview() {
-        int row = table.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this,
-                    "Selecciona una practica para ver su revision docente.",
-                    "Revision docente",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String docente = String.valueOf(table.getValueAt(row, 2));
-        String horas = String.valueOf(table.getValueAt(row, 4));
-        String validadas = String.valueOf(table.getValueAt(row, 5));
-        String rechazadas = String.valueOf(table.getValueAt(row, 6));
-        String pendientes = String.valueOf(table.getValueAt(row, 7));
-        String observacion = String.valueOf(table.getValueAt(row, 8));
-
-        String detail = "Docente asesor: " + docente
-                + "\nHoras validadas de practica: " + horas
-                + "\nActividades validadas: " + validadas
-                + "\nActividades rechazadas: " + rechazadas
-                + "\nActividades pendientes: " + pendientes
-                + "\nUltima observacion docente: " + observacion;
-
-        JOptionPane.showMessageDialog(this,
-                detail,
-                "Revision docente",
-                JOptionPane.INFORMATION_MESSAGE);
+        return new DefaultTableModel(new String[]{"ID Practica", "Estudiante", "Periodo", "Horas", "Fecha registro"}, 0);
     }
 }

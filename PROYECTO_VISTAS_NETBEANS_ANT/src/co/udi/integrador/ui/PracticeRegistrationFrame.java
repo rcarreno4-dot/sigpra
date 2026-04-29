@@ -36,15 +36,6 @@ public class PracticeRegistrationFrame extends BaseFrame {
 
     public PracticeRegistrationFrame(Role role) {
         super("Registro de Practica", "Formulario principal para asignacion y registro", role);
-        if (role != Role.DIRECTOR) {
-            JOptionPane.showMessageDialog(this,
-                    "La asignacion y registro de practica solo la realiza la directora.",
-                    "Acceso restringido",
-                    JOptionPane.WARNING_MESSAGE);
-            goDashboard();
-            dispose();
-            return;
-        }
         buildNav();
         buildBody();
         loadInitialData();
@@ -53,9 +44,15 @@ public class PracticeRegistrationFrame extends BaseFrame {
     private void buildNav() {
         navButton("Dashboard", false, this::goDashboard);
         navButton("Registro", true, () -> { });
-        navButton("Aprobaciones", false, () -> goTo(new DirectorApprovalFrame()));
-        navButton("Docentes", false, () -> goTo(new TeacherRegistrationFrame()));
-        navButton("Reportes", false, () -> goTo(new ReportsFrame()));
+        navButton("Bitacora", false, () -> goTo(new BitacoraFrame(role)));
+        if (role == Role.ESTUDIANTE) {
+            navButton("Evidencias", false, () -> goTo(new EvidenceFrame(role)));
+        }
+        if (role == Role.DIRECTOR) {
+            navButton("Aprobaciones", false, () -> goTo(new DirectorApprovalFrame()));
+            navButton("Docentes", false, () -> goTo(new TeacherRegistrationFrame()));
+            navButton("Reportes", false, () -> goTo(new ReportsFrame()));
+        }
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }
 
@@ -191,7 +188,18 @@ public class PracticeRegistrationFrame extends BaseFrame {
             return;
         }
 
-        fillStudentFromCombo();
+        if (role == Role.ESTUDIANTE) {
+            PracticeDao.StudentProfile profile = practiceDao.findStudentProfileByUserId(user.id());
+            if (profile != null) {
+                selectedStudentId = profile.idEstudiante();
+                fillStudentFields(profile);
+            }
+            txtEstudiante.setEditable(false);
+            txtCodigo.setEditable(false);
+            txtPrograma.setEditable(false);
+        } else if (role == Role.DIRECTOR) {
+            fillStudentFromCombo();
+        }
     }
 
     private void configureRoleDefaultsDemo() {
@@ -200,7 +208,17 @@ public class PracticeRegistrationFrame extends BaseFrame {
             return;
         }
 
-        fillStudentFromCombo();
+        if (role == Role.ESTUDIANTE) {
+            selectedStudentId = user.id();
+            txtEstudiante.setText(user.nombreCompleto());
+            txtCodigo.setText("DEMO-" + user.id());
+            txtPrograma.setText("Licenciatura (Demo)");
+            txtEstudiante.setEditable(false);
+            txtCodigo.setEditable(false);
+            txtPrograma.setEditable(false);
+        } else if (role == Role.DIRECTOR) {
+            fillStudentFromCombo();
+        }
     }
 
     private void fillStudentFromCombo() {
@@ -239,9 +257,6 @@ public class PracticeRegistrationFrame extends BaseFrame {
 
     private void savePractice() {
         try {
-            if (role != Role.DIRECTOR) {
-                throw new IllegalArgumentException("Solo la directora puede registrar asignaciones de practica.");
-            }
             if (selectedStudentId <= 0) {
                 throw new IllegalArgumentException("Selecciona un estudiante valido.");
             }
@@ -311,13 +326,15 @@ public class PracticeRegistrationFrame extends BaseFrame {
         txtFechaInicio.setText(LocalDate.now().toString());
         txtFechaFin.setText(LocalDate.now().plusMonths(4).toString());
         txtObjetivo.setText("");
-        txtEstudiante.setText("");
-        txtCodigo.setText("");
-        txtPrograma.setText("");
-        selectedStudentId = -1;
-        if (cmbStudent.getItemCount() > 0) {
-            cmbStudent.setSelectedIndex(0);
-            fillStudentFromCombo();
+        if (role == Role.DIRECTOR) {
+            txtEstudiante.setText("");
+            txtCodigo.setText("");
+            txtPrograma.setText("");
+            selectedStudentId = -1;
+            if (cmbStudent.getItemCount() > 0) {
+                cmbStudent.setSelectedIndex(0);
+                fillStudentFromCombo();
+            }
         }
     }
 
