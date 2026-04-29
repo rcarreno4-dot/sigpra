@@ -21,6 +21,7 @@ public class StudentDashboardFrame extends BaseFrame {
 
     private void buildNav() {
         navButton("Dashboard", true, () -> { });
+        navButton("Registro", false, () -> goTo(new PracticeRegistrationFrame(role)));
         navButton("Bitacora", false, () -> goTo(new BitacoraFrame(role)));
         navButton("Evidencias", false, () -> goTo(new EvidenceFrame(role)));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);

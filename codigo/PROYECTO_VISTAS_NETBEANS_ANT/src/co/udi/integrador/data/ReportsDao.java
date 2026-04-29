@@ -33,8 +33,6 @@ public class ReportsDao {
         StringBuilder sql = new StringBuilder("""
                 SELECT e.programa,
                        COUNT(*) AS total_practicas,
-                       NVL(SUM(p.horas_acumuladas), 0) AS horas_acumuladas,
-                       NVL(SUM(p.horas_objetivo), 0) AS horas_objetivo,
                        NVL(SUM(CASE WHEN p.estado = 'PENDIENTE' THEN 1 ELSE 0 END), 0) AS pendientes,
                        NVL(SUM(CASE WHEN p.estado = 'EN_CURSO' THEN 1 ELSE 0 END), 0) AS en_curso,
                        NVL(SUM(CASE WHEN p.estado = 'PENDIENTE_APROBACION' THEN 1 ELSE 0 END), 0) AS pendientes_aprobacion,
@@ -61,7 +59,7 @@ public class ReportsDao {
         sql.append(" GROUP BY e.programa ORDER BY e.programa ");
 
         DefaultTableModel model = new DefaultTableModel(
-                new String[]{"Programa", "Total", "Horas acumuladas", "Horas objetivo", "Pendientes", "En curso", "Pend. aprobacion", "Finalizadas"}, 0) {
+                new String[]{"Programa", "Total", "Pendientes", "En curso", "Pend. aprobacion", "Finalizadas"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -78,8 +76,6 @@ public class ReportsDao {
                     model.addRow(new Object[]{
                             rs.getString("programa"),
                             rs.getString("total_practicas"),
-                            rs.getString("horas_acumuladas"),
-                            rs.getString("horas_objetivo"),
                             rs.getString("pendientes"),
                             rs.getString("en_curso"),
                             rs.getString("pendientes_aprobacion"),

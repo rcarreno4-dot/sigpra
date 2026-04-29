@@ -1,53 +1,32 @@
-﻿# SIGPRA - Sistema de Gestion de Practicas Academicas
+# SIGPRA - Sistema de Gestion de Practicas Academicas
 
-Repositorio del proyecto SIGPRA con codigo, documentacion y anexos de entrega.
+Repositorio organizado para entrega, sin duplicados de codigo.
 
-## Casos de uso
+## Estructura oficial para entrega
 
-Ruta: `documentacion/casos_de_uso/`
+- `codigo/PROYECTO_VISTAS_NETBEANS_ANT/`  
+  Proyecto Java Swing oficial en NetBeans + Apache Ant (fuente unica).
+- `documentacion/`  
+  Casos de uso, modelo de datos y vistas.
+- `gestion-practicas-desktop/`  
+  Consolidado de evidencias y guias de entrega.
+- `anexos/`  
+  Material grafico y anexos complementarios.
+- `backup_oracle/`  
+  Respaldo de base de datos.
 
-- `CASOS_DE_USO_PRACTICAS.md`
-- `DIAGRAMA_CASOS_USO_ACCESO_REPORTES.puml`
-- `DIAGRAMA_CASOS_USO_BITACORA_OPERACION.puml`
-- `DIAGRAMA_CASOS_USO_EVALUACION_CIERRE.puml`
-- `DIAGRAMA_CASOS_USO_PRACTICAS.puml`
-- `png/` (exportes en PNG)
-- `DOCUMENTO_FINAL_PRACTICAS_ACADEMICAS.md`
-- `ENTREGA_2_FINAL_PROYECTO_INTEGRADOR.docx`
+## Secuencia recomendada de revision (entrega)
 
-## Vistas
+1. Leer `Proyecto_Integrador_Completo.md`.
+2. Revisar `documentacion/modelo_datos/`.
+3. Revisar `documentacion/casos_de_uso/`.
+4. Revisar `documentacion/vistas/`.
+5. Abrir y ejecutar `codigo/PROYECTO_VISTAS_NETBEANS_ANT/` en NetBeans.
+6. Validar checklist en `gestion-practicas-desktop/`.
 
-Ruta: `documentacion/vistas/`
+## Nota de organizacion
 
-- `DOCUMENTACION_VISTAS_PORTABLE.md`
-- `WIREFRAME_VISTAS.md`
-- `png_portable/` (capturas de vistas activas)
+Se eliminaron carpetas de codigo legacy duplicadas para evitar inconsistencias.
+La fuente oficial del software a entregar es solo:
 
-## Modelo de datos
-
-Ruta: `documentacion/modelo_datos/`
-
-- `ANEXO_E1_DIAGRAMA_ENTIDAD_RELACION_FINAL.drawio`
-- `ANEXO_E2_MODELO_RELACIONAL_FINAL.drawio`
-
-## Codigo
-
-Ruta: `codigo/`
-
-- `Integrador`
-- `PROYECTO_GENERADO_BASE/src/Integrador`
-- `PROYECTO_VISTAS_NETBEANS/src/main/java/co/udi/integrador`
-
-## Entrega consolidada (guia proyecto_integrador_completo)
-
-Ruta: `gestion-practicas-desktop/`
-
-- `CASOS_DE_USO_DETALLADOS.txt`
-- `CHECKLIST_PRUEBAS_FUNCIONALES.txt`
-- `ENTREGA_2_AJUSTE_REDUCCION_HORAS.md`
-- `docs/astah_casos_uso/png/`
-- `docs/astah_casos_uso/puml/`
-- `docs/screenshots/`
-- `sql/01_schema_oracle.sql`
-- `sql/01_schema_oracle_reducido_horas.sql`
-- `sql/DOCUMENTACION_BD.txt`
+`codigo/PROYECTO_VISTAS_NETBEANS_ANT`
