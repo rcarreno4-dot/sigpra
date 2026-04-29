@@ -127,18 +127,63 @@ Campos:
 - `comentario`
 - `fecha_carga`
 
-## 6.9 Diccionario de tablas numerado (001-008)
+## 6.9 Diccionario de tablas numerado (formato ficha)
 
-| Numero | Nombre tabla | Descripcion |
-|---|---|---|
-| 001 | `usuario` | Almacena credenciales y datos base de identidad de todos los roles del sistema (estudiante, docente y director), incluyendo estado y fecha de creacion. |
-| 002 | `estudiante` | Extension del usuario para rol estudiante; guarda codigo, programa y semestre, enlazado 1 a 1 con `usuario`. |
-| 003 | `docente_asesor` | Extension del usuario para rol docente; registra especialidad del docente asesor y su enlace 1 a 1 con `usuario`. |
-| 004 | `director_programa` | Extension del usuario para rol director; registra el programa academico bajo su direccion y su enlace 1 a 1 con `usuario`. |
-| 005 | `entidad_receptora` | Catalogo de entidades donde se realizan practicas; incluye datos de contacto, ubicacion, cupos y estado operativo. |
-| 006 | `practica` | Registro principal de cada proceso de practica academica; relaciona estudiante, docente y entidad, con fechas, estado y control de horas. |
-| 007 | `bitacora` | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
-| 008 | `evidencia` | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
+### Tabla: USUARIO
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-001 |
+| Nombre | USUARIO |
+| Descripcion | Almacena credenciales y datos base de identidad de todos los roles del sistema (estudiante, docente y director), incluyendo estado y fecha de creacion. |
+
+### Tabla: ESTUDIANTE
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-002 |
+| Nombre | ESTUDIANTE |
+| Descripcion | Extension del usuario para rol estudiante; guarda codigo, programa y semestre, enlazado 1 a 1 con USUARIO. |
+
+### Tabla: DOCENTE_ASESOR
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-003 |
+| Nombre | DOCENTE_ASESOR |
+| Descripcion | Extension del usuario para rol docente; registra especialidad del docente asesor y su enlace 1 a 1 con USUARIO. |
+
+### Tabla: DIRECTOR_PROGRAMA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-004 |
+| Nombre | DIRECTOR_PROGRAMA |
+| Descripcion | Extension del usuario para rol director; registra el programa academico bajo su direccion y su enlace 1 a 1 con USUARIO. |
+
+### Tabla: ENTIDAD_RECEPTORA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-005 |
+| Nombre | ENTIDAD_RECEPTORA |
+| Descripcion | Catalogo de entidades donde se realizan practicas; incluye datos de contacto, ubicacion, cupos y estado operativo. |
+
+### Tabla: PRACTICA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-006 |
+| Nombre | PRACTICA |
+| Descripcion | Registro principal de cada proceso de practica academica; relaciona estudiante, docente y entidad, con fechas, estado y control de horas. |
+
+### Tabla: BITACORA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-007 |
+| Nombre | BITACORA |
+| Descripcion | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
+
+### Tabla: EVIDENCIA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-008 |
+| Nombre | EVIDENCIA |
+| Descripcion | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
 
 ## 7. Secuencias y triggers de autoincremento
 Secuencias:
@@ -305,3 +350,9 @@ ORDER BY b.id_bitacora DESC;
 ## 12. Nota de alcance
 La base de datos oficial para esta entrega es la **version reducida de gestion de horas**.
 Quedan fuera de alcance las tablas: `rubrica`, `criterio_rubrica`, `evaluacion`, `detalle_evaluacion`, `plantilla_bitacora`, `hallazgo_mejora`.
+
+## 13. Anexo visual para presentacion
+Se incluye el archivo:
+- `sigpra/documentacion/modelo_datos/FICHAS_TABLAS_ESTILO_PRESENTACION.md`
+
+Este anexo contiene las tablas en formato de ficha (codigo, nombre y descripcion) listas para vista y exportacion.

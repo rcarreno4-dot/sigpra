@@ -383,112 +383,146 @@ Las tablas principales del sistema son:
 
 ## 8.3 Diccionario de datos
 
-## 8.4 Diccionario de tablas numerado (001-008)
+### 8.3.1 Diccionario de tablas numerado (por separado)
 
-| Numero | Nombre tabla | Descripcion |
+#### Tabla: USUARIO
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-001 |
+| Nombre | USUARIO |
+| Descripcion | Almacena credenciales y datos base de identidad de todos los roles del sistema (estudiante, docente y director), incluyendo estado y fecha de creacion. |
+
+| Campo | Tipo | Restricciones |
 |---|---|---|
-| 001 | `usuario` | Almacena credenciales y datos base de identidad de todos los roles del sistema (estudiante, docente y director), incluyendo estado y fecha de creacion. |
-| 002 | `estudiante` | Extension del usuario para rol estudiante; guarda codigo, programa y semestre, enlazado 1 a 1 con `usuario`. |
-| 003 | `docente_asesor` | Extension del usuario para rol docente; registra especialidad del docente asesor y su enlace 1 a 1 con `usuario`. |
-| 004 | `director_programa` | Extension del usuario para rol director; registra el programa academico bajo su direccion y su enlace 1 a 1 con `usuario`. |
-| 005 | `entidad_receptora` | Catalogo de entidades donde se realizan practicas; incluye datos de contacto, ubicacion, cupos y estado operativo. |
-| 006 | `practica` | Registro principal de cada proceso de practica academica; relaciona estudiante, docente y entidad, con fechas, estado y control de horas. |
-| 007 | `bitacora` | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
-| 008 | `evidencia` | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
+| id_usuario | NUMBER | PK, NOT NULL |
+| nombres | VARCHAR2(80) | NOT NULL |
+| apellidos | VARCHAR2(80) | NOT NULL |
+| correo | VARCHAR2(120) | NOT NULL, UNIQUE |
+| identificacion | VARCHAR2(30) | NOT NULL, UNIQUE |
+| hash_password | VARCHAR2(255) | NOT NULL |
+| rol | VARCHAR2(20) | NOT NULL, CHECK (`ESTUDIANTE`, `DOCENTE`, `DIRECTOR`) |
+| estado | VARCHAR2(20) | NOT NULL, DEFAULT `ACTIVO`, CHECK (`ACTIVO`, `INACTIVO`) |
+| fecha_creacion | TIMESTAMP | NOT NULL, DEFAULT `SYSTIMESTAMP` |
 
-### Tabla: USUARIO
+#### Tabla: ESTUDIANTE
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-002 |
+| Nombre | ESTUDIANTE |
+| Descripcion | Extension del usuario para rol estudiante; guarda codigo, programa y semestre, enlazado 1 a 1 con USUARIO. |
 
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_estudiante | NUMBER | PK, NOT NULL |
+| codigo | VARCHAR2(30) | NOT NULL, UNIQUE |
+| programa | VARCHAR2(120) | NOT NULL |
+| semestre | NUMBER(2) | CHECK (1..20, permite NULL) |
+| id_usuario | NUMBER | NOT NULL, UNIQUE, FK -> USUARIO(id_usuario) |
 
-| Atributo    | Valor                                                                 |
-|------------|----------------------------------------------------------------------|
-| Código     | TB-001                                                               |
-| Nombre     | USUARIO                                                              |
-| Descripción| Almacena credenciales y datos base de identidad de todos los roles   |
+#### Tabla: DOCENTE_ASESOR
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-003 |
+| Nombre | DOCENTE_ASESOR |
+| Descripcion | Extension del usuario para rol docente; registra especialidad del docente asesor y su enlace 1 a 1 con USUARIO. |
 
-| Campo       | Tipo de dato | Tamaño | Descripción                                      | Restricción                  |
-|------------|--------------|--------|--------------------------------------------------|------------------------------|
-| id_usuario | NUMBER       | —      | Identificador único del usuario                  | PK                           |
-| nombre     | VARCHAR2     | 50     | Nombre del usuario                               | NOT NULL                     |
-| apellido   | VARCHAR2     | 50     | Apellido del usuario                             | NOT NULL                     |
-| correo     | VARCHAR2     | 100    | Correo institucional                             | NOT NULL, UNIQUE             |
-| contrasena | VARCHAR2     | 100    | Contraseña del usuario                           | NOT NULL                     |
-| rol        | VARCHAR2     | 20     | ESTUDIANTE, DOCENTE, DIRECTOR                    | NOT NULL, CHECK              |
-| estado     | VARCHAR2     | 20     | ACTIVO, INACTIVO                                 | NOT NULL, CHECK              |
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_docente | NUMBER | PK, NOT NULL |
+| especialidad | VARCHAR2(120) | NULL |
+| id_usuario | NUMBER | NOT NULL, UNIQUE, FK -> USUARIO(id_usuario) |
 
-### Tabla: ESTUDIANTE
+#### Tabla: DIRECTOR_PROGRAMA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-004 |
+| Nombre | DIRECTOR_PROGRAMA |
+| Descripcion | Extension del usuario para rol director; registra el programa academico bajo su direccion y su enlace 1 a 1 con USUARIO. |
 
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_estudiante | NUMBER | — | Identificador del estudiante | PK |
-| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
-| programa | VARCHAR2 | 100 | Programa académico | NOT NULL |
-| semestre | NUMBER | — | Semestre actual | NOT NULL |
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_director | NUMBER | PK, NOT NULL |
+| programa | VARCHAR2(120) | NOT NULL |
+| id_usuario | NUMBER | NOT NULL, UNIQUE, FK -> USUARIO(id_usuario) |
 
-###  Tabla: DOCENTE_ASESOR
+#### Tabla: ENTIDAD_RECEPTORA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-005 |
+| Nombre | ENTIDAD_RECEPTORA |
+| Descripcion | Catalogo de entidades donde se realizan practicas; incluye datos de contacto, ubicacion, cupos y estado operativo. |
 
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_docente | NUMBER | — | Identificador del docente asesor | PK |
-| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
-| especialidad | VARCHAR2 | 100 | Área de especialización | — |
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_entidad | NUMBER | PK, NOT NULL |
+| nombre | VARCHAR2(150) | NOT NULL |
+| direccion | VARCHAR2(200) | NULL |
+| ciudad | VARCHAR2(100) | NULL |
+| contacto_nombre | VARCHAR2(120) | NULL |
+| contacto_email | VARCHAR2(120) | NULL |
+| contacto_telefono | VARCHAR2(30) | NULL |
+| cupos_totales | NUMBER(5) | NOT NULL, DEFAULT 0, CHECK >= 0 |
+| cupos_disponibles | NUMBER(5) | NOT NULL, DEFAULT 0, CHECK >= 0 y <= cupos_totales |
+| estado | VARCHAR2(20) | NOT NULL, DEFAULT `ACTIVA`, CHECK (`ACTIVA`, `INACTIVA`) |
 
-###  Tabla: DIRECTOR_PROGRAMA
+#### Tabla: PRACTICA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-006 |
+| Nombre | PRACTICA |
+| Descripcion | Registro principal de cada proceso de practica academica; relaciona estudiante, docente y entidad, con fechas, estado y control de horas. |
 
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_director | NUMBER | — | Identificador del director | PK |
-| id_usuario | NUMBER | — | Relación con usuario | FK, UNIQUE |
-| programa | VARCHAR2 | 100 | Programa que coordina | NOT NULL |
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_practica | NUMBER | PK, NOT NULL |
+| periodo | VARCHAR2(20) | NOT NULL |
+| fecha_inicio | DATE | NOT NULL |
+| fecha_fin | DATE | NOT NULL, CHECK fecha_fin >= fecha_inicio |
+| estado | VARCHAR2(30) | NOT NULL, DEFAULT `EN_CURSO`, CHECK (`PENDIENTE`, `EN_CURSO`, `PENDIENTE_APROBACION`, `FINALIZADA`) |
+| horas_objetivo | NUMBER(6) | NOT NULL, DEFAULT 160, CHECK >= 0 |
+| horas_acumuladas | NUMBER(8,2) | NOT NULL, DEFAULT 0, CHECK >= 0 |
+| fecha_registro | TIMESTAMP | NOT NULL, DEFAULT `SYSTIMESTAMP` |
+| id_estudiante | NUMBER | NOT NULL, FK -> ESTUDIANTE(id_estudiante) |
+| id_entidad | NUMBER | NOT NULL, FK -> ENTIDAD_RECEPTORA(id_entidad) |
+| id_docente | NUMBER | NOT NULL, FK -> DOCENTE_ASESOR(id_docente) |
 
-###  Tabla: ENTIDAD_RECEPTORA
+#### Tabla: BITACORA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-007 |
+| Nombre | BITACORA |
+| Descripcion | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
 
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_entidad | NUMBER | — | Identificador de la entidad | PK |
-| nombre | VARCHAR2 | 100 | Nombre de la entidad | NOT NULL |
-| direccion | VARCHAR2 | 150 | Dirección | — |
-| telefono | VARCHAR2 | 20 | Teléfono de contacto | — |
-| cupos_disponibles | NUMBER | — | Número de cupos disponibles | — |
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_bitacora | NUMBER | PK, NOT NULL |
+| id_practica | NUMBER | NOT NULL, FK -> PRACTICA(id_practica) |
+| fecha_actividad | DATE | NOT NULL |
+| actividad | VARCHAR2(300) | NOT NULL |
+| descripcion | VARCHAR2(2000) | NULL |
+| horas_reportadas | NUMBER(6,2) | NOT NULL, CHECK > 0 |
+| estado_validacion | VARCHAR2(20) | NOT NULL, DEFAULT `PENDIENTE`, CHECK (`PENDIENTE`, `VALIDADA`, `RECHAZADA`) |
+| observacion_docente | VARCHAR2(1000) | NULL |
+| id_docente_validador | NUMBER | NULL, FK -> DOCENTE_ASESOR(id_docente) |
+| fecha_validacion | TIMESTAMP | NULL |
+| fecha_registro | TIMESTAMP | NOT NULL, DEFAULT `SYSTIMESTAMP` |
 
-###  Tabla: PRACTICA
+#### Tabla: EVIDENCIA
+| Atributo | Valor |
+|---|---|
+| Codigo | TB-008 |
+| Nombre | EVIDENCIA |
+| Descripcion | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
 
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_practica | NUMBER | — | Identificador de la práctica | PK |
-| id_estudiante | NUMBER | — | Estudiante asignado | FK |
-| id_docente | NUMBER | — | Docente asesor asignado | FK |
-| id_director | NUMBER | — | Director responsable | FK |
-| id_entidad | NUMBER | — | Entidad receptora | FK |
-| fecha_inicio | DATE | — | Fecha de inicio | NOT NULL |
-| fecha_fin | DATE | — | Fecha de finalización | NOT NULL |
-| horas_objetivo | NUMBER | — | Horas requeridas | NOT NULL |
-| horas_validadas | NUMBER | — | Horas validadas acumuladas | DEFAULT 0 |
-| estado | VARCHAR2 | 30 | Estado de la práctica: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA | NOT NULL, CHECK |
-
-###  Tabla: BITACORA
-
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_bitacora | NUMBER | — | Identificador de la bitácora | PK |
-| id_practica | NUMBER | — | Relación con práctica | FK |
-| fecha_actividad | DATE | — | Fecha de la actividad | NOT NULL |
-| actividad | VARCHAR2 | 150 | Nombre de la actividad | NOT NULL |
-| descripcion | VARCHAR2 | 300 | Descripción detallada | NOT NULL |
-| horas_reportadas | NUMBER | — | Horas reportadas | NOT NULL, CHECK |
-| estado_validacion | VARCHAR2 | 20 | Estado: PENDIENTE, VALIDADA, RECHAZADA | NOT NULL, CHECK |
-| observacion_docente | VARCHAR2 | 300 | Observación del docente asesor | — |
-
-### Tabla: EVIDENCIA
-
-| Campo | Tipo de dato | Tamaño | Descripción | Restricción |
-|------|--------------|--------|-------------|-------------|
-| id_evidencia | NUMBER | — | Identificador de la evidencia | PK |
-| id_bitacora | NUMBER | — | Relación con bitácora | FK |
-| nombre_archivo | VARCHAR2 | 150 | Nombre del archivo | NOT NULL |
-| tipo_archivo | VARCHAR2 | 50 | Tipo de archivo | — |
-| ruta_archivo | VARCHAR2 | 200 | Ruta o ubicación del archivo | NOT NULL |
-| fecha_carga | DATE | — | Fecha de carga | NOT NULL |
-
+| Campo | Tipo | Restricciones |
+|---|---|---|
+| id_evidencia | NUMBER | PK, NOT NULL |
+| id_bitacora | NUMBER | NOT NULL, FK -> BITACORA(id_bitacora) |
+| tipo_archivo | VARCHAR2(50) | NULL |
+| nombre_archivo | VARCHAR2(255) | NULL |
+| ruta_archivo | VARCHAR2(1000) | NOT NULL |
+| comentario | VARCHAR2(1000) | NULL |
+| fecha_carga | TIMESTAMP | NOT NULL, DEFAULT `SYSTIMESTAMP` |
 ### Reglas de consistencia de la base de datos
 
 - Una práctica pertenece a un estudiante, un docente asesor, un director y una entidad receptora.
