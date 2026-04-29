@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Tutor Academico" as Tutor
+actor "Director del Programa" as Director
+actor "Asesor Pedagogico (Externo)" as Asesor
+
+rectangle "Modulo Evaluacion y Cierre" {
+  usecase "UC-09 Evaluar Practica por Rubrica" as UC09
+  usecase "UC-10 Cerrar o Reabrir Practica" as UC10
+  usecase "UC-13 Registrar Observacion Institucional" as UC13
+}
+
+Tutor -- UC09
+Director -- UC10
+Asesor -- UC13
+Asesor -- UC09
+
+UC10 .> UC09 : <<include>>
+UC09 .> UC13 : <<include>>
+
+@enduml

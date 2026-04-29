@@ -1,0 +1,25 @@
+# Build outputs
+/target/
+/build_exec/
+/build_verify/
+/build_verify_new/
+/verify-classes/
+
+# Runtime/dist artifacts
+/dist/*.jar
+/dist/*.exe
+/dist/app/
+*.log
+
+# IDE
+/.idea/
+/.vscode/
+*.iml
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Optional packaging artifacts
+*.zip
+*.msi

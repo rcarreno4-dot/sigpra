@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Estudiante" as Estudiante
+actor "Tutor Academico" as Tutor
+actor "Director del Programa" as Director
+actor "Asesor Pedagogico (Externo)" as Asesor
+
+rectangle "Modulo Registro de Practica y Bitacora" {
+  usecase "UC-04 Registrar Practica Academica" as UC04
+  usecase "UC-05 Asignar Tutor y Asesor Pedagogico" as UC05
+  usecase "UC-06 Registrar Bitacora y Horas" as UC06
+  usecase "UC-07 Vincular Evidencias" as UC07
+  usecase "UC-08 Validar Horas y Bitacora" as UC08
+}
+
+Estudiante -- UC04
+Estudiante -- UC06
+Estudiante -- UC07
+
+Director -- UC05
+Tutor -- UC08
+Asesor -- UC08
+
+UC04 .> UC05 : <<include>>
+UC06 .> UC07 : <<include>>
+
+@enduml

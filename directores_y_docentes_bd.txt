@@ -7,59 +7,23 @@ FECHA
 
 === DIRECTOR(ES) ===
 
-ID_USUARIO   NOMBRE_COMPLETO   CORREO                         ROL             ESTADO
+ID_USUARIO NOMBRE_COMPLETO                     CORREO                                   ROL             ESTADO
 ---------- ----------------------------------- ---------------------------------------- --------------- ------------
-3            Directora Demo    directora.demo@udi.edu.co      DIRECTOR        ACTIVO
+         3 Directora Demo                      directora.demo@udi.edu.co                DIRECTOR        ACTIVO
 
 === DOCENTES ===
 
-ID_USUARIO   NOMBRE_COMPLETO   CORREO                          ROL             ESTADO
+ID_USUARIO NOMBRE_COMPLETO                     CORREO                                   ROL             ESTADO
 ---------- ----------------------------------- ---------------------------------------- --------------- ------------
-2            Docente Demo      docente.demo@udi.edu.co         DOCENTE         ACTIVO
+         2 Docente Demo                        docente.demo@udi.edu.co                  DOCENTE         ACTIVO
 
 === TODOS LOS USUARIOS (TABLA USUARIO) ===
 
-ID_USUARIO      NOMBRE_COMPLETO      CORREO                       ROL             IDENTIFICACION     ESTADO
+ID_USUARIO NOMBRE_COMPLETO                     CORREO                                   ROL             IDENTIFICACION     ESTADO
 ---------- ----------------------------------- ---------------------------------------- --------------- ------------------ ------------
-1               Estudiante Demo      estudiante.demo@udi.edu.co   ESTUDIANTE      EST-1001           ACTIVO
-2               Docente Demo         docente.demo@udi.edu.co      DOCENTE         DOC-2001           ACTIVO
-3               Directora Demo       directora.demo@udi.edu.co    DIRECTOR        DIR-3001           ACTIVO
-5               rafael barrera       rcarreno4@udi.edu.co         ESTUDIANTE      132610             ACTIVO
-6               Prueba 17767627352   prueba17767627352@udi.edu.co ESTUDIANTE      C627352            ACTIVO
-7               nicolas mari o       nico@udi.edu.co              ESTUDIANTE      12                 ACTIVO
-****************************************************************************
-
-
-registro usuario director 
-INSERT INTO USUARIO (ID_USUARIO, NOMBRES, APELLIDOS, CORREO, IDENTIFICACION, HASH_PASSWORD, ROL, ESTADO, FECHA_CREACION) 
-VALUES 
-(10, 'Jhon Willian', 'Director', 'jhon@udi.edu.co', '123456', '123456', 'DIRECTOR', 'ACTIVO', SYSTIMESTAMP);
-
-SELECT *
-FROM USUARIO
-WHERE CORREO = 'jhon@udi.edu.co'
-AND HASH_PASSWORD = '123456';
-
-
-crear profesora 
-
-INSERT INTO USUARIO (ID_USUARIO, NOMBRES, APELLIDOS, CORREO, IDENTIFICACION, HASH_PASSWORD, ROL, ESTADO, FECHA_CREACION) 
-VALUES 
-(11, 'Alexandra Beltran', 'Docente', 'alexandra@udi.edu.co', '987654321', '123456', 'DOCENTE', 'ACTIVO', SYSTIMESTAMP);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         1 Estudiante Demo                     estudiante.demo@udi.edu.co               ESTUDIANTE      EST-1001           ACTIVO
+         2 Docente Demo                        docente.demo@udi.edu.co                  DOCENTE         DOC-2001           ACTIVO
+         3 Directora Demo                      directora.demo@udi.edu.co                DIRECTOR        DIR-3001           ACTIVO
+         5 rafael fabian carreño barrera       rcarreno4@udi.edu.co                     ESTUDIANTE      132610             ACTIVO
+         6 Prueba 1776547627352                prueba1776547627352@udi.edu.co           ESTUDIANTE      C627352            ACTIVO
+         7 nicolas mariño                      nico@udi.edu.co                          ESTUDIANTE      12                 ACTIVO

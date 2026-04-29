@@ -1,0 +1,25 @@
+﻿-- SOLO INSERCION DE USUARIOS
+SET DEFINE OFF;
+
+-- 2) INSERCION DE USUARIOS BASE
+-- ==============================
+
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (1, 'Carlos', 'Ramirez', 'carlos.ramirez@universidad.edu.co', '1001001001', 'HASH_TEMP_123', 'DIRECTOR', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (2, 'Laura', 'Perez', 'laura.perez@universidad.edu.co', '1001001002', 'HASH_TEMP_123', 'TUTOR_ACADEMICO', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (3, 'Andres', 'Gomez', 'andres.gomez@universidad.edu.co', '1001001003', 'HASH_TEMP_123', 'ESTUDIANTE', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (4, 'Sofia', 'Martinez', 'sofia.martinez@universidad.edu.co', '1001001004', 'HASH_TEMP_123', 'ESTUDIANTE', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (5, 'Diana', 'Lopez', 'diana.lopez@universidad.edu.co', '1001001005', 'HASH_TEMP_123', 'TUTOR_ACADEMICO', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (6, 'Paula', 'Suarez', 'paula.suarez@universidad.edu.co', '1001001006', 'HASH_TEMP_123', 'DIRECTOR', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (7, 'Marta', 'Ruiz', 'marta.ruiz@sanjose.edu.co', '1001001007', 'HASH_TEMP_123', 'ASESOR_PEDAGOGICO', 'ACTIVO', SYSDATE);
+INSERT INTO usuario (id_usuario, nombres, apellidos, correo, identificacion, hash_password, rol, estado, fecha_creacion)
+VALUES (8, 'Luis', 'Parra', 'luis.parra@horizonte.edu.co', '1001001008', 'HASH_TEMP_123', 'ASESOR_PEDAGOGICO', 'ACTIVO', SYSDATE);
+
+COMMIT;
+

@@ -1,0 +1,46 @@
+
+Conectado a: Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+Exportación realizada en el juego de caracteres WE8MSWIN1252 y el juego de caracteres NCHAR AL16UTF16
+el servidor utiliza el juego de caracteres AL32UTF8 (posible conversión de juego de caracteres)
+
+Exportando los usuarios especificados ...
+. exportando acciones y objetos de procedimiento pre-esquema
+. exportando nombres de biblioteca de funciones ajenas para el usuario PRACTICAS_APP 
+. exportando sinónimos de tipo público
+. exportando sinónimos de tipo privado
+. exportando definiciones de tipos de objetos para el usuario PRACTICAS_APP 
+Exportando los objetos de PRACTICAS_APP  ...
+. exportando enlaces a la base de datos
+. exportando números de secuencia
+. exportando definiciones de cluster
+. exportando las tablas de PRACTICAS_APP a través de la Ruta de Acceso Convencional ...
+. exportando la tabla             ACTIVIDAD_PRACTICA          3 filas exportadas
+. exportando la tabla                       BITACORA          5 filas exportadas
+. exportando la tabla               CRITERIO_RUBRICA          2 filas exportadas
+. exportando la tabla             DETALLE_EVALUACION          2 filas exportadas
+. exportando la tabla              DIRECTOR_PROGRAMA          1 filas exportadas
+. exportando la tabla                 DOCENTE_ASESOR          1 filas exportadas
+. exportando la tabla              ENTIDAD_RECEPTORA          4 filas exportadas
+. exportando la tabla                     ESTUDIANTE          4 filas exportadas
+. exportando la tabla                     EVALUACION          1 filas exportadas
+. exportando la tabla                      EVIDENCIA          1 filas exportadas
+. exportando la tabla                       PRACTICA          3 filas exportadas
+. exportando la tabla                        RUBRICA          1 filas exportadas
+. exportando la tabla                        USUARIO          6 filas exportadas
+. exportando sinónimos
+. exportando vistas
+. exportando procedimientos almacenados
+. exportando operadores
+. exportando restricciones de integridad referencial
+. exportando disparadores
+. exportando tipos de índice
+. exportando índices bitmap, funcionales y extensibles
+. exportando acciones de posttables
+. exportando vistas materializadas
+. exportando logs de instantáneas
+. exportando colas de trabajo
+. exportando grupos de refrescamiento y secundarios
+. exportando dimensiones
+. exportando acciones y objetos de procedimiento post-esquema
+. exportando estadísticas
+La exportación ha terminado correctamente y sin advertencias.

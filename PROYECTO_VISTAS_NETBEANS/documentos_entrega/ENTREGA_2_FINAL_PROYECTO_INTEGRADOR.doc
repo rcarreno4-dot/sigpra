@@ -1,0 +1,391 @@
+{\rtf1\ansi\ansicpg1252\deff0
+{\fonttbl{\f0 Calibri;}}
+\viewkind4\uc1\pard\f0\fs22
+\pard\sa160\b\fs32 Segunda Entrega - Proyecto Integrador\b0\fs22\par
+\par
+\pard Universidad de Investigacion y Desarrollo (UDI)\par
+\pard Programa: Licenciatura (Proyecto Integrador)\par
+\pard Fecha: 31/03/2026\par
+\pard Equipo: Rafael Fabian Carreno Barrera, Yeison Nicolas Marino Roberto, Santiago Andres Rojas\par
+\par
+\pard\sa140\b\fs28 Tabla de contenido\b0\fs22\par
+\par
+\pard\li360 1. Introduccion\par
+\pard 1.1 Proposito\par
+\pard 1.2 Alcance\par
+\pard 1.3 Definiciones, acronimos y abreviaturas\par
+\pard 1.4 Referencias\par
+\pard 1.5 Apreciacion global\par
+\pard\li360 2. Descripcion del problema\par
+\pard 2.1 Perspectiva del producto\par
+\pard 2.2 Funciones del producto\par
+\pard 2.3 Caracteristicas de los usuarios\par
+\pard 2.4 Restricciones\par
+\pard 2.5 Suposiciones y dependencias\par
+\pard\li360 3. Objetivos\par
+\pard 3.1 Objetivo general\par
+\pard 3.2 Objetivos especificos\par
+\pard\li360 4. Justificacion\par
+\pard\li360 5. Propuesta del plan del proyecto\par
+\pard\li360 6. Analisis de requerimientos del software\par
+\pard\li360 7. Diseno UML\par
+\pard\li360 8. Modelamiento de la base de datos\par
+\pard\li360 9. Diseno de interfaz\par
+\pard 10. Referencias bibliograficas\par
+\pard 11. Anexos\par
+\par
+\pard\sa140\b\fs28 1. Introduccion\b0\fs22\par
+\par
+\pard Las practicas academicas son un eje del proceso formativo porque conectan la teoria con contextos reales de trabajo. En el estado actual, la gestion se realiza con archivos sueltos, correos y hojas de calculo, lo que provoca duplicidad de datos, demoras en validacion de actividades y poca trazabilidad del avance del estudiante.\par
+\par
+\pard El proyecto integrador propone una solucion de software para centralizar el ciclo de practica (registro, bitacora, evidencias, validacion y reportes). La construccion del prototipo aplica competencias desarrolladas en cursos del plan de estudios, especialmente analisis de sistemas de informacion, bases de datos, programacion y pruebas.\par
+\par
+\pard Este documento presenta la segunda entrega mejorada: define el problema con mayor profundidad, formula objetivos verificables, detalla actividades del plan de trabajo, describe requisitos funcionales y no funcionales, y documenta los artefactos de UML, base de datos, interfaces y anexos de evidencia.\par
+\par
+\pard\sa120\b\fs24 1.1 Proposito\b0\fs22\par
+\par
+\pard Definir, disenar y validar un prototipo funcional de escritorio para la gestion de practicas academicas que soporte tres roles (estudiante, docente asesor y director de programa), con persistencia en Oracle y evidencia de pruebas funcionales.\par
+\par
+\pard\sa120\b\fs24 1.2 Alcance\b0\fs22\par
+\par
+\pard El alcance de esta entrega incluye:\par
+\par
+\pard\li720\fi-360 \'95\tab Autenticacion por rol.\par
+\pard\li720\fi-360 \'95\tab Registro de practicas academicas.\par
+\pard\li720\fi-360 \'95\tab Registro y seguimiento de bitacora.\par
+\pard\li720\fi-360 \'95\tab Carga de evidencias por actividad.\par
+\pard\li720\fi-360 \'95\tab Validacion o rechazo de actividades por docente.\par
+\pard\li720\fi-360 \'95\tab Cierre operativo de practica por cumplimiento de horas validadas.\par
+\pard\li720\fi-360 \'95\tab Consulta de reportes por filtros de periodo/programa/estado.\par
+\pard\li720\fi-360 \'95\tab Evidencia de pruebas funcionales sobre el prototipo.\par
+\par
+\pard Fuera de alcance para esta etapa:\par
+\par
+\pard\li720\fi-360 \'95\tab Despliegue en produccion institucional.\par
+\pard\li720\fi-360 \'95\tab Integraciones con sistemas externos institucionales (SSO, ERP, LMS).\par
+\pard\li720\fi-360 \'95\tab Aplicacion movil nativa.\par
+\par
+\pard\sa120\b\fs24 1.3 Definiciones, acronimos y abreviaturas\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Practica academica: actividad formativa del estudiante en una entidad receptora.\par
+\pard\li720\fi-360 \'95\tab Entidad receptora: institucion donde el estudiante ejecuta su practica.\par
+\pard\li720\fi-360 \'95\tab Bitacora: registro periodico de actividades y horas reportadas.\par
+\pard\li720\fi-360 \'95\tab Evidencia: archivo de soporte de una actividad de bitacora.\par
+\pard\li720\fi-360 \'95\tab UML: Unified Modeling Language.\par
+\pard\li720\fi-360 \'95\tab ER: Entidad-Relacion.\par
+\pard\li720\fi-360 \'95\tab SRS: Software Requirements Specification.\par
+\pard\li720\fi-360 \'95\tab RF: Requisito funcional.\par
+\pard\li720\fi-360 \'95\tab RNF: Requisito no funcional.\par
+\par
+\pard\sa120\b\fs24 1.4 Referencias\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Reglamento institucional de practicas UDI.\par
+\pard\li720\fi-360 \'95\tab Guia SWEBOK (IEEE Computer Society).\par
+\pard\li720\fi-360 \'95\tab UML 2.5.1 (OMG).\par
+\pard\li720\fi-360 \'95\tab ISO/IEC 25010 (calidad de software).\par
+\pard\li720\fi-360 \'95\tab Documentos tecnicos del repositorio del proyecto.\par
+\par
+\pard\sa120\b\fs24 1.5 Apreciacion global\b0\fs22\par
+\par
+\pard El documento consolida los productos de la segunda entrega y articula lo solicitado por los docentes evaluadores: mayor profundidad del problema, claridad entre objetivos y requisitos, descripcion completa de actividades, y anexos verificables (diagramas, SQL, casos de uso, pruebas e interfaces).\par
+\par
+\pard\sa140\b\fs28 2. Descripcion del problema\b0\fs22\par
+\par
+\pard En la gestion actual de practicas academicas se observan cuatro causas principales:\par
+\par
+\pard\li720\fi-360 \'95\tab Fragmentacion de la informacion entre correo, hojas de calculo y documentos no centralizados.\par
+\pard\li720\fi-360 \'95\tab Ausencia de trazabilidad uniforme para validar actividades y horas.\par
+\pard\li720\fi-360 \'95\tab Dificultad para consolidar reportes oportunos por programa y periodo.\par
+\pard\li720\fi-360 \'95\tab Alta carga operativa para docentes y directivos en tareas de seguimiento manual.\par
+\par
+\pard Estas causas impactan a todos los actores:\par
+\par
+\pard\li720\fi-360 \'95\tab Estudiante: no tiene una vista unica del estado de su practica.\par
+\pard\li720\fi-360 \'95\tab Docente asesor: invierte tiempo en validaciones manuales repetitivas.\par
+\pard\li720\fi-360 \'95\tab Director de programa: no cuenta con tableros consolidados para decisiones academicas.\par
+\par
+\pard Como resultado, se reduce la eficiencia del acompanamiento y aumenta el riesgo de errores administrativos o inconsistencias en el cierre del proceso.\par
+\par
+\pard\sa120\b\fs24 2.1 Perspectiva del producto\b0\fs22\par
+\par
+\pard El producto es un sistema de escritorio (Java Swing) con base de datos Oracle, orientado a apoyar la operacion academica del proceso de practicas. El acceso se controla por rol y cada actor visualiza funciones acordes con su responsabilidad.\par
+\par
+\pard\sa120\b\fs24 2.2 Funciones del producto\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Autenticacion y control de acceso por rol.\par
+\pard\li720\fi-360 \'95\tab Registro de practicas (datos del estudiante, entidad, docente, periodo y objetivo).\par
+\pard\li720\fi-360 \'95\tab Registro de actividades en bitacora y horas reportadas.\par
+\pard\li720\fi-360 \'95\tab Carga de evidencias por actividad.\par
+\pard\li720\fi-360 \'95\tab Validacion o rechazo de bitacora con observaciones.\par
+\pard\li720\fi-360 \'95\tab Cierre operativo de practica segun horas validadas.\par
+\pard\li720\fi-360 \'95\tab Consulta de estado e historial.\par
+\pard\li720\fi-360 \'95\tab Reportes institucionales filtrables.\par
+\par
+\pard\sa120\b\fs24 2.3 Caracteristicas de los usuarios\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Estudiante: registra su practica, bitacora y evidencias; consulta avance.\par
+\pard\li720\fi-360 \'95\tab Docente asesor: valida actividades y registra observaciones.\par
+\pard\li720\fi-360 \'95\tab Director de programa: supervisa indicadores, gestiona entidades y consulta reportes.\par
+\par
+\pard\sa120\b\fs24 2.4 Restricciones\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Cumplimiento de lineamientos institucionales de datos y practicas.\par
+\pard\li720\fi-360 \'95\tab Dependencia de conectividad y disponibilidad de Oracle local/institucional.\par
+\pard\li720\fi-360 \'95\tab Restriccion de funciones segun rol autenticado.\par
+\pard\li720\fi-360 \'95\tab Disponibilidad de los usuarios para validacion y seguimiento oportuno.\par
+\par
+\pard\sa120\b\fs24 2.5 Suposiciones y dependencias\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Existen lineamientos academicos definidos para practicas.\par
+\pard\li720\fi-360 \'95\tab La institucion dispone de infraestructura minima para ejecutar el prototipo.\par
+\pard\li720\fi-360 \'95\tab Los actores participan con datos reales o datos de prueba controlados.\par
+\par
+\pard\sa140\b\fs28 3. Objetivos\b0\fs22\par
+\par
+\pard\sa120\b\fs24 3.1 Objetivo general\b0\fs22\par
+\par
+\pard Implementar y validar un prototipo funcional de gestion de practicas academicas que permita autenticar usuarios por rol, registrar y validar actividades de bitacora y generar reportes por filtros, verificando su operacion con pruebas funcionales documentadas.\par
+\par
+\pard\sa120\b\fs24 3.2 Objetivos especificos\b0\fs22\par
+\par
+\pard\li360 1. Entregar la especificacion de requisitos y casos de uso detallados del sistema, diferenciando requisitos funcionales y no funcionales.\par
+\pard\li360 2. Entregar el diseno tecnico del sistema (UML, modelo de dominio, modelo ER y modelo relacional) coherente con el alcance de la entrega.\par
+\pard\li360 3. Construir un prototipo navegable en Java Swing con conexion Oracle que implemente los modulos principales por rol.\par
+\pard\li360 4. Ejecutar y documentar pruebas funcionales del prototipo con criterios de aceptacion y evidencias de resultado.\par
+\par
+\pard\sa140\b\fs28 4. Justificacion\b0\fs22\par
+\par
+\pard Centralizar la gestion de practicas en una sola plataforma mejora la trazabilidad del proceso, reduce errores por registro manual y permite seguimiento oportuno por parte de docentes y direccion de programa. La propuesta responde al problema identificado porque integra, en un mismo flujo, registro, validacion y reporte.\par
+\par
+\pard Adicionalmente, la solucion aporta valor academico al convertir los productos de los cursos del proyecto integrador en artefactos concretos y verificables: requisitos, diseno UML, esquema de base de datos, implementacion funcional y resultados de pruebas.\par
+\par
+\pard\sa140\b\fs28 5. Propuesta del plan del proyecto\b0\fs22\par
+\par
+\pard Se mantiene un enfoque en cascada, pero con actividades y entregables explicitos por fase.\par
+\par
+\pard | Fase | Actividades principales | Entregables de fase |\par
+\pard |---|---|---|\par
+\pard | 1. Levantamiento y analisis | Recoleccion de necesidades, identificacion de actores, definicion de alcance, elaboracion de casos de uso y RF/RNF. | Documento de requisitos, casos de uso detallados. |\par
+\pard | 2. Diseno | Arquitectura de la solucion, diagramas UML, modelo ER, modelo relacional, reglas de negocio y prototipos de interfaz. | Diagramas UML, esquema SQL, diseno de pantallas. |\par
+\pard | 3. Construccion | Implementacion de modulos por rol (login, practica, bitacora, evidencia, validacion, reportes), integracion con Oracle. | Prototipo funcional en Java Swing + scripts SQL. |\par
+\pard | 4. Pruebas y ajuste | Ejecucion de pruebas funcionales y negativas, correccion de errores, ajuste de validaciones y mensajes. | Checklist de pruebas con resultados y evidencia. |\par
+\pard | 5. Cierre academico | Consolidacion de documentacion tecnica y anexos, revision final de cumplimiento de objetivos de entrega. | Documento de segunda entrega y anexos completos. |\par
+\par
+\pard Nota de alcance: en esta etapa no se realiza despliegue productivo institucional; el cierre corresponde a validacion academica del prototipo en entorno de laboratorio.\par
+\par
+\pard Recursos tecnicos definidos:\par
+\par
+\pard\li720\fi-360 \'95\tab Lenguaje: Java.\par
+\pard\li720\fi-360 \'95\tab Framework UI: Java Swing.\par
+\pard\li720\fi-360 \'95\tab IDE: NetBeans.\par
+\pard\li720\fi-360 \'95\tab Base de datos: Oracle XE/Oracle compatible.\par
+\pard\li720\fi-360 \'95\tab Control de versiones: GitHub.\par
+\pard\li720\fi-360 \'95\tab Modelado UML: Astah + PlantUML.\par
+\par
+\pard\sa140\b\fs28 6. Analisis de requerimientos del software\b0\fs22\par
+\par
+\pard\sa120\b\fs24 6.1 Requisitos funcionales (con descripcion)\b0\fs22\par
+\par
+\pard | ID | Requisito | Descripcion funcional |\par
+\pard |---|---|---|\par
+\pard | RF01 | Iniciar y cerrar sesion | Permite autenticar al usuario con correo, clave y rol para habilitar el dashboard correspondiente. |\par
+\pard | RF02 | Gestionar usuarios y roles | Permite mantener usuarios activos con rol valido para operacion del sistema. |\par
+\pard | RF03 | Gestionar entidades receptoras | Permite registrar y actualizar entidades donde se desarrollan practicas. |\par
+\pard | RF04 | Registrar practicas academicas | Permite crear la practica con estudiante, periodo, entidad, docente, fechas y objetivo. |\par
+\pard | RF05 | Asignar docente y entidad | Permite vincular responsables academicos y entidad receptora a cada practica. |\par
+\pard | RF06 | Registrar actividades y horas | Permite al estudiante registrar entradas de bitacora con fecha, actividad, descripcion y horas. |\par
+\pard | RF07 | Cargar evidencias | Permite asociar archivos de soporte a cada actividad de bitacora. |\par
+\pard | RF08 | Validar o rechazar actividades | Permite al docente aprobar/rechazar entradas y registrar observaciones. |\par
+\pard | RF09 | Consultar estado e historial | Permite visualizar trazabilidad del proceso para cada rol. |\par
+\pard | RF10 | Generar reportes por filtros | Permite consultar consolidado por periodo, programa y estado operativo. |\par
+\par
+\pard\sa120\b\fs24 6.2 Requisitos no funcionales (separados por calidad)\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab RNF01 Usabilidad: interfaz clara y consistente para los tres roles.\par
+\pard\li720\fi-360 \'95\tab RNF02 Seguridad: control de acceso por rol, validacion de credenciales y restricciones por perfil.\par
+\pard\li720\fi-360 \'95\tab RNF03 Rendimiento: respuestas menores a 3 segundos en consultas frecuentes de dashboard y reportes.\par
+\pard\li720\fi-360 \'95\tab RNF04 Integridad de datos: uso de claves, foraneas y restricciones CHECK/UNIQUE en Oracle.\par
+\pard\li720\fi-360 \'95\tab RNF05 Trazabilidad: cada validacion o rechazo debe conservar estado, observacion y responsable.\par
+\pard\li720\fi-360 \'95\tab RNF06 Mantenibilidad: estructura modular por capas (UI, datos, modelo, configuracion).\par
+\pard\li720\fi-360 \'95\tab RNF07 Disponibilidad academica: operacion estable en periodos de alta actividad.\par
+\par
+\pard\sa120\b\fs24 6.3 Reglas de negocio relevantes\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab RN01: una actividad rechazada debe incluir observacion del docente.\par
+\pard\li720\fi-360 \'95\tab RN02: horas reportadas por actividad en rango (0, 12].\par
+\pard\li720\fi-360 \'95\tab RN03: fecha fin de practica no puede ser menor que fecha inicio.\par
+\pard\li720\fi-360 \'95\tab RN04: cierre operativo de practica cuando horas_validadas >= horas_objetivo.\par
+\pard\li720\fi-360 \'95\tab RN05: horas validadas de practica se recalculan con base en actividades VALIDADA.\par
+\par
+\pard\sa140\b\fs28 7. Diseno UML\b0\fs22\par
+\par
+\pard\sa120\b\fs24 7.1 Diagrama de casos de uso\b0\fs22\par
+\par
+\pard El diseno se distribuye en 4 diagramas para evitar saturacion:\par
+\par
+\pard\li720\fi-360 \'95\tab D1 Autenticacion (comun a los 3 actores).\par
+\pard\li720\fi-360 \'95\tab D2 Modulo Estudiante.\par
+\pard\li720\fi-360 \'95\tab D3 Modulo Docente.\par
+\pard\li720\fi-360 \'95\tab D4 Modulo Director.\par
+\par
+\pard Estos diagramas estan en formato editable y visual (PlantUML/Astah/PNG) y se referencian en anexos.\par
+\par
+\pard\sa120\b\fs24 7.2 Diagrama de dominio (resumen)\b0\fs22\par
+\par
+\pard Entidades de dominio consideradas:\par
+\par
+\pard\li720\fi-360 \'95\tab Usuario\par
+\pard\li720\fi-360 \'95\tab Estudiante\par
+\pard\li720\fi-360 \'95\tab DocenteAsesor\par
+\pard\li720\fi-360 \'95\tab DirectorPrograma\par
+\pard\li720\fi-360 \'95\tab EntidadReceptora\par
+\pard\li720\fi-360 \'95\tab Practica\par
+\pard\li720\fi-360 \'95\tab Bitacora\par
+\pard\li720\fi-360 \'95\tab Evidencia\par
+\par
+\pard Relaciones clave del dominio:\par
+\par
+\pard\li720\fi-360 \'95\tab Estudiante 1..N Practica.\par
+\pard\li720\fi-360 \'95\tab Practica 1..N Bitacora.\par
+\pard\li720\fi-360 \'95\tab Bitacora 1..N Evidencia.\par
+\par
+\pard\sa140\b\fs28 8. Modelamiento de la base de datos\b0\fs22\par
+\par
+\pard\sa120\b\fs24 8.1 Modelo entidad-relacion\b0\fs22\par
+\par
+\pard El modelo ER implementa la trazabilidad completa del proceso de practica. A continuacion se presenta un resumen textual del ER:\par
+\par
+\pard ```mermaid\par
+\pard erDiagram\par
+\pard USUARIO ||--o| ESTUDIANTE : "es"\par
+\pard USUARIO ||--o| DOCENTE_ASESOR : "es"\par
+\pard USUARIO ||--o| DIRECTOR_PROGRAMA : "es"\par
+\pard ESTUDIANTE ||--o\{ PRACTICA : "tiene"\par
+\pard DOCENTE_ASESOR ||--o\{ PRACTICA : "asesora"\par
+\pard DIRECTOR_PROGRAMA ||--o\{ PRACTICA : "supervisa"\par
+\pard ENTIDAD_RECEPTORA ||--o\{ PRACTICA : "recibe"\par
+\pard PRACTICA ||--o\{ BITACORA : "registra"\par
+\pard BITACORA ||--o\{ EVIDENCIA : "soporta"\par
+\pard ```\par
+\par
+\pard\sa120\b\fs24 8.2 Modelo relacional\b0\fs22\par
+\par
+\pard Tablas principales implementadas:\par
+\par
+\pard\li720\fi-360 \'95\tab usuario\par
+\pard\li720\fi-360 \'95\tab estudiante\par
+\pard\li720\fi-360 \'95\tab docente_asesor\par
+\pard\li720\fi-360 \'95\tab director_programa\par
+\pard\li720\fi-360 \'95\tab entidad_receptora\par
+\pard\li720\fi-360 \'95\tab practica\par
+\pard\li720\fi-360 \'95\tab bitacora\par
+\pard\li720\fi-360 \'95\tab evidencia\par
+\par
+\pard Estructuras de soporte:\par
+\par
+\pard\li720\fi-360 \'95\tab Indices para consultas frecuentes en practica y bitacora.\par
+\pard\li720\fi-360 \'95\tab Vistas `vw_horas_practica` y `vw_reporte_programa` para indicadores y reportes.\par
+\par
+\pard\sa120\b\fs24 8.3 Diccionario de datos (resumen)\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab `usuario.rol`: ESTUDIANTE, DOCENTE, DIRECTOR.\par
+\pard\li720\fi-360 \'95\tab `usuario.estado`: ACTIVO, INACTIVO.\par
+\pard\li720\fi-360 \'95\tab `practica.estado`: PENDIENTE, EN_CURSO, PENDIENTE_APROBACION, FINALIZADA.\par
+\pard\li720\fi-360 \'95\tab `bitacora.estado_validacion`: PENDIENTE, VALIDADA, RECHAZADA.\par
+\par
+\pard\sa140\b\fs28 9. Diseno de interfaz\b0\fs22\par
+\par
+\pard\sa120\b\fs24 9.1 Pantallas principales y comportamiento\b0\fs22\par
+\par
+\pard | Pantalla | Actor | Comportamiento principal | Validaciones clave |\par
+\pard |---|---|---|---|\par
+\pard | Login | Todos | Autentica correo, clave y rol; redirige al dashboard correcto. | Credenciales validas y rol correcto. |\par
+\pard | Dashboard estudiante | Estudiante | Muestra estado de practica, horas reportadas/validadas y accesos a modulos. | Solo datos del estudiante autenticado. |\par
+\pard | Registro de practica | Estudiante/Director | Crea registro de practica con datos academicos y fechas. | Campos obligatorios y rango de fechas valido. |\par
+\pard | Bitacora | Estudiante | Registra entradas de actividad y actualiza historial. | Horas > 0 y <= 12; fecha valida. |\par
+\pard | Evidencias | Estudiante | Asocia archivos soporte a actividad de bitacora. | Ruta de archivo y tipo definidos. |\par
+\pard | Dashboard docente | Docente | Visualiza pendientes, practicas en curso y cola de validacion. | Solo practicas asignadas al docente. |\par
+\pard | Validacion de actividades | Docente | Aprueba/rechaza entradas y registra observacion. | Rechazo exige observacion. |\par
+\pard | Dashboard director | Director | Visualiza KPIs globales y consolidado institucional. | Acceso exclusivo por rol director. |\par
+\pard | Reportes | Director | Filtra por periodo/programa/estado y consulta consolidado. | Filtros coherentes con datos existentes. |\par
+\par
+\pard\sa120\b\fs24 9.2 Criterios de presentacion\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab Navegacion por menu lateral con accesos por rol.\par
+\pard\li720\fi-360 \'95\tab Mensajes de exito y error claros.\par
+\pard\li720\fi-360 \'95\tab Tablas con recarga despues de cada operacion.\par
+\pard\li720\fi-360 \'95\tab Coherencia visual entre formularios y reportes.\par
+\par
+\pard\sa140\b\fs28 10. Referencias bibliograficas\b0\fs22\par
+\par
+\pard\li720\fi-360 \'95\tab SWEBOK V3.0 y portal IEEE Computer Society.\par
+\pard\li720\fi-360 \'95\tab ISO/IEC/IEEE 12207.\par
+\pard\li720\fi-360 \'95\tab ISO/IEC 25010.\par
+\pard\li720\fi-360 \'95\tab UML 2.5.1 (OMG).\par
+\pard\li720\fi-360 \'95\tab Sommerville, Software Engineering (10th ed.).\par
+\pard\li720\fi-360 \'95\tab Pressman y Maxim, Software Engineering: A Practitioner's Approach (9th ed.).\par
+\pard\li720\fi-360 \'95\tab Reglamento de practicas UDI.\par
+\par
+\pard\sa140\b\fs28 11. Anexos\b0\fs22\par
+\par
+\pard Anexos tecnicos incluidos en el repositorio del proyecto:\par
+\par
+\pard\li720\fi-360 \'95\tab Anexo A. Casos de uso detallados: `gestion-practicas-desktop/CASOS_DE_USO_DETALLADOS.txt`\par
+\pard\li720\fi-360 \'95\tab Anexo B. Checklist de pruebas funcionales: `gestion-practicas-desktop/CHECKLIST_PRUEBAS_FUNCIONALES.txt`\par
+\pard\li720\fi-360 \'95\tab Anexo C. Diagramas de casos de uso (PNG):\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/png/D1_Autenticacion.png`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/png/D2_Estudiante.png`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/png/D3_Docente.png`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/png/D4_Director.png`\par
+\pard\li720\fi-360 \'95\tab Anexo D. Diagramas editables PlantUML:\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/puml/D1_Autenticacion.puml`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/puml/D2_Estudiante.puml`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/puml/D3_Docente.puml`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/docs/astah_casos_uso/puml/D4_Director.puml`\par
+\pard\li720\fi-360 \'95\tab Anexo E. Modelo de base de datos: `gestion-practicas-desktop/sql/01_schema_oracle.sql`\par
+\pard\li720\fi-360 \'95\tab Anexo E2. Modelo reducido gestion de horas: `gestion-practicas-desktop/sql/01_schema_oracle_reducido_horas.sql`\par
+\pard\li720\fi-360 \'95\tab Anexo F. Documentacion tecnica BD: `gestion-practicas-desktop/sql/DOCUMENTACION_BD.txt`\par
+\pard\li720\fi-360 \'95\tab Anexo G. Capturas de interfaz: `gestion-practicas-desktop/docs/screenshots/*` (login, dashboards, registro, bitacora, evidencias, validacion, reportes)\par
+\par
+\pard ---\par
+\par
+\pard\sa140\b\fs28 Ajustes realizados frente a observaciones docentes\b0\fs22\par
+\par
+\pard\li360 1. Introduccion ampliada y cerrada con presentacion del documento.\par
+\pard\li360 2. Problema profundizado con causas, impacto por actor y necesidad institucional.\par
+\pard\li360 3. Objetivo general reformulado con verbo verificable.\par
+\pard\li360 4. Objetivos especificos alineados a productos de cursos (requisitos, diseno, construccion, pruebas) y no redactados como RF.\par
+\pard\li360 5. Plan de trabajo detallado por fases, actividades y entregables; se ajusta "despliegue" a cierre academico.\par
+\pard\li360 6. Requisitos descritos uno a uno (no solo listado).\par
+\pard\li360 7. Requisitos de seguridad reforzados en RNF.\par
+\pard\li360 8. Se incluyen anexos concretos y rutas de evidencias para diagramas, SQL, pruebas e interfaces.\par
+\pard\li360 9. Diseno de interfaz ahora describe comportamiento de cada pantalla.\par
+\par
+\pard\sa140\b\fs28 12. Ajuste propuesto de reduccion (enfoque gestion de horas)\b0\fs22\par
+\par
+\pard Este ajuste simplifica el modelo de la Entrega 2 para operacion de registro, validacion y control de horas.\par
+\par
+\pard Cambios resaltados:\par
+\par
+\pard\li720\fi-360 \'95\tab [SE_MANTIENE] login, registro de practica, bitacora, evidencias, validacion y reportes.\par
+\pard\li720\fi-360 \'95\tab [MODIFICADO] registro publico: solo estudiante desde pantalla principal.\par
+\pard\li720\fi-360 \'95\tab [MODIFICADO] registro de docentes: solo directora.\par
+\pard\li720\fi-360 \'95\tab [MODIFICADO] cierre final de practica: aprobado por directora.\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] modulo de rubrica.\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] evaluacion detallada por criterio.\par
+\pard\li720\fi-360 \'95\tab [MODIFICADO] reportes orientados a avance de horas y estado operativo de practica.\par
+\par
+\pard Cambios en base de datos:\par
+\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] `rubrica`\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] `criterio_rubrica`\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] `evaluacion`\par
+\pard\li720\fi-360 \'95\tab [ELIMINADO] `detalle_evaluacion`\par
+\pard\li720\fi-360 \'95\tab [SE_MANTIENE] `usuario`, `estudiante`, `docente_asesor`, `director_programa`, `entidad_receptora`, `practica`, `bitacora`, `evidencia`\par
+\pard\li720\fi-360 \'95\tab [MODIFICADO] estado de `practica` incorpora `PENDIENTE_APROBACION` para cierre por directora.\par
+\par
+\pard Documentos de soporte del ajuste:\par
+\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/ENTREGA_2_AJUSTE_REDUCCION_HORAS.md`\par
+\pard\li720\fi-360 \'95\tab `gestion-practicas-desktop/sql/01_schema_oracle_reducido_horas.sql`\par
+}

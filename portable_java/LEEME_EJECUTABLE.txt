@@ -1,0 +1,15 @@
+EJECUTABLE - PROYECTO_VISTAS_NETBEANS
+
+Archivos:
+- PROYECTO_VISTAS_NETBEANS.exe
+- PROYECTO_VISTAS_NETBEANS.jar
+
+Uso:
+1) Mantener ambos archivos en la misma carpeta.
+2) Doble clic en PROYECTO_VISTAS_NETBEANS.exe.
+
+Requisitos:
+- Java instalado (JDK/JRE 17 o superior).
+
+Nota JDBC Oracle:
+- Si una vista intenta conectar a Oracle y no encuentra el driver, agrega ojdbc11-21.9.0.0.jar al classpath de ejecucion.
