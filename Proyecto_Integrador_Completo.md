@@ -383,7 +383,7 @@ Las tablas principales del sistema son:
 
 ## 8.3 Diccionario de datos
 
-## 6.9 Diccionario de tablas numerado (001-008)
+## 8.4 Diccionario de tablas numerado (001-008)
 
 | Numero | Nombre tabla | Descripcion |
 |---|---|---|
@@ -396,7 +396,7 @@ Las tablas principales del sistema son:
 | 007 | `bitacora` | Registro de actividades y horas reportadas por practica; soporta flujo de validacion docente con estado, observacion y trazabilidad de fechas. |
 | 008 | `evidencia` | Soportes asociados a cada entrada de bitacora (archivo/ruta/comentario), usados para sustentar actividades y validaciones. |
 
-## 📋 Tabla: USUARIO
+### Tabla: USUARIO
 
 
 | Atributo    | Valor                                                                 |
@@ -415,7 +415,7 @@ Las tablas principales del sistema son:
 | rol        | VARCHAR2     | 20     | ESTUDIANTE, DOCENTE, DIRECTOR                    | NOT NULL, CHECK              |
 | estado     | VARCHAR2     | 20     | ACTIVO, INACTIVO                                 | NOT NULL, CHECK              |
 
-###  Tabla: ESTUDIANTE
+### Tabla: ESTUDIANTE
 
 | Campo | Tipo de dato | Tamaño | Descripción | Restricción |
 |------|--------------|--------|-------------|-------------|
@@ -615,12 +615,12 @@ Las tablas principales del sistema son:
 
 # 11. Anexos
 
--Anexo A. Diagrama de casos de uso
--Anexo B. Diagrama de dominio
--Anexo C. Diagramas de secuencia
--Anexo D. Script SQL Oracle
--Anexo E. Capturas del prototipo
--Anexo F. Evidencias de pruebas funcionales 
+- Anexo A. Diagrama de casos de uso
+- Anexo B. Diagrama de dominio
+- Anexo C. Diagramas de secuencia
+- Anexo D. Script SQL Oracle
+- Anexo E. Capturas del prototipo
+- Anexo F. Evidencias de pruebas funcionales
 
 ---
 
@@ -658,3 +658,22 @@ Con el fin de hacer viable la implementación y mantener la coherencia entre an�
 - Registro de hallazgos institucionales.
 
 Este ajuste permite concentrar la solución en el seguimiento operativo de las prácticas y asegurar que el prototipo implementado sea coherente, funcional y verificable dentro del alcance académico de la entrega.
+
+
+## 13.1 Matriz de trazabilidad (Propuesta vs Segunda entrega)
+
+| Elemento de la propuesta | Estado en segunda entrega | Evidencia / nota |
+|---|---|---|
+| Gestion de practicas, control de horas y bitacora | Implementado | Cap. 6 (RF), Cap. 7 (UML), Cap. 9 (vistas), codigo en `codigo/PROYECTO_VISTAS_NETBEANS_ANT` |
+| Carga de evidencias por estudiante | Implementado | RF08, reglas de negocio y vista de evidencias |
+| Validacion/rechazo por docente asesor | Implementado | RF09-RF10, secuencias y vistas de validacion |
+| Cierre/reapertura de practica por director | Implementado | RF11 y vistas de director |
+| Reportes institucionales filtrables | Implementado | RF12 y vista de reportes |
+| Banco de preguntas por practica | Pendiente (fuera de alcance) | Definido como no incluido en Cap. 1.2 y Cap. 13 |
+| Retroalimentacion obligatoria por respuesta | Pendiente (fuera de alcance) | Parcial: observacion docente en bitacora; no hay cuestionario por respuesta |
+| Rubrica parametrizable con criterios/ponderaciones | Pendiente (fuera de alcance) | Declarado explicitamente en alcance y ajustes |
+| Calculo automatico de nota final por rubrica | Pendiente (fuera de alcance) | Dependiente del modulo de rubrica |
+| Gestion completa de hasta 8 practicas por programa y grupos | Parcial | Se gestiona practica y asignaciones basicas; no se formaliza modulo de grupos multicorte completo |
+| Registro estructurado de visitas pedagogicas | Pendiente (fuera de alcance) | No implementado como modulo especifico |
+
+**Conclusion de trazabilidad:** la segunda entrega cumple el nucleo operativo comprometido (registro, seguimiento, validacion y reportes), y deja explicitamente fuera de alcance los componentes avanzados de evaluacion y parametrizacion academica para una fase posterior.
