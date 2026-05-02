@@ -26,7 +26,6 @@ public class ValidationFrame extends BaseFrame {
         navButton("Dashboard", false, this::goDashboard);
         navButton("Bitacora", false, () -> goTo(new BitacoraFrame(role)));
         navButton("Validar", true, () -> { });
-        navButton("Rubrica", false, () -> goTo(new RubricEvaluationFrame()));
         navButton("Cerrar sesion", false, this::closeAllAndReturnToLogin);
     }
 

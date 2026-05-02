@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PracticeDao {
+    private static final int DEFAULT_OBJECTIVE_HOURS = 8;
+
     public record StudentProfile(long idEstudiante, long idUsuario, String nombre, String codigo, String programa) {
     }
 
@@ -75,7 +77,7 @@ public class PracticeDao {
                 id_practica, id_estudiante, id_docente, id_entidad,
                 periodo, fecha_inicio, fecha_fin, estado, horas_objetivo, horas_acumuladas
             ) VALUES (
-                NULL, ?, ?, ?, ?, ?, ?, 'EN_CURSO', 160, 0
+                NULL, ?, ?, ?, ?, ?, ?, 'EN_CURSO', ?, 0
             )
             """;
 
@@ -131,13 +133,36 @@ public class PracticeDao {
             throws SQLException {
         try (Connection cn = DatabaseConnection.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_INSERT_PRACTICE)) {
+            int objectiveHours = resolveObjectiveHours(objetivo);
             ps.setLong(1, studentId);
             ps.setLong(2, teacherId);
             ps.setLong(3, entityId);
             ps.setString(4, periodo);
             ps.setDate(5, Date.valueOf(fechaInicio));
             ps.setDate(6, Date.valueOf(fechaFin));
+            ps.setInt(7, objectiveHours);
             ps.executeUpdate();
+        }
+    }
+
+    private int resolveObjectiveHours(String objetivo) {
+        if (objetivo == null || objetivo.isBlank()) {
+            return DEFAULT_OBJECTIVE_HOURS;
+        }
+
+        String digits = objetivo.replaceAll("[^0-9]", "");
+        if (digits.isEmpty()) {
+            return DEFAULT_OBJECTIVE_HOURS;
+        }
+
+        try {
+            int parsed = Integer.parseInt(digits);
+            if (parsed <= 0) {
+                return DEFAULT_OBJECTIVE_HOURS;
+            }
+            return Math.min(parsed, 160);
+        } catch (NumberFormatException ex) {
+            return DEFAULT_OBJECTIVE_HOURS;
         }
     }
 

@@ -57,7 +57,7 @@ public class BitacoraDao {
                 FROM practica
                 WHERE id_estudiante = ?
                   AND estado IN ('EN_CURSO', 'PENDIENTE')
-                ORDER BY fecha_registro DESC
+                ORDER BY id_practica DESC
             )
             WHERE ROWNUM = 1
             """;
