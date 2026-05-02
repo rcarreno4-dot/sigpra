@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 public class BitacoraDao {
+    private final RoleIdentityDao roleIdentityDao = new RoleIdentityDao();
+
     private static final String[] COLUMNS = {"Fecha", "Actividad", "Horas", "Estado"};
 
     private static final String SQL_STUDENT = """
@@ -79,8 +81,8 @@ public class BitacoraDao {
 
     public DefaultTableModel findByUser(AuthenticatedUser user) throws SQLException {
         return switch (user.role()) {
-            case ESTUDIANTE -> queryWithId(SQL_STUDENT, user.id());
-            case DOCENTE -> queryWithId(SQL_TEACHER, user.id());
+            case ESTUDIANTE -> queryWithId(SQL_STUDENT, roleIdentityDao.requireStudentIdByUserId(user.id()));
+            case DOCENTE -> queryWithId(SQL_TEACHER, roleIdentityDao.requireTeacherIdByUserId(user.id()));
             case DIRECTOR -> queryNoParams(SQL_DIRECTOR);
         };
     }
@@ -93,7 +95,8 @@ public class BitacoraDao {
             BigDecimal horasReportadas
     ) throws SQLException {
         try (Connection cn = DatabaseConnection.getConnection()) {
-            long practiceId = findActivePracticeId(cn, studentUserId);
+            long studentId = roleIdentityDao.requireStudentIdByUserId(studentUserId);
+            long practiceId = findActivePracticeId(cn, studentId);
             if (practiceId <= 0) {
                 throw new SQLException("No se encontro una practica activa para el estudiante.");
             }
@@ -146,9 +149,9 @@ public class BitacoraDao {
         return model;
     }
 
-    private long findActivePracticeId(Connection cn, long studentUserId) throws SQLException {
+    private long findActivePracticeId(Connection cn, long studentId) throws SQLException {
         try (PreparedStatement ps = cn.prepareStatement(SQL_ACTIVE_PRACTICE)) {
-            ps.setLong(1, studentUserId);
+            ps.setLong(1, studentId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
                     return -1;

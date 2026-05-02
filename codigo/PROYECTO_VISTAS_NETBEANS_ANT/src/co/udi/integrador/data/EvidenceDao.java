@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EvidenceDao {
+    private final RoleIdentityDao roleIdentityDao = new RoleIdentityDao();
+
     private static final String SQL_STUDENT_BITACORA = """
             SELECT b.id_bitacora,
                    TO_CHAR(b.fecha_actividad, 'YYYY-MM-DD') || ' - ' || b.actividad AS label
@@ -24,7 +26,8 @@ public class EvidenceDao {
             ) VALUES (NULL, ?, ?, ?, ?, ?)
             """;
 
-    public List<ComboItem> listBitacoraForStudent(long studentId) throws SQLException {
+    public List<ComboItem> listBitacoraForStudent(long studentUserId) throws SQLException {
+        long studentId = roleIdentityDao.requireStudentIdByUserId(studentUserId);
         List<ComboItem> list = new ArrayList<>();
         try (Connection cn = DatabaseConnection.getConnection();
              PreparedStatement ps = cn.prepareStatement(SQL_STUDENT_BITACORA)) {

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class ValidationDao {
+    private final RoleIdentityDao roleIdentityDao = new RoleIdentityDao();
+
     private static final String SQL_PENDING = """
             SELECT b.id_bitacora,
                    TRIM(u.nombres || ' ' || u.apellidos) AS estudiante,
@@ -61,7 +63,8 @@ public class ValidationDao {
             WHERE id_practica = ?
             """;
 
-    public DefaultTableModel listForTeacher(long teacherId) throws SQLException {
+    public DefaultTableModel listForTeacher(long teacherUserId) throws SQLException {
+        long teacherId = roleIdentityDao.requireTeacherIdByUserId(teacherUserId);
         DefaultTableModel model = new DefaultTableModel(
                 new String[]{"ID", "Estudiante", "Fecha", "Actividad", "Horas", "Estado"}, 0) {
             @Override
@@ -89,8 +92,9 @@ public class ValidationDao {
         return model;
     }
 
-    public void validate(long bitacoraId, long teacherId, boolean approved, String observation) throws SQLException {
+    public void validate(long bitacoraId, long teacherUserId, boolean approved, String observation) throws SQLException {
         String newStatus = approved ? "VALIDADA" : "RECHAZADA";
+        long teacherId = roleIdentityDao.requireTeacherIdByUserId(teacherUserId);
 
         try (Connection cn = DatabaseConnection.getConnection()) {
             cn.setAutoCommit(false);

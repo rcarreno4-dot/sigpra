@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class DashboardDao {
+    private final RoleIdentityDao roleIdentityDao = new RoleIdentityDao();
+
     public record StudentDashboardData(String horasRegistradas, String horasValidadas, String estadoPractica,
                                        DefaultTableModel tasks) {
     }
@@ -79,7 +81,8 @@ public class DashboardDao {
             ORDER BY e.programa
             """;
 
-    public StudentDashboardData loadStudentData(long studentId) throws SQLException {
+    public StudentDashboardData loadStudentData(long studentUserId) throws SQLException {
+        long studentId = roleIdentityDao.requireStudentIdByUserId(studentUserId);
         try (Connection cn = DatabaseConnection.getConnection()) {
             String horasRegistradas = "0";
             String horasValidadas = "0";
@@ -119,7 +122,8 @@ public class DashboardDao {
         }
     }
 
-    public TeacherDashboardData loadTeacherData(long teacherId) throws SQLException {
+    public TeacherDashboardData loadTeacherData(long teacherUserId) throws SQLException {
+        long teacherId = roleIdentityDao.requireTeacherIdByUserId(teacherUserId);
         try (Connection cn = DatabaseConnection.getConnection()) {
             String estudiantesAsignados = "0";
             String entradasPendientes = "0";
