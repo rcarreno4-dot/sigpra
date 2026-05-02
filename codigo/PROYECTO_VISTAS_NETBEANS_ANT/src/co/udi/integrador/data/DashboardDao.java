@@ -51,16 +51,48 @@ public class DashboardDao {
 
     private static final String SQL_TEACHER_QUEUE = """
             SELECT TRIM(u.nombres || ' ' || u.apellidos) AS estudiante,
-                   b.actividad,
-                   TO_CHAR(b.horas_reportadas) AS horas,
-                   INITCAP(LOWER(b.estado_validacion)) AS estado
-            FROM bitacora b
-            JOIN practica p ON p.id_practica = b.id_practica
+                   NVL(b.actividad, 'Sin actividades pendientes') AS actividad,
+                   NVL(TO_CHAR(b.horas_reportadas), '-') AS horas,
+                   CASE
+                       WHEN b.id_bitacora IS NOT NULL THEN INITCAP(LOWER(b.estado_validacion))
+                       WHEN p.estado = 'PENDIENTE_APROBACION' THEN 'Pend. aprobacion'
+                       WHEN p.estado = 'EN_CURSO' THEN 'En curso'
+                       ELSE INITCAP(LOWER(p.estado))
+                   END AS estado
+            FROM practica p
+            JOIN estudiante e ON e.id_estudiante = p.id_estudiante
+            JOIN usuario u ON u.id_usuario = e.id_usuario
+            LEFT JOIN (
+                SELECT id_practica, id_bitacora, actividad, horas_reportadas, estado_validacion
+                FROM (
+                    SELECT b.id_practica,
+                           b.id_bitacora,
+                           b.actividad,
+                           b.horas_reportadas,
+                           b.estado_validacion,
+                           ROW_NUMBER() OVER (
+                               PARTITION BY b.id_practica
+                               ORDER BY b.fecha_actividad DESC, b.id_bitacora DESC
+                           ) AS rn
+                    FROM bitacora b
+                    WHERE b.estado_validacion = 'PENDIENTE'
+                )
+                WHERE rn = 1
+            ) b ON b.id_practica = p.id_practica
+            WHERE p.id_docente = ?
+              AND p.estado IN ('EN_CURSO', 'PENDIENTE_APROBACION')
+            ORDER BY u.nombres, u.apellidos, p.id_practica DESC
+            """;
+
+    private static final String SQL_TEACHER_ASSIGNED_FALLBACK = """
+            SELECT TRIM(u.nombres || ' ' || u.apellidos) AS estudiante,
+                   p.estado
+            FROM practica p
             JOIN estudiante e ON e.id_estudiante = p.id_estudiante
             JOIN usuario u ON u.id_usuario = e.id_usuario
             WHERE p.id_docente = ?
-              AND b.estado_validacion = 'PENDIENTE'
-            ORDER BY b.fecha_actividad, b.id_bitacora
+              AND p.estado IN ('EN_CURSO', 'PENDIENTE_APROBACION')
+            ORDER BY u.nombres, u.apellidos, p.id_practica DESC
             """;
 
     private static final String SQL_DIRECTOR_KPI = """
@@ -157,6 +189,22 @@ public class DashboardDao {
                                 rs.getString("horas"),
                                 rs.getString("estado")
                         });
+                    }
+                }
+            }
+
+            if (queue.getRowCount() == 0 && !"0".equals(estudiantesAsignados)) {
+                try (PreparedStatement ps = cn.prepareStatement(SQL_TEACHER_ASSIGNED_FALLBACK)) {
+                    ps.setLong(1, teacherId);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            queue.addRow(new Object[]{
+                                    rs.getString("estudiante"),
+                                    "Sin actividades pendientes",
+                                    "-",
+                                    normalizeStatus(rs.getString("estado"))
+                            });
+                        }
                     }
                 }
             }

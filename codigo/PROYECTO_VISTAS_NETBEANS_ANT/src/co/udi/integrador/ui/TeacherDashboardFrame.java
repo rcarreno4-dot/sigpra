@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TeacherDashboardFrame extends BaseFrame {
     public TeacherDashboardFrame() {
@@ -32,6 +33,7 @@ public class TeacherDashboardFrame extends BaseFrame {
         root.setOpaque(false);
 
         DashboardDao.TeacherDashboardData data = loadData();
+        DefaultTableModel queueModel = ensureVisibleQueue(data);
 
         JPanel kpis = new JPanel(new GridLayout(1, 3, 10, 10));
         kpis.setOpaque(false);
@@ -39,7 +41,7 @@ public class TeacherDashboardFrame extends BaseFrame {
         kpis.add(kpiCard("Entradas por validar", data.entradasPendientes()));
         kpis.add(kpiCard("Practicas en curso", data.practicasEnCurso()));
 
-        JTable table = new JTable(data.queue());
+        JTable table = new JTable(queueModel);
         JPanel tableCard = UITheme.cardPanel();
         tableCard.setLayout(new BorderLayout(8, 8));
         tableCard.add(UITheme.subtitleLabel("Cola de validacion"), BorderLayout.NORTH);
@@ -58,6 +60,19 @@ public class TeacherDashboardFrame extends BaseFrame {
         panel.add(l1, BorderLayout.NORTH);
         panel.add(l2, BorderLayout.CENTER);
         return panel;
+    }
+
+    private DefaultTableModel ensureVisibleQueue(DashboardDao.TeacherDashboardData data) {
+        DefaultTableModel model = data.queue();
+        if (model.getRowCount() == 0 && !"0".equals(data.estudiantesAsignados())) {
+            model.addRow(new Object[]{
+                    "(Asignado)",
+                    "Sin actividades pendientes",
+                    "-",
+                    "En curso"
+            });
+        }
+        return model;
     }
 
     private DashboardDao.TeacherDashboardData loadData() {
