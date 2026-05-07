@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.Set;
 
 public final class DatabaseConfig {
-    private static final String DEFAULT_URL = "jdbc:oracle:thin:@localhost:1521/XE";
+    private static final String DEFAULT_URL = "jdbc:oracle:thin:@//192.168.254.215:1521/ORCL";
     private static final String DEFAULT_USER = "PRACTICAS_APP";
     private static final String DEFAULT_PASSWORD = "Practicas2026";
 
