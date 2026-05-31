@@ -1,0 +1,102 @@
+RESUMEN DBA - ORACLE XE (PRACTICAS_APP)
+Fecha: 2026-05-25
+
+1) OBJETIVO
+- Crear un usuario administrador unico para la base de datos.
+- Usuario creado: ADMINISTRADOR
+- Clave configurada: administrador2026
+- Perfil de seguridad: PERFIL_DBA_UNICO
+- Rol asignado: DBA
+
+2) SENTENCIAS USADAS
+
+-- Crear perfil de seguridad (si no existe)
+CREATE PROFILE perfil_dba_unico LIMIT
+  SESSIONS_PER_USER 2
+  FAILED_LOGIN_ATTEMPTS 5
+  PASSWORD_LIFE_TIME 90
+  PASSWORD_REUSE_TIME 365
+  PASSWORD_REUSE_MAX 10
+  PASSWORD_LOCK_TIME 1/24;
+
+-- Crear o actualizar usuario ADMINISTRADOR
+DECLARE
+  v_count NUMBER := 0;
+BEGIN
+  SELECT COUNT(*) INTO v_count
+  FROM dba_users
+  WHERE username = 'ADMINISTRADOR';
+
+  IF v_count = 0 THEN
+    EXECUTE IMMEDIATE 'CREATE USER administrador IDENTIFIED BY "administrador2026" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE perfil_dba_unico ACCOUNT UNLOCK';
+  ELSE
+    BEGIN
+      EXECUTE IMMEDIATE 'ALTER USER administrador IDENTIFIED BY "administrador2026"';
+    EXCEPTION
+      WHEN OTHERS THEN
+        IF SQLCODE != -28007 THEN RAISE; END IF;
+    END;
+
+    EXECUTE IMMEDIATE 'ALTER USER administrador PROFILE perfil_dba_unico ACCOUNT UNLOCK';
+  END IF;
+END;
+/
+
+GRANT CREATE SESSION TO administrador;
+GRANT DBA TO administrador;
+
+3) VALIDACIONES REALIZADAS
+
+-- Usuario y estado
+SELECT username, account_status, profile
+FROM dba_users
+WHERE username='ADMINISTRADOR';
+
+-- Rol asignado
+SELECT grantee, granted_role
+FROM dba_role_privs
+WHERE grantee='ADMINISTRADOR';
+
+-- Privilegios del rol DBA
+SELECT privilege
+FROM role_sys_privs
+WHERE role='DBA'
+ORDER BY privilege;
+
+-- Privilegios efectivos en sesion del usuario
+CONNECT administrador/administrador2026@XE
+SELECT * FROM session_privs ORDER BY privilege;
+
+4) RESULTADO CONFIRMADO
+- ADMINISTRADOR existe y esta OPEN.
+- ADMINISTRADOR tiene el rol DBA.
+- Los privilegios del rol DBA estan activos en sesion.
+- PRACTICAS_APP tambien existe en la instancia XE.
+
+5) ACCESO COMO ADMINISTRADOR
+
+-- Desde CMD/PowerShell (fuera de SQL>)
+sqlplus administrador/administrador2026@XE
+
+-- Confirmar usuario conectado
+SHOW USER
+SELECT USER FROM DUAL;
+
+6) ERRORES QUE APARECIERON Y SOLUCION
+
+- SP2-0734 (comando desconocido):
+  Causa: ejecutar "sqlplus ..." dentro de SQL>.
+  Solucion: ejecutar sqlplus en CMD/PowerShell o usar CONNECT dentro de SQL*Plus.
+
+- SP2-0310 (no se puede abrir archivo):
+  Causa: ruta con espacios sin comillas.
+  Solucion: usar @"ruta completa\archivo.sql" o ejecutar comandos directos.
+
+- ORA-28007 (contrasena no se puede reutilizar):
+  Causa: politica de reuso de contrasenas.
+  Solucion: capturar y omitir ese error cuando solo se actualiza perfil/estado.
+
+7) RECOMENDACION DE SEGURIDAD
+- Cambiar la clave por una mas robusta.
+- Limitar acceso al listener por VPN/IP permitidas.
+- No usar ADMINISTRADOR para la aplicacion; solo para tareas DBA.

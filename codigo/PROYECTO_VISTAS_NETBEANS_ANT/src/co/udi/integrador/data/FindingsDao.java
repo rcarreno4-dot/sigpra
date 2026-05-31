@@ -15,7 +15,7 @@ public class FindingsDao {
                        'Bitacoras rechazadas o pendientes de validacion' AS detalle,
                        'Refuerzo de plantilla y retroalimentacion semanal' AS accion_sugerida
                 FROM bitacora
-                WHERE estado IN ('RECHAZADA', 'PENDIENTE')
+                WHERE estado_validacion IN ('RECHAZADA', 'PENDIENTE_APROBACION')
 
                 UNION ALL
 
@@ -25,16 +25,18 @@ public class FindingsDao {
                        'Comite de seguimiento para cierres priorizados' AS accion_sugerida
                 FROM practica
                 WHERE estado = 'EN_CURSO'
-                  AND horas_validadas >= (horas_objetivo * 0.80)
+                  AND NVL(horas_acumuladas, 0) >= (NVL(horas_objetivo, 0) * 0.80)
+                  AND NVL(horas_acumuladas, 0) < NVL(horas_objetivo, 0)
 
                 UNION ALL
 
                 SELECT 'Fortalezas' AS tipo,
                        COUNT(*) AS total,
-                       'Practicas finalizadas con notas altas' AS detalle,
+                       'Practicas finalizadas con cumplimiento de horas' AS detalle,
                        'Socializar casos de exito por programa' AS accion_sugerida
-                FROM evaluacion
-                WHERE nota_global >= 4.5
+                FROM practica
+                WHERE estado = 'FINALIZADA'
+                  AND NVL(horas_acumuladas, 0) >= NVL(horas_objetivo, 0)
             )
             ORDER BY tipo
             """;
@@ -83,3 +85,4 @@ public class FindingsDao {
         }
     }
 }
+

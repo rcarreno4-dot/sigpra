@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" modified="2026-05-15T03:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="ER-SIGPRA-2026" name="Modelo Relacional SIGPRA">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="u" value="&lt;b&gt;USUARIO&lt;/b&gt;&lt;br&gt;PK id_usuario&lt;br&gt;nombres&lt;br&gt;apellidos&lt;br&gt;correo (UQ)&lt;br&gt;identificacion (UQ)&lt;br&gt;hash_password&lt;br&gt;rol&lt;br&gt;estado&lt;br&gt;fecha_creacion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="760" y="40" width="260" height="230" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e" value="&lt;b&gt;ESTUDIANTE&lt;/b&gt;&lt;br&gt;PK id_estudiante&lt;br&gt;codigo (UQ)&lt;br&gt;programa&lt;br&gt;semestre&lt;br&gt;FK id_usuario (UQ)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="390" y="330" width="250" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d" value="&lt;b&gt;DOCENTE_ASESOR&lt;/b&gt;&lt;br&gt;PK id_docente&lt;br&gt;especialidad&lt;br&gt;FK id_usuario (UQ)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="680" y="330" width="250" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="dir" value="&lt;b&gt;DIRECTOR_PROGRAMA&lt;/b&gt;&lt;br&gt;PK id_director&lt;br&gt;programa&lt;br&gt;FK id_usuario (UQ)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="970" y="330" width="250" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ent" value="&lt;b&gt;ENTIDAD_RECEPTORA&lt;/b&gt;&lt;br&gt;PK id_entidad&lt;br&gt;nombre&lt;br&gt;direccion&lt;br&gt;ciudad&lt;br&gt;contacto_nombre&lt;br&gt;contacto_email&lt;br&gt;contacto_telefono&lt;br&gt;cupos_totales&lt;br&gt;cupos_disponibles&lt;br&gt;estado" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="300" width="290" height="240" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="p" value="&lt;b&gt;PRACTICA&lt;/b&gt;&lt;br&gt;PK id_practica&lt;br&gt;periodo&lt;br&gt;fecha_inicio&lt;br&gt;fecha_fin&lt;br&gt;horas_objetivo&lt;br&gt;horas_acumuladas&lt;br&gt;estado&lt;br&gt;fecha_registro&lt;br&gt;FK id_estudiante&lt;br&gt;FK id_docente&lt;br&gt;FK id_director&lt;br&gt;FK id_entidad" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="760" y="560" width="290" height="250" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="b" value="&lt;b&gt;BITACORA&lt;/b&gt;&lt;br&gt;PK id_bitacora&lt;br&gt;FK id_practica&lt;br&gt;fecha_actividad&lt;br&gt;actividad&lt;br&gt;descripcion&lt;br&gt;horas_reportadas&lt;br&gt;estado_validacion&lt;br&gt;observacion_docente&lt;br&gt;FK id_docente_validador&lt;br&gt;fecha_validacion&lt;br&gt;fecha_registro" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="760" y="860" width="290" height="250" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ev" value="&lt;b&gt;EVIDENCIA&lt;/b&gt;&lt;br&gt;PK id_evidencia&lt;br&gt;FK id_bitacora&lt;br&gt;tipo_archivo&lt;br&gt;nombre_archivo&lt;br&gt;ruta_archivo&lt;br&gt;comentario&lt;br&gt;fecha_carga" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1160" width="290" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="n1" value="1 : 0..1" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="u" target="e" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="n2" value="1 : 0..1" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="u" target="d" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="1 : 0..1" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="u" target="dir" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r1" value="ESTUDIANTE 1 : N PRACTICA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="e" target="p" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2" value="DOCENTE 1 : N PRACTICA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="d" target="p" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3" value="DIRECTOR 1 : N PRACTICA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="dir" target="p" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4" value="ENTIDAD 1 : N PRACTICA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="ent" target="p" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r5" value="PRACTICA 1 : N BITACORA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="p" target="b" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6" value="DOCENTE 1 : N BITACORA (validacion)" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="d" target="b" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7" value="BITACORA 1 : N EVIDENCIA" style="endArrow=block;html=1;strokeColor=#666666;" edge="1" source="b" target="ev" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

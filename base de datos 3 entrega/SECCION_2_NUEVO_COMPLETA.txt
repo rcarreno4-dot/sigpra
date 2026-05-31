@@ -1,0 +1,152 @@
+SECCION 2. NUEVO - TERCERA ENTREGA BASE DE DATOS II (SIGPRA)
+
+2. Implementacion de la Base de Datos
+- Script principal de esta seccion:
+  ENTREGA_3_BD/TERCERA_ENTREGA_SQL_COMPLETA.sql
+- Scripts base de tablas/datos usados como soporte:
+  ENTREGA_2_COMPLETA/03_BASE_DATOS/bd/01_crear_esquema_oracle.sql
+  ENTREGA_2_COMPLETA/03_BASE_DATOS/bd/02_datos_iniciales.sql
+  ENTREGA_2_COMPLETA/03_BASE_DATOS/bd/04_ajustes_reunion_20260310.sql
+  ENTREGA_2_COMPLETA/03_BASE_DATOS/bd/03_consultas_utiles.sql
+
+2.1. Sentencia de creacion de usuario con perfiles (en el servidor de la UDI)
+
+CREATE PROFILE PERFIL_SIGPRA_ESTUDIANTE LIMIT
+  SESSIONS_PER_USER 2 CONNECT_TIME 240 IDLE_TIME 30 FAILED_LOGIN_ATTEMPTS 5 PASSWORD_LIFE_TIME 90;
+
+CREATE PROFILE PERFIL_SIGPRA_DOCENTE LIMIT
+  SESSIONS_PER_USER 3 CONNECT_TIME 360 IDLE_TIME 45 FAILED_LOGIN_ATTEMPTS 5 PASSWORD_LIFE_TIME 90;
+
+CREATE PROFILE PERFIL_SIGPRA_DIRECTOR LIMIT
+  SESSIONS_PER_USER 4 CONNECT_TIME 480 IDLE_TIME 60 FAILED_LOGIN_ATTEMPTS 5 PASSWORD_LIFE_TIME 90;
+
+CREATE PROFILE PERFIL_SIGPRA_ASESOR LIMIT
+  SESSIONS_PER_USER 2 CONNECT_TIME 300 IDLE_TIME 45 FAILED_LOGIN_ATTEMPTS 5 PASSWORD_LIFE_TIME 90;
+
+CREATE USER U_SIGPRA_EST IDENTIFIED BY "Sigpra2026*Est" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE PERFIL_SIGPRA_ESTUDIANTE QUOTA UNLIMITED ON USERS;
+CREATE USER U_SIGPRA_TUTOR IDENTIFIED BY "Sigpra2026*Tut" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE PERFIL_SIGPRA_DOCENTE QUOTA UNLIMITED ON USERS;
+CREATE USER U_SIGPRA_DIR IDENTIFIED BY "Sigpra2026*Dir" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE PERFIL_SIGPRA_DIRECTOR QUOTA UNLIMITED ON USERS;
+CREATE USER U_SIGPRA_ASES IDENTIFIED BY "Sigpra2026*Ase" DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE PERFIL_SIGPRA_ASESOR QUOTA UNLIMITED ON USERS;
+
+2.2. Sentencias de creacion de tablas
+- Tablas base:
+  usuario, estudiante, docente_asesor, director_programa, entidad_receptora,
+  usuario_entidad, rubrica, criterio_rubrica, practica, actividad_practica,
+  evidencia, evaluacion, detalle_evaluacion, validacion_institucional.
+- Tablas nuevas (ajustes):
+  plantilla_bitacora, pregunta_plantilla_bitacora, jornada_practica, reporte_periodo_practica.
+- Fuente SQL:
+  01_crear_esquema_oracle.sql y 04_ajustes_reunion_20260310.sql
+
+2.3 Usuarios y Roles
+
+2.3.1. Roles
+CREATE ROLE ROL_SIGPRA_ESTUDIANTE;
+CREATE ROLE ROL_SIGPRA_TUTOR;
+CREATE ROLE ROL_SIGPRA_DIRECTOR;
+CREATE ROLE ROL_SIGPRA_ASESOR_PEDAGOGICO;
+
+2.3.2. Privilegios por Roles (segun los casos de uso)
+- Estudiante (registro de bitacora y evidencias)
+  GRANT CREATE SESSION TO ROL_SIGPRA_ESTUDIANTE;
+  GRANT SELECT ON usuario TO ROL_SIGPRA_ESTUDIANTE;
+  GRANT SELECT ON practica TO ROL_SIGPRA_ESTUDIANTE;
+  GRANT SELECT, INSERT ON actividad_practica TO ROL_SIGPRA_ESTUDIANTE;
+  GRANT SELECT, INSERT ON evidencia TO ROL_SIGPRA_ESTUDIANTE;
+  GRANT SELECT, INSERT ON jornada_practica TO ROL_SIGPRA_ESTUDIANTE;
+
+- Tutor academico (validacion y evaluacion)
+  GRANT CREATE SESSION TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT ON usuario TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT, UPDATE ON practica TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT, UPDATE ON actividad_practica TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT, INSERT, UPDATE ON evaluacion TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT, INSERT, UPDATE ON detalle_evaluacion TO ROL_SIGPRA_TUTOR;
+  GRANT SELECT, INSERT, UPDATE ON reporte_periodo_practica TO ROL_SIGPRA_TUTOR;
+
+- Director (gestion academica y reportes)
+  GRANT CREATE SESSION TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, UPDATE ON usuario TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, UPDATE ON estudiante TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, UPDATE ON docente_asesor TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, UPDATE ON entidad_receptora TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, INSERT, UPDATE ON plantilla_bitacora TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, INSERT, UPDATE ON pregunta_plantilla_bitacora TO ROL_SIGPRA_DIRECTOR;
+  GRANT SELECT, INSERT, UPDATE ON reporte_periodo_practica TO ROL_SIGPRA_DIRECTOR;
+
+- Asesor pedagogico (validacion institucional)
+  GRANT CREATE SESSION TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+  GRANT SELECT ON practica TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+  GRANT SELECT ON actividad_practica TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+  GRANT SELECT ON jornada_practica TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+  GRANT SELECT, INSERT, UPDATE ON validacion_institucional TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+  GRANT SELECT ON evidencia TO ROL_SIGPRA_ASESOR_PEDAGOGICO;
+
+- Asignacion de roles a usuarios tecnicos
+  GRANT ROL_SIGPRA_ESTUDIANTE TO U_SIGPRA_EST;
+  GRANT ROL_SIGPRA_TUTOR TO U_SIGPRA_TUTOR;
+  GRANT ROL_SIGPRA_DIRECTOR TO U_SIGPRA_DIR;
+  GRANT ROL_SIGPRA_ASESOR_PEDAGOGICO TO U_SIGPRA_ASES;
+
+2.4. Procedimientos almacenados
+
+2.4.1. Tabla con Procedimientos (segun los requisitos)
+1) SP_REGISTRAR_ACTIVIDAD | PROCEDURE | Registra actividad y suma horas a practica | Modulo registro actividades
+2) SP_VALIDAR_ACTIVIDAD | PROCEDURE | Cambia estado de validacion y comentario | Modulo validacion docente
+3) SP_REGISTRAR_JORNADA | PROCEDURE | Registra jornada y calcula horas | Modulo bitacora/control institucional
+4) SP_CERRAR_PRACTICA | PROCEDURE | Cierra practica con estado final y fecha fin | Modulo cierre
+5) SP_CREAR_REPORTE_PERIODO | PROCEDURE | Crea reporte por periodo academico | Modulo reportes
+
+2.4.2. Sentencias Procedimientos
+- Definidas en:
+  ENTREGA_3_BD/TERCERA_ENTREGA_SQL_COMPLETA.sql
+- Bloques incluidos:
+  CREATE OR REPLACE PROCEDURE SP_REGISTRAR_ACTIVIDAD (...)
+  CREATE OR REPLACE PROCEDURE SP_VALIDAR_ACTIVIDAD (...)
+  CREATE OR REPLACE PROCEDURE SP_REGISTRAR_JORNADA (...)
+  CREATE OR REPLACE PROCEDURE SP_CERRAR_PRACTICA (...)
+  CREATE OR REPLACE PROCEDURE SP_CREAR_REPORTE_PERIODO (...)
+
+2.5. Disparadores
+
+2.5.1. Tabla con Disparadores (segun los requisitos)
+1) TRG_ACTUALIZAR_CUPOS_ENTIDAD_AI | practica | AFTER INSERT | Disminuye cupos disponibles
+2) TRG_RESTAURAR_CUPOS_ENTIDAD_AD | practica | AFTER DELETE | Restaura cupos disponibles
+3) trg_actividad_practica_bi | actividad_practica | BEFORE INSERT | Autogenera id con secuencia
+4) trg_jornada_practica_bi | jornada_practica | BEFORE INSERT | Autogenera id con secuencia
+5) trg_reporte_periodo_practica_bi | reporte_periodo_practica | BEFORE INSERT | Autogenera id con secuencia
+
+2.5.2. Sentencias Disparadores
+- Definidas en:
+  ENTREGA_3_BD/TERCERA_ENTREGA_SQL_COMPLETA.sql
+  01_crear_esquema_oracle.sql
+  04_ajustes_reunion_20260310.sql
+- Bloques incluidos:
+  CREATE OR REPLACE TRIGGER TRG_ACTUALIZAR_CUPOS_ENTIDAD_AI ...
+  CREATE OR REPLACE TRIGGER TRG_RESTAURAR_CUPOS_ENTIDAD_AD ...
+  CREATE OR REPLACE TRIGGER trg_actividad_practica_bi ...
+  CREATE OR REPLACE TRIGGER trg_jornada_practica_bi ...
+  CREATE OR REPLACE TRIGGER trg_reporte_periodo_practica_bi ...
+
+2.6. Reportes
+
+2.6.1. Tabla con reportes (segun los requisitos)
+R1) Practicas por estudiante y estado
+R2) Entidades receptoras con cupos disponibles
+R3) Actividades pendientes de validar
+R4) Validaciones institucionales
+R5) Evaluaciones emitidas
+R6) Cumplimiento por periodo/semestre/modalidad
+R7) Jornadas con firma faltante
+R8) Evidencias destacadas para pares
+R9) Estado de reportes institucionales
+
+2.6.2. Sentencias Reportes
+- Definidas en:
+  ENTREGA_2_COMPLETA/03_BASE_DATOS/bd/03_consultas_utiles.sql
+- Incluye consultas SELECT para los 9 reportes anteriores con JOIN y filtros de estado.
+
+ARCHIVOS DE REFERENCIA FINAL
+- Excel diligenciado: ENTREGA_3_BD/TablaBaseDatosTerceraEntrega_diligenciada.xlsx
+- SQL completo: ENTREGA_3_BD/TERCERA_ENTREGA_SQL_COMPLETA.sql
+- Checklist: ENTREGA_3_BD/CHECKLIST_TERCERA_ENTREGA_BD.md
