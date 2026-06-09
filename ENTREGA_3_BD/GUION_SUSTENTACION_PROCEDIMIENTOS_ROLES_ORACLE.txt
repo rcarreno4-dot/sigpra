@@ -1,0 +1,137 @@
+GUION DE SUSTENTACION
+Procedimientos almacenados y roles/usuarios en Oracle - SIGPRA
+
+1. Introduccion
+
+Buenos dias/tardes. En esta parte de la sustentacion voy a presentar la capa de base de datos Oracle del sistema SIGPRA, enfocada en dos aspectos: los procedimientos almacenados y la administracion de seguridad mediante roles y usuarios.
+
+La idea principal es demostrar que SIGPRA no depende solamente de la interfaz grafica, sino que tambien tiene reglas de negocio y control de permisos directamente en Oracle.
+
+2. Objetivo de la capa Oracle
+
+La base de datos se encarga de guardar la informacion de usuarios, estudiantes, docentes, practicas, bitacoras, evidencias y plantillas.
+
+Ademas, Oracle permite:
+- Centralizar operaciones importantes.
+- Evitar que cada perfil tenga permisos innecesarios.
+- Controlar que cada usuario solo pueda ejecutar las acciones de su rol.
+- Mantener procedimientos y triggers validados dentro del motor de base de datos.
+
+3. Roles definidos
+
+Para separar responsabilidades se crearon cuatro roles principales:
+
+ROL_SIGPRA_ESTUDIANTE:
+Permite consultar su informacion, registrar actividades de bitacora y cargar evidencias.
+
+ROL_SIGPRA_DOCENTE:
+Permite consultar practicas asignadas y validar actividades registradas por estudiantes.
+
+ROL_SIGPRA_DIRECTOR:
+Permite administrar usuarios academicos, docentes, entidades receptoras, practicas, plantillas y cierres.
+
+ROL_SIGPRA_AUDITOR:
+Permite consultar informacion sin modificar datos. Sirve como perfil de revision.
+
+4. Usuarios de base de datos
+
+Para demostrar la separacion de permisos, se crearon usuarios de base de datos asociados a cada rol:
+
+U_SIGPRA_EST  -> ROL_SIGPRA_ESTUDIANTE
+U_SIGPRA_DOC  -> ROL_SIGPRA_DOCENTE
+U_SIGPRA_DIR  -> ROL_SIGPRA_DIRECTOR
+U_SIGPRA_AUD  -> ROL_SIGPRA_AUDITOR
+
+Esto evidencia que no todos entran como administrador. Cada usuario tiene un rol especifico y recibe permisos segun su responsabilidad.
+
+5. Procedimientos almacenados
+
+Se crearon cinco procedimientos almacenados principales:
+
+SP_REGISTRAR_ACTIVIDAD:
+Registra una actividad en la bitacora y actualiza las horas acumuladas de la practica.
+
+SP_VALIDAR_ACTIVIDAD:
+Permite al docente cambiar el estado de una actividad y registrar una observacion.
+
+SP_REGISTRAR_EVIDENCIA:
+Registra un archivo de evidencia asociado a una actividad.
+
+SP_CERRAR_PRACTICA:
+Permite al director cambiar el estado final de una practica.
+
+SP_CREAR_PLANTILLA_BITACORA:
+Permite al director crear una plantilla de bitacora por semestre y modalidad.
+
+6. Ejemplo para explicar SP_REGISTRAR_ACTIVIDAD
+
+El procedimiento SP_REGISTRAR_ACTIVIDAD recibe el ID de la practica, la fecha, el nombre de la actividad, una descripcion y las horas reportadas.
+
+Primero inserta el registro en la tabla BITACORA. Luego actualiza la tabla PRACTICA sumando las horas acumuladas.
+
+Si las horas acumuladas alcanzan el objetivo de horas, la practica queda en estado PENDIENTE_APROBACION. Esto demuestra que la regla de negocio no queda dispersa en la interfaz, sino centralizada en Oracle.
+
+7. Consultas para mostrar en vivo
+
+Para mostrar procedimientos validos:
+
+SELECT object_name, object_type, status
+FROM user_objects
+WHERE object_type = 'PROCEDURE'
+ORDER BY object_name;
+
+Para mostrar roles:
+
+SELECT role
+FROM dba_roles
+WHERE role LIKE 'ROL_SIGPRA%'
+ORDER BY role;
+
+Para mostrar usuarios:
+
+SELECT username, account_status
+FROM dba_users
+WHERE username LIKE 'U_SIGPRA%'
+ORDER BY username;
+
+Para mostrar asignacion de roles:
+
+SELECT grantee, granted_role
+FROM dba_role_privs
+WHERE grantee LIKE 'U_SIGPRA%'
+ORDER BY grantee;
+
+8. Prueba controlada de procedimiento
+
+Se puede demostrar que un usuario estudiante ejecuta un procedimiento autorizado:
+
+CONNECT U_SIGPRA_EST/"Sigpra2026*Est"@//localhost:1521/XE
+
+VAR v_id NUMBER
+
+EXEC PRACTICAS_APP.SP_REGISTRAR_ACTIVIDAD(
+  8,
+  SYSDATE,
+  'Prueba sustentacion',
+  'Actividad registrada desde procedimiento almacenado',
+  1,
+  :v_id
+);
+
+PRINT v_id
+ROLLBACK;
+
+El ROLLBACK permite mostrar la ejecucion sin alterar definitivamente los datos de la demo.
+
+9. Triggers
+
+Tambien se validaron triggers en estado VALID. Estos se usan principalmente para autoincrementar llaves primarias mediante secuencias.
+
+Esto ayuda a mantener consistencia al insertar usuarios, estudiantes, docentes, practicas, bitacoras, evidencias y plantillas.
+
+10. Cierre
+
+En conclusion, SIGPRA implementa seguridad y logica de negocio en Oracle mediante roles, usuarios, privilegios, procedimientos almacenados y triggers.
+
+Esto permite que la aplicacion sea mas ordenada, segura y mantenible, porque cada perfil tiene permisos controlados y las operaciones importantes quedan centralizadas en la base de datos.
+
